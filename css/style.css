@@ -343,7 +343,7 @@ a {
     inset: 0;
 
     background-image:
-        url("../assets/images/hero/car-hero,,,.jpg");
+        url("../assets/images/hero/car-hero1.png");
 
     background-size: cover;
 
@@ -524,19 +524,27 @@ a {
 }
 
 
-.outline-button {
+.hero-buttons a {
 
-    display: inline-block;
+    height: 52px;
 
-    padding: 15px 27px;
+    min-width: 190px;
 
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    display: inline-flex;
 
-    color: var(--white);
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0 26px;
+
+    font-family: "DM Sans", sans-serif;
 
     font-size: 12px;
 
     font-weight: 600;
+
+    line-height: 1;
 
     text-transform: uppercase;
 
@@ -547,14 +555,54 @@ a {
 }
 
 
-.outline-button:hover {
+/* Gold Button */
+
+.hero-buttons .gold-button {
+
+    background: var(--gold);
+
+    color: var(--black);
+
+    border: 1px solid var(--gold);
+
+}
+
+
+/* Outline Button */
+
+.hero-buttons .outline-button {
+
+    background: transparent;
+
+    color: var(--white);
+
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+}
+
+
+/* Hover */
+
+.hero-buttons .gold-button:hover {
+
+    background: var(--gold-light);
+
+    border-color: var(--gold-light);
+
+    transform: translateY(-2px);
+
+}
+
+
+.hero-buttons .outline-button:hover {
 
     border-color: var(--gold);
 
     color: var(--gold);
 
-}
+    transform: translateY(-2px);
 
+}
 
 /* ========================================
    SIDE INFORMATION
@@ -697,42 +745,6 @@ a {
 
 }
 
-/* ========================================
-   BUTTON
-======================================== */
-
-.gold-button {
-
-    display: inline-block;
-
-    margin-top: 35px;
-
-    padding: 16px 28px;
-
-    background: var(--gold);
-
-    color: var(--black);
-
-    font-size: 12px;
-
-    font-weight: 700;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1px;
-
-    transition: all 0.3s ease;
-
-}
-
-
-.gold-button:hover {
-
-    background: var(--gold-light);
-
-    transform: translateY(-3px);
-
-}
 
 
 /* ========================================
