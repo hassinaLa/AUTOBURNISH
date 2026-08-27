@@ -746,16 +746,608 @@ a {
 }
 
 
-
 /* ========================================
-   TEMPORARY SECTIONS
+   PACKAGES SECTION
 ======================================== */
 
-.temporary-section {
+.packages-section {
 
-    min-height: 500px;
+    position: relative;
 
-    padding: 120px 8%;
+    padding: 140px 0;
+
+    background: var(--black);
+
+}
+
+
+.section-container {
+
+    width: min(1400px, 92%);
+
+    margin: auto;
+
+}
+
+
+/* ========================================
+   SECTION HEADER
+======================================== */
+
+.section-header {
+
+    margin-bottom: 70px;
+
+}
+
+
+.section-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    color: var(--gold);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+}
+
+
+.section-label span {
+
+    width: 40px;
+
+    height: 1px;
+
+    background: var(--gold);
+
+}
+
+
+.section-heading-row {
+
+    margin-top: 24px;
+
+    display: grid;
+
+    align-items: end;
+
+    grid-template-columns: minmax(0, 1fr) 360px;
+
+    gap: 80px;
+
+}
+
+
+.section-heading-row h2 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(45px, 6vw, 82px);
+
+    line-height: 0.94;
+
+    font-weight: 500;
+
+    letter-spacing: -2px;
+
+}
+
+
+.section-heading-row h2 em {
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px var(--white);
+
+    font-style: normal;
+
+}
+
+
+.section-heading-row p {
+    margin: 0;
+
+    max-width: 360px;
+
+    color: var(--text-gray);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+}
+
+
+/* ========================================
+   PACKAGES GRID
+======================================== */
+
+.packages-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 2px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+}
+
+
+/* ========================================
+   PACKAGE CARD
+======================================== */
+
+.package-card {
+
+    background: var(--dark);
+
+    overflow: hidden;
+
+    transition: transform 0.5s ease;
+
+}
+
+
+.package-card:hover {
+
+    transform: translateY(-5px);
+
+}
+
+
+/* ========================================
+   PACKAGE IMAGE
+======================================== */
+
+.package-image {
+
+    position: relative;
+
+    height: 430px;
+
+    overflow: hidden;
+
+}
+
+
+.package-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform 0.8s ease;
+
+}
+
+
+.package-card:hover .package-image img {
+
+    transform: scale(1.05);
+
+}
+
+
+/* Dark image overlay */
+
+.package-image::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.65),
+            transparent 45%
+        );
+
+    pointer-events: none;
+
+}
+
+
+/* ========================================
+   PACKAGE NUMBER
+======================================== */
+
+.package-number {
+
+    position: absolute;
+
+    top: 25px;
+
+    left: 25px;
+
+    z-index: 2;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 18px;
+
+    color: var(--gold);
+
+}
+
+
+/* ========================================
+   PACKAGE CONTENT
+======================================== */
+
+.package-content {
+    min-height: 275px;
+    padding: 30px 32px 25px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.package-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+}
+
+
+.package-category {
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    color: var(--gold);
+
+    text-transform: uppercase;
+
+}
+
+
+.package-price {
+
+    font-size: 11px;
+
+    color: #bdbdbd;
+
+}
+
+
+.package-content h3 {
+    margin-top: 18px;
+
+    min-height: 70px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 34px;
+
+    line-height: 1.05;
+
+    font-weight: 500;
+}
+
+
+.package-content h3 span {
+
+    color: transparent;
+
+    -webkit-text-stroke: 0.8px var(--white);
+
+}
+
+
+.package-content p {
+    margin-top: 0;
+
+    min-height: 44px;
+
+    max-width: 500px;
+
+    color: var(--text-gray);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* ========================================
+   INCLUDED SERVICES
+======================================== */
+
+.package-includes {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 22px;
+
+}
+
+
+.package-includes span {
+
+    padding: 7px 10px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    color: #bdbdbd;
+
+    font-size: 9px;
+
+    letter-spacing: 0.5px;
+
+}
+
+
+/* ========================================
+   PACKAGE LINK
+======================================== */
+
+.package-link {
+    margin-top: auto;
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    
+
+    padding-top: 18px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    color: var(--white);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    transition: color 0.3s ease;
+
+}
+
+
+.package-link span {
+
+    color: var(--gold);
+
+    font-size: 17px;
+
+    transition: transform 0.3s ease;
+
+}
+
+
+.package-link:hover {
+
+    color: var(--gold);
+
+}
+
+
+.package-link:hover span {
+
+    transform: translate(4px, -4px);
+
+}
+
+
+/* ========================================
+   SERVICES SECTION
+======================================== */
+
+.services-section {
+    position: relative;
+
+    padding: 130px 0;
+
+    background: var(--dark);
+}
+
+
+/* ========================================
+   SERVICES HEADER
+======================================== */
+
+.services-header {
+
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) 300px;
+
+    align-items: end;
+
+    gap: 80px;
+
+    margin-bottom: 65px;
+}
+
+
+.services-header h2 {
+
+    margin-top: 25px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(48px, 6vw, 80px);
+
+    line-height: 0.95;
+
+    font-weight: 500;
+
+    letter-spacing: -2px;
+}
+
+
+.services-header h2 em {
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px var(--white);
+
+    font-style: normal;
+}
+
+
+.services-header > p {
+
+    margin: 0;
+
+    color: #999;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+
+/* ========================================
+   SERVICES LIST
+======================================== */
+
+.services-list {
+
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+
+/* ========================================
+   SERVICE ITEM
+======================================== */
+
+.service-item {
+
+    display: grid;
+
+    grid-template-columns: 80px 1fr 50px;
+
+    align-items: center;
+
+    gap: 30px;
+
+    min-height: 125px;
+
+    padding: 25px 10px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+
+    transition:
+        background 0.4s ease,
+        padding 0.4s ease;
+}
+
+
+.service-item:hover {
+
+    background: rgba(212,175,55,0.04);
+
+    padding-left: 25px;
+
+    padding-right: 25px;
+}
+
+
+/* ========================================
+   NUMBER
+======================================== */
+
+.service-number {
+
+    color: var(--gold);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 18px;
+}
+
+
+/* ========================================
+   SERVICE INFO
+======================================== */
+
+.service-info {
+
+    display: grid;
+
+    grid-template-columns: minmax(250px, 0.7fr) 1fr;
+
+    align-items: center;
+
+    gap: 40px;
+}
+
+
+.service-info h3 {
+
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 32px;
+
+    font-weight: 500;
+
+    line-height: 1.1;
+}
+
+
+.service-info p {
+
+    max-width: 420px;
+
+    margin: 0;
+
+    color: #888;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+/* ========================================
+   ARROW
+======================================== */
+
+.service-arrow {
 
     display: flex;
 
@@ -763,25 +1355,737 @@ a {
 
     justify-content: center;
 
-    background: var(--dark);
+    width: 40px;
 
-    border-top: 1px solid rgba(255,255,255,0.05);
+    height: 40px;
 
+    border: 1px solid rgba(255,255,255,0.2);
+
+    color: var(--gold);
+
+    font-size: 16px;
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
 }
 
 
-.temporary-section:nth-child(even) {
+.service-item:hover .service-arrow {
+
+    border-color: var(--gold);
+
+    transform: translate(3px, -3px);
+}
+
+
+/* ========================================
+   WHY AUTO BURNISH
+======================================== */
+
+.why-section {
+
+    position: relative;
+
+    padding: 140px 0;
 
     background: var(--black);
 
+    overflow: hidden;
 }
 
 
-.temporary-section h2 {
+/* ========================================
+   HEADER
+======================================== */
+
+.why-header {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    column-gap: 100px;
+
+    align-items: end;
+
+    margin-bottom: 80px;
+}
+
+
+.why-header .section-label {
+
+    grid-column: 1 / -1;
+
+    margin-bottom: 30px;
+}
+
+
+.why-header h2 {
+
+    margin: 0;
 
     font-family: "Playfair Display", serif;
 
-    font-size: 50px;
+    font-size: clamp(50px, 6vw, 82px);
+
+    line-height: 0.94;
+
+    font-weight: 500;
+
+    letter-spacing: -2px;
+}
+
+
+.why-header h2 em {
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px var(--white);
+
+    font-style: normal;
+}
+
+
+.why-header > p {
+
+    max-width: 360px;
+
+    margin: 0;
+
+    color: #888;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+
+/* ========================================
+   WHY GRID
+======================================== */
+
+.why-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    border-top: 1px solid rgba(255,255,255,0.15);
+
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+
+/* ========================================
+   ITEM
+======================================== */
+
+.why-item {
+
+    position: relative;
+
+    min-height: 300px;
+
+    padding: 35px 30px;
+
+    border-right: 1px solid rgba(255,255,255,0.12);
+
+    transition:
+        background 0.4s ease,
+        transform 0.4s ease;
+}
+
+
+.why-item:last-child {
+
+    border-right: none;
+}
+
+
+.why-item:hover {
+
+    background: rgba(212,175,55,0.035);
+
+}
+
+
+/* ========================================
+   NUMBER
+======================================== */
+
+.why-number {
+
+    display: block;
+
+    color: var(--gold);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+   ICON
+======================================== */
+
+.why-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 52px;
+
+    height: 52px;
+
+    margin-top: 55px;
+
+    border: 1px solid rgba(212,175,55,0.45);
+
+    color: var(--gold);
+
+    font-size: 22px;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.why-item:hover .why-icon {
+
+    background: rgba(212,175,55,0.08);
+
+    transform: rotate(45deg);
+}
+
+
+/* ========================================
+   TITLE
+======================================== */
+
+.why-item h3 {
+
+    margin-top: 28px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 27px;
+
+    font-weight: 500;
+
+    line-height: 1.1;
+}
+
+
+/* ========================================
+   DESCRIPTION
+======================================== */
+
+.why-item p {
+
+    margin-top: 15px;
+
+    max-width: 240px;
+
+    color: #777;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+
+/* ========================================
+   COMPARISON WRAPPER
+======================================== */
+
+.comparison-wrapper {
+
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) 280px;
+
+    gap: 50px;
+
+    align-items: stretch;
+
+}
+
+
+/* ========================================
+   COMPARISON GALLERY
+======================================== */
+
+.comparison-gallery {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 650px;
+
+    overflow: hidden;
+
+}
+
+.before-after-header h2 {
+
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(50px, 6vw, 82px);
+
+    line-height: 0.94;
+
+    font-weight: 500;
+
+    letter-spacing: -2px;
+}
+
+
+.before-after-header h2 em {
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px var(--white);
+
+    font-style: normal;
+}
+
+
+.before-after-header > p {
+
+    max-width: 360px;
+
+    margin: 0;
+
+    color: #888;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+/* ========================================
+   IMAGE COMPARISON
+======================================== */
+
+.comparison {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    user-select: none;
+
+    touch-action: none;
+
+    cursor: ew-resize;
+
+    background: #111;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease;
+
+}
+
+
+.comparison.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+}
+
+
+/* ========================================
+   AFTER
+======================================== */
+
+.comparison-after {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: hidden;
+
+}
+
+
+.comparison-after img {
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+}
+
+
+/* ========================================
+   BEFORE
+======================================== */
+
+.comparison-before {
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 50%;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    z-index: 2;
+
+}
+
+
+/*
+   IMPORTANT:
+   The Before image must have the same
+   dimensions as the complete comparison.
+*/
+
+.comparison-before img {
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+}
+
+
+/* ========================================
+   LABELS
+======================================== */
+
+.comparison-label {
+
+    position: absolute;
+
+    top: 25px;
+
+    z-index: 5;
+
+    padding: 9px 14px;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    color: white;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+}
+
+
+.before-label {
+
+    left: 25px;
+
+}
+
+
+.after-label {
+
+    right: 25px;
+
+}
+
+
+/* ========================================
+   SLIDER
+======================================== */
+
+.comparison-slider {
+
+    position: absolute;
+
+    top: 0;
+
+    bottom: 0;
+
+    left: 50%;
+
+    width: 2px;
+
+    z-index: 10;
+
+    transform: translateX(-50%);
+
+    cursor: ew-resize;
+
+    pointer-events: none;
+
+}
+
+
+.slider-line {
+
+    position: absolute;
+
+    top: 0;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: 2px;
+
+    background: white;
+
+}
+
+
+/* ========================================
+   SLIDER BUTTON
+======================================== */
+
+.slider-button {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 58px;
+
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 3px;
+
+    border: 1px solid var(--gold);
+
+    border-radius: 50%;
+
+    background: var(--black);
+
+    color: var(--gold);
+
+    font-size: 19px;
+
+    cursor: ew-resize;
+
+    z-index: 20;
+
+    pointer-events: auto;
+
+}
+
+
+.slider-button span {
+
+    line-height: 1;
+
+}
+
+
+/* ========================================
+   GALLERY NAVIGATION
+======================================== */
+
+.comparison-navigation {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 35px;
+
+}
+
+
+.comparison-navigation button {
+
+    width: 45px;
+
+    height: 45px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    background: transparent;
+
+    color: var(--white);
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+}
+
+
+.comparison-navigation button:hover {
+
+    border-color: var(--gold);
+
+    color: var(--gold);
+
+}
+
+
+/* ========================================
+   INFO
+======================================== */
+
+.comparison-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 20px 0;
+
+}
+
+
+.comparison-number {
+
+    color: var(--gold);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 15px;
+
+}
+
+
+.comparison-info h3 {
+
+    margin-top: 35px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 42px;
+
+    line-height: 1;
+
+    font-weight: 500;
+
+}
+
+
+.comparison-info h3 em {
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px var(--white);
+
+    font-style: normal;
+
+}
+
+
+.comparison-info p {
+
+    margin-top: 25px;
+
+    color: #777;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+
+}
+
+
+.comparison-note {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 40px;
+
+    color: #aaa;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+}
+
+
+.comparison-note span {
+
+    width: 25px;
+
+    height: 1px;
+
+    background: var(--gold);
 
 }
 
@@ -916,6 +2220,422 @@ a {
     .scroll-indicator {
 
         display: none;
+
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .section-heading-row {
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+    }
+
+    .section-heading-row h2 {
+        font-size: 48px;
+    }
+
+    .section-heading-row p {
+        max-width: 100%;
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .services-header {
+
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+    }
+
+
+    .service-info {
+
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+
+    .service-item {
+
+        grid-template-columns: 50px 1fr 40px;
+
+        gap: 15px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .services-section {
+
+        padding: 90px 0;
+    }
+
+
+    .services-header h2 {
+
+        font-size: 48px;
+    }
+
+
+    .service-item {
+
+        min-height: 110px;
+
+        padding: 22px 5px;
+    }
+
+
+    .service-item:hover {
+
+        padding-left: 10px;
+
+        padding-right: 10px;
+    }
+
+
+    .service-info h3 {
+
+        font-size: 25px;
+    }
+
+
+    .service-info p {
+
+        font-size: 11px;
+    }
+
+
+    .service-number {
+
+        font-size: 15px;
+    }
+
+}
+
+
+@media (max-width: 1000px) {
+
+    .why-grid {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+    .why-item:nth-child(2) {
+
+        border-right: none;
+
+    }
+
+    .why-item:nth-child(1),
+    .why-item:nth-child(2) {
+
+        border-bottom: 1px solid rgba(255,255,255,0.12);
+
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .why-section {
+
+        padding: 90px 0;
+
+    }
+
+    .why-header {
+
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+
+        margin-bottom: 50px;
+
+    }
+
+    .why-header .section-label {
+
+        margin-bottom: 0;
+
+    }
+
+    .why-header h2 {
+
+        font-size: 48px;
+
+    }
+
+    .why-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .why-item {
+
+        min-height: 240px;
+
+        border-right: none;
+
+        border-bottom: 1px solid rgba(255,255,255,0.12);
+
+    }
+
+    .why-item:last-child {
+
+        border-bottom: none;
+
+    }
+
+}
+
+
+/* ========================================
+   BEFORE / AFTER RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+
+    .comparison-wrapper {
+
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+
+    }
+
+
+    .comparison-gallery {
+
+        height: 600px;
+
+    }
+
+
+    .comparison-info {
+
+        padding: 0;
+
+    }
+
+
+    .comparison-info h3 {
+
+        margin-top: 20px;
+
+    }
+
+
+    .comparison-navigation {
+
+        margin-top: 25px;
+
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .before-after-section {
+
+        padding: 90px 0;
+
+    }
+
+
+    .before-after-header {
+
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+
+        margin-bottom: 45px;
+
+    }
+
+
+    .before-after-header .section-label {
+
+        margin-bottom: 0;
+
+    }
+
+
+    .before-after-header h2 {
+
+        font-size: 48px;
+
+    }
+
+
+    .before-after-header > p {
+
+        max-width: 320px;
+
+    }
+
+
+    /* Gallery */
+
+    .comparison-gallery {
+
+        height: 450px;
+
+    }
+
+
+    .comparison {
+
+        height: 100%;
+
+    }
+
+
+    /* Slider */
+
+    .slider-button {
+
+        width: 48px;
+
+        height: 48px;
+
+        font-size: 17px;
+
+    }
+
+
+    /* Labels */
+
+    .comparison-label {
+
+        top: 15px;
+
+        padding: 7px 10px;
+
+        font-size: 8px;
+
+    }
+
+
+    .before-label {
+
+        left: 15px;
+
+    }
+
+
+    .after-label {
+
+        right: 15px;
+
+    }
+
+
+    /* Info */
+
+    .comparison-info {
+
+        padding: 0;
+
+    }
+
+
+    .comparison-info h3 {
+
+        font-size: 36px;
+
+        margin-top: 18px;
+
+    }
+
+
+    .comparison-info p {
+
+        margin-top: 18px;
+
+    }
+
+
+    /* Navigation */
+
+    .comparison-navigation {
+
+        margin-top: 25px;
+
+        gap: 8px;
+
+    }
+
+
+    .comparison-navigation button {
+
+        width: 42px;
+
+        height: 42px;
+
+        font-size: 16px;
+
+    }
+
+
+    .comparison-note {
+
+        margin-top: 25px;
+
+        font-size: 8px;
+
+    }
+
+}
+
+
+/* ========================================
+   SMALL PHONES
+======================================== */
+
+@media (max-width: 380px) {
+
+    .comparison-gallery {
+
+        height: 360px;
+
+    }
+
+
+    .before-after-header h2 {
+
+        font-size: 42px;
+
+    }
+
+
+    .slider-button {
+
+        width: 44px;
+
+        height: 44px;
+
+    }
+
+
+    .comparison-info h3 {
+
+        font-size: 32px;
 
     }
 
