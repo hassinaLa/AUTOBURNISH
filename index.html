@@ -38,29 +38,74 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <nav class="nav-links">
+           <nav class="nav-links">
 
-                <a href="#home" class="active">
-                    Accueil
-                </a>
+    <a href="#home" class="active">
+        Accueil
+    </a>
 
-                <a href="#packages">
-                    Packages
-                </a>
+    <!-- PACKAGES -->
+    <div class="nav-dropdown">
 
-                <a href="#work">
-                    Réalisations
-                </a>
+        <button
+            type="button"
+            class="nav-dropdown-toggle"
+        >
+            Packages
+            <span>⌄</span>
+        </button>
 
-                <a href="#about">
-                    À propos
-                </a>
+        <div class="nav-dropdown-menu">
 
-                <a href="#contact">
-                    Contact
-                </a>
+            <a href="#packages">
+                Packs
+            </a>
 
-            </nav>
+            <a href="#services">
+                Services
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- OUR WORK -->
+    <div class="nav-dropdown">
+
+        <button
+            type="button"
+            class="nav-dropdown-toggle"
+        >
+            Our Work
+            <span>⌄</span>
+        </button>
+
+        <div class="nav-dropdown-menu">
+
+            <a href="#results">
+                Avant / Après
+            </a>
+
+            <a href="#gallery">
+                Réalisations
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <a href="#about">
+        À propos
+    </a>
+
+
+    <a href="#contact">
+        Contact
+    </a>
+
+</nav>
 
              <!-- Right Side -->
             <div class="nav-actions">
@@ -119,7 +164,7 @@
         <h1>
             L'art du
             <span>detailing</span>
-            automobile.
+           <h1 class="edit"> automobile. </h1> 
         </h1>
 
         <p class="hero-description">
@@ -606,7 +651,7 @@
                     
                 <div class="service-image">
                     <img
-                        src="assets/images/services/ciel.png"
+                        src="assets/images/services/ciel.jpg"
                         alt="Ciel étoilé"
                     >
                 </div>
@@ -1746,12 +1791,107 @@
 
 </section>
 
+
+<!-- ========================================
+     ABOUT AUTO BURNISH
+======================================== -->
+
+<section class="about-section" id="about">
+
+    <div class="section-container">
+
+ <div class="about-grid">
+
+    <!-- LEFT -->
+    <div class="about-heading">
+
+        <div class="section-label">
+            <span></span>
+            À PROPOS
+        </div>
+
+        <h2>
+            Plus qu'un
+            <br>
+            <em>detailing.</em>
+        </h2>
+
+    </div>
+
+
+    <!-- CENTER / CONTENT -->
+    <div class="about-content">
+
+        <p class="about-intro">
+            Auto Burnish est un centre spécialisé dans
+            le detailing et la protection automobile,
+            situé à Draria, Sebala.
+        </p>
+
+        <p>
+            Notre approche associe soin, précision et
+            finition pour révéler l'apparence de chaque
+            véhicule et préserver son esthétique.
+        </p>
+
+        <div class="about-services">
+
+            <div class="about-service">
+                <span>01</span>
+                <strong>Esthétique automobile</strong>
+            </div>
+
+            <div class="about-service">
+                <span>02</span>
+                <strong>Correction & finition</strong>
+            </div>
+
+            <div class="about-service">
+                <span>03</span>
+                <strong>Protection automobile</strong>
+            </div>
+
+            <div class="about-service">
+                <span>04</span>
+                <strong>Lifting</strong>
+            </div>
+
+        </div>
+
+        <a href="#contact" class="about-link">
+            Découvrir Auto Burnish
+            <span>↗</span>
+        </a>
+
+    </div>
+
+
+    <!-- RIGHT IMAGE -->
+    <div class="about-image">
+
+        <img
+            src="assets/images/about/about-main.jpg"
+            alt="Auto Burnish - Centre de detailing"
+            loading="lazy"
+        >
+
+        <div class="about-image-caption">
+            <span>DRARIA — SEBALA</span>
+            <span>AUTO BURNISH</span>
+        </div>
+
+    </div>
+
+</div>
+
+    </div>    
+    
+    
+</section>
+
     </main>
 
      <!-- JavaScript -->
     <script src="js/main.js"></script>
-
-
-</body>
 
 </html>
