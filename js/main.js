@@ -350,3 +350,97 @@ document.addEventListener("DOMContentLoaded", () => {
     showComparison(0);
 
 });
+
+
+/* ========================================
+   GALLERY FILTERS
+======================================== */
+
+const galleryFilters =
+    document.querySelectorAll(".gallery-filter");
+
+const galleryItems =
+    document.querySelectorAll(".gallery-item");
+
+
+function showGalleryCategory(category) {
+
+    galleryItems.forEach((item) => {
+
+        const itemCategory =
+            item.dataset.category;
+
+        const showInAll =
+            item.dataset.showAll === "true";
+
+
+        /* =========================
+           TOUS
+        ========================== */
+
+        if (category === "all") {
+
+            if (showInAll) {
+
+                item.style.display = "";
+
+            } else {
+
+                item.style.display = "none";
+
+            }
+
+            return;
+        }
+
+
+        /* =========================
+           SPECIFIC CATEGORY
+        ========================== */
+
+        if (itemCategory === category) {
+
+            item.style.display = "";
+
+        } else {
+
+            item.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+galleryFilters.forEach((filter) => {
+
+    filter.addEventListener("click", () => {
+
+        const category =
+            filter.dataset.filter;
+
+
+        /* Active button */
+
+        galleryFilters.forEach((button) => {
+
+            button.classList.remove("active");
+
+        });
+
+        filter.classList.add("active");
+
+
+        /* Show correct images */
+
+        showGalleryCategory(category);
+
+    });
+
+});
+
+
+/* Initial state */
+
+showGalleryCategory("all");

@@ -1254,10 +1254,9 @@ a {
 ======================================== */
 
 .service-item {
-
     display: grid;
 
-    grid-template-columns: 80px 1fr 50px;
+    grid-template-columns: 70px 260px minmax(0, 1fr) 50px;
 
     align-items: center;
 
@@ -1272,6 +1271,33 @@ a {
     transition:
         background 0.4s ease,
         padding 0.4s ease;
+}
+
+
+.service-image {
+    width: 260px;
+    height: 100px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255,255,255,0.18);
+}
+
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+
+.service-item:hover .service-image img {
+    transform: scale(1.05);
 }
 
 
@@ -1634,6 +1660,20 @@ a {
 
 }
 
+.before-after-header {
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+
+    grid-template-rows: auto auto;
+
+    column-gap: 100px;
+
+    align-items: end;
+
+    margin-bottom: 65px;
+}
+
 .before-after-header h2 {
 
     margin: 0;
@@ -1661,16 +1701,25 @@ a {
 
 
 .before-after-header > p {
+    grid-column: 2;
+    grid-row: 2;
 
-    max-width: 360px;
+    align-self: end;
 
-    margin: 0;
+    max-width: 350px;
+
+    margin: 0 0 5px 0;
 
     color: #888;
 
     font-size: 13px;
 
     line-height: 1.8;
+}
+
+.before-after-header .section-label {
+    grid-column: 1 / -1;
+    margin-bottom: 30px;
 }
 
 /* ========================================
@@ -2091,6 +2140,280 @@ a {
 
 
 /* ========================================
+   GALLERY
+======================================== */
+
+.gallery-section {
+
+    padding: 140px 0;
+
+    background: var(--black);
+
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.gallery-header {
+
+    display: grid;
+
+    grid-template-columns: 1fr 0.5fr;
+
+    gap: 80px;
+
+    align-items: end;
+
+    margin-bottom: 55px;
+
+}
+
+
+.gallery-header h2 {
+
+    margin: 25px 0 0;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(55px, 7vw, 90px);
+
+    line-height: 0.9;
+
+    font-weight: 500;
+
+    letter-spacing: -3px;
+
+}
+
+
+.gallery-header h2 em {
+
+    display: block;
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px var(--white);
+
+    font-style: normal;
+
+}
+
+
+.gallery-header > p {
+
+    max-width: 330px;
+
+    margin: 0 0 5px;
+
+    color: #777;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+}
+
+
+/* ========================================
+   FILTERS
+======================================== */
+
+.gallery-filters {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-bottom: 40px;
+
+}
+
+
+.gallery-filter {
+
+    padding: 11px 18px;
+
+    border: 1px solid rgba(255,255,255,0.18);
+
+    background: transparent;
+
+    color: #999;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        color 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease;
+
+}
+
+
+.gallery-filter:hover {
+
+    border-color: var(--gold);
+
+    color: var(--gold);
+
+}
+
+
+.gallery-filter.active {
+
+    border-color: var(--gold);
+
+    background: var(--gold);
+
+    color: #000;
+
+}
+
+
+/* ========================================
+   GALLERY GRID
+======================================== */
+
+.gallery-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+
+}
+
+
+.gallery-item {
+
+    position: relative;
+
+    height: 430px;
+
+    overflow: hidden;
+
+    background: #111;
+
+    cursor: pointer;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+
+}
+
+
+.gallery-item.gallery-large {
+
+    height: 560px;
+
+}
+
+
+.gallery-item img {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.7s cubic-bezier(.2,.7,.2,1),
+        filter 0.5s ease;
+
+}
+
+
+.gallery-item:hover img {
+
+    transform: scale(1.04);
+
+    filter: brightness(0.65);
+
+}
+
+
+/* ========================================
+   OVERLAY
+======================================== */
+
+.gallery-overlay {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 25px;
+
+    opacity: 0;
+
+    transform: translateY(10px);
+
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
+
+}
+
+
+.gallery-item:hover .gallery-overlay {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+
+.gallery-overlay span {
+
+    color: white;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+}
+
+
+.gallery-overlay strong {
+
+    color: var(--gold);
+
+    font-size: 20px;
+
+    font-weight: 400;
+
+}
+
+
+/* ========================================
    RESPONSIVE
 ======================================== */
 
@@ -2260,10 +2583,14 @@ a {
         gap: 10px;
     }
 
+    .service-image {
+    width: 180px;
+    height: 85px;
+    }
 
     .service-item {
 
-        grid-template-columns: 50px 1fr 40px;
+        grid-template-columns: 50px 180px minmax(0, 1fr) 40px;
 
         gap: 15px;
     }
@@ -2286,10 +2613,13 @@ a {
 
 
     .service-item {
+    grid-template-columns: 45px 110px 1fr 30px;
+    gap: 12px;
+    }
 
-        min-height: 110px;
-
-        padding: 22px 5px;
+    .service-image {
+    width: 110px;
+    height: 75px;
     }
 
 
@@ -2303,13 +2633,14 @@ a {
 
     .service-info h3 {
 
-        font-size: 25px;
+        font-size: 20px;
     }
 
 
     .service-info p {
 
         font-size: 11px;
+        display: none;
     }
 
 
@@ -2459,34 +2790,25 @@ a {
 
 
     .before-after-header {
-
         grid-template-columns: 1fr;
-
+        grid-template-rows: auto;
         gap: 25px;
-
-        margin-bottom: 45px;
-
     }
-
 
     .before-after-header .section-label {
-
-        margin-bottom: 0;
-
+        grid-column: 1;
     }
-
 
     .before-after-header h2 {
-
-        font-size: 48px;
-
+        grid-column: 1;
+        grid-row: auto;
     }
 
-
     .before-after-header > p {
+        grid-column: 1;
+        grid-row: auto;
 
-        max-width: 320px;
-
+        margin: 0;
     }
 
 
@@ -2636,6 +2958,90 @@ a {
     .comparison-info h3 {
 
         font-size: 32px;
+
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .gallery-section {
+
+        padding: 90px 0;
+
+    }
+
+
+    .gallery-header {
+
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+
+    }
+
+
+    .gallery-header h2 {
+
+        font-size: 52px;
+
+    }
+
+
+    .gallery-header > p {
+
+        max-width: 300px;
+
+    }
+
+
+    .gallery-filters {
+
+        gap: 7px;
+
+    }
+
+
+    .gallery-filter {
+
+        padding: 9px 13px;
+
+        font-size: 8px;
+
+    }
+
+
+    .gallery-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+
+    }
+
+
+    .gallery-item,
+    .gallery-item.gallery-large {
+
+        height: 420px;
+
+    }
+
+
+    /* Always show the service name on mobile */
+
+    .gallery-overlay {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+        background:
+            linear-gradient(
+                transparent,
+                rgba(0,0,0,0.65)
+            );
 
     }
 
