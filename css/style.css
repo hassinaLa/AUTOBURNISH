@@ -2842,6 +2842,450 @@ a {
 
 
 /* ========================================
+   CONTACT
+======================================== */
+
+.contact-section {
+
+    padding: 140px 0 120px;
+
+    background: var(--black);
+
+    border-top: 1px solid rgba(255,255,255,0.08);
+
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.contact-header {
+
+    display: grid;
+
+    grid-template-columns: 1fr 0.5fr;
+
+    gap: 80px;
+
+    align-items: end;
+
+    margin-bottom: 80px;
+
+}
+
+
+.contact-header h2 {
+
+    margin-top: 25px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(55px, 7vw, 90px);
+
+    line-height: 0.9;
+
+    font-weight: 500;
+
+    letter-spacing: -3px;
+
+}
+
+
+.contact-header h2 em {
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px var(--white);
+
+    font-style: normal;
+
+}
+
+
+.contact-header > p {
+
+    max-width: 340px;
+
+    margin-bottom: 5px;
+
+    color: #777;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+}
+
+
+/* ========================================
+   GRID
+======================================== */
+
+.contact-grid {
+
+    display: grid;
+
+    grid-template-columns: 0.8fr 1.2fr;
+
+    gap: 100px;
+
+    border-top: 1px solid rgba(255,255,255,0.12);
+
+    padding-top: 45px;
+
+}
+
+
+/* ========================================
+   CONTACT INFO
+======================================== */
+
+.contact-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.contact-item {
+
+    display: grid;
+
+    grid-template-columns: 55px 1fr;
+
+    gap: 25px;
+
+    padding: 25px 0;
+
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+
+}
+
+
+.contact-number {
+
+    color: var(--gold);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 16px;
+
+}
+
+
+.contact-item small {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #666;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+}
+
+
+.contact-item strong {
+
+    display: block;
+
+    color: var(--white);
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+}
+
+
+/* ========================================
+   SOCIAL
+======================================== */
+
+.contact-social {
+
+    margin-top: auto;
+
+    padding-top: 45px;
+
+}
+
+
+.contact-social > span {
+
+    display: block;
+
+    margin-bottom: 18px;
+
+    color: #666;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+}
+
+
+.contact-social > div {
+
+    display: flex;
+
+    gap: 25px;
+
+}
+
+
+.contact-social a {
+
+    color: #aaa;
+
+    font-size: 11px;
+
+    text-decoration: none;
+
+    transition: color 0.3s ease;
+
+}
+
+
+.contact-social a:hover {
+
+    color: var(--gold);
+
+}
+
+
+/* ========================================
+   FORM
+======================================== */
+
+.contact-form-wrapper {
+
+    padding: 35px;
+
+    background: #0d0d0d;
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+}
+
+
+.contact-form-title {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding-bottom: 25px;
+
+    margin-bottom: 30px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+
+}
+
+
+.contact-form-title span:first-child {
+
+    color: var(--white);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+}
+
+
+.contact-form-title span:last-child {
+
+    color: var(--gold);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 16px;
+
+}
+
+
+/* ========================================
+   FORM ROW
+======================================== */
+
+.form-row {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 25px;
+
+}
+
+
+.form-group {
+
+    margin-bottom: 25px;
+
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #777;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+    width: 100%;
+
+    padding: 14px 0;
+
+    border: none;
+
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+
+    outline: none;
+
+    background: transparent;
+
+    color: var(--white);
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    transition: border-color 0.3s ease;
+
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+    border-color: var(--gold);
+
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+
+    color: #555;
+
+}
+
+
+.form-group select {
+
+    cursor: pointer;
+
+}
+
+
+.form-group select option {
+
+    background: #111;
+
+    color: var(--white);
+
+}
+
+
+.form-group textarea {
+
+    resize: vertical;
+
+    min-height: 100px;
+
+}
+
+
+/* ========================================
+   SUBMIT
+======================================== */
+
+.contact-submit {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 18px 0;
+
+    border: none;
+
+    border-bottom: 1px solid var(--gold);
+
+    background: transparent;
+
+    color: var(--gold);
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+}
+
+
+.contact-submit span {
+
+    font-size: 18px;
+
+}
+
+
+.contact-submit:hover {
+
+    padding-left: 10px;
+
+    padding-right: 10px;
+
+    color: var(--white);
+
+}
+
+
+
+
+
+/* ========================================
    RESPONSIVE
 ======================================== */
 
@@ -3633,6 +4077,62 @@ a {
     .about-image {
 
         height: 400px;
+
+    }
+
+}
+
+
+
+
+@media (max-width: 900px) {
+
+    .contact-section {
+
+        padding: 100px 0 80px;
+
+    }
+
+
+    .contact-header {
+
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+
+        margin-bottom: 55px;
+
+    }
+
+
+    .contact-header h2 {
+
+        font-size: clamp(48px, 13vw, 70px);
+
+    }
+
+
+    .contact-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 60px;
+
+    }
+
+
+    .contact-form-wrapper {
+
+        padding: 25px 20px;
+
+    }
+
+
+    .form-row {
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
 
     }
 
