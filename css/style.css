@@ -2926,7 +2926,7 @@ a {
 
     display: grid;
 
-    grid-template-columns: 0.8fr 1.2fr;
+    grid-template-columns: 0.8fr 1.35fr;
 
     gap: 100px;
 
@@ -3035,11 +3035,10 @@ a {
 
 
 .contact-social > div {
-
     display: flex;
-
-    gap: 25px;
-
+    flex-wrap: wrap;
+    gap: 14px 25px;
+    max-width: 320px;
 }
 
 
