@@ -466,24 +466,46 @@ a {
 
 
 /* ========================================
-   HERO BACKGROUND
+   HERO IMAGE SLIDER
 ======================================== */
 
-.hero-image {
-
+.hero-image-slider {
     position: absolute;
-
     inset: 0;
 
-    background-image:
-        url("../assets/images/hero/car-hero.jpg");
+    width: 100%;
+    height: 100%;
 
-    background-size: cover;
+    overflow: hidden;
 
-    background-position: center;
+    z-index: 0;
+}
+
+
+.hero-slide {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    opacity: 0;
 
     transform: scale(1.02);
 
+    transition:
+        opacity 1.2s ease-in-out,
+        transform 5s ease;
+}
+
+
+.hero-slide.active {
+    opacity: 1;
+
+    transform: scale(1);
 }
 
 
@@ -788,41 +810,6 @@ a {
 }
 
 
-/* ========================================
-   SCROLL INDICATOR
-======================================== */
-
-.scroll-indicator {
-
-    position: absolute;
-
-    bottom: 40px;
-
-    left: 50%;
-
-    z-index: 3;
-
-    transform: translateX(-50%);
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-}
-
-
-.scroll-indicator span {
-
-    font-size: 9px;
-
-    letter-spacing: 3px;
-
-    color: rgba(255, 255, 255, 0.55);
-
-}
-
 
 .scroll-line {
 
@@ -835,29 +822,7 @@ a {
 }
 
 
-/* ========================================
-   HERO NUMBER
-======================================== */
 
-.hero-number {
-
-    position: absolute;
-
-    right: 55px;
-
-    top: 50%;
-
-    z-index: 3;
-
-    transform: translateY(-50%);
-
-    font-family: "Playfair Display", serif;
-
-    font-size: 18px;
-
-    color: var(--gold);
-
-}
 
 
 /* ========================================

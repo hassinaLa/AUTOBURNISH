@@ -345,6 +345,38 @@ if (languageButton) {
 
         });
 
+    
+/* ========================================
+   HERO SLIDESHOW
+======================================== */
+
+const heroSlides = document.querySelectorAll(
+    ".hero-slide"
+);
+
+if (heroSlides.length > 1) {
+
+    let heroIndex = 0;
+
+    setInterval(() => {
+
+        heroSlides[heroIndex].classList.remove(
+            "active"
+        );
+
+        heroIndex++;
+
+        if (heroIndex >= heroSlides.length) {
+            heroIndex = 0;
+        }
+
+        heroSlides[heroIndex].classList.add(
+            "active"
+        );
+
+    }, 4500);
+
+}
 
     /* ========================================
        BEFORE / AFTER
