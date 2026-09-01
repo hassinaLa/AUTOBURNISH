@@ -2303,9 +2303,9 @@ a {
 
     display: block;
 
-    color: transparent;
+    color: var(--gold);
 
-    -webkit-text-stroke: 1px var(--white);
+    -webkit-text-stroke: 1px var(--gold);
 
     font-style: normal;
 
