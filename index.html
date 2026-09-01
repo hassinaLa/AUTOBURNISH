@@ -1525,8 +1525,13 @@
             </button>
 
             <button class="gallery-filter"
-                    data-filter="interieur">
+                    data-filter="lifting">
                 Lifting
+            </button>
+
+            <button class="gallery-filter"
+                    data-filter="ciel-etoile">
+                Ciel étoilé
             </button>
 
         </div>
@@ -1867,7 +1872,7 @@
             <article
                 class="gallery-item"
                 data-category="ciel-etoile"
-                data-show-all="false">
+                data-show-all="true">
 
                 <img
                     src="assets/images/gallery/ciel-01.jpg"
@@ -1976,6 +1981,8 @@
                 <strong>Lifting</strong>
             </div>
 
+            
+
         </div>
 
         <a href="#contact" class="about-link">
@@ -2014,15 +2021,17 @@
      CONTACT
 ======================================== -->
 
-<section id="contact" class="contact-section">
+<section class="contact-section" id="contact">
 
     <div class="section-container">
 
-        <!-- HEADER -->
+        <!-- CONTACT HEADER -->
 
-        <div class="contact-header">
+        <div class="contact-grid">
 
-            <div>
+            <!-- LEFT -->
+
+            <div class="contact-heading">
 
                 <div class="section-label">
                     <span></span>
@@ -2030,31 +2039,64 @@
                 </div>
 
                 <h2>
-                    Parlons de votre
-                    <br>
-                    <em>véhicule.</em>
+                    Parlons de
+                    <em>votre voiture.</em>
                 </h2>
+
+                <p>
+                    Une question, une demande de devis ou
+                    simplement envie de prendre rendez-vous ?
+                    Notre équipe est à votre écoute.
+                </p>
+
+
+                <!-- SOCIAL MEDIA -->
+
+                <div class="contact-socials">
+
+                    <a
+                        href="https://www.instagram.com/auto_burnish/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        Instagram
+                        <span>↗</span>
+
+                    </a>
+
+
+                    <a
+                        href="https://www.facebook.com/share/1BepSKsobw/?mibextid=wwXIfr"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        Facebook
+                        <span>↗</span>
+
+                    </a>
+
+
+                    <a
+                        href="https://www.tiktok.com/@halimbc"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        TikTok
+                        <span>↗</span>
+
+                    </a>
+
+                </div>
 
             </div>
 
-            <p>
-                Une question, une demande de devis
-                ou simplement envie de donner une
-                nouvelle vie à votre véhicule ?
-                Contactez-nous.
-            </p>
 
-        </div>
+            <!-- RIGHT -->
+
+            <div class="contact-details">
 
 
-        <!-- CONTACT CONTENT -->
-
-        <div class="contact-grid">
-
-
-            <!-- LEFT : INFO -->
-
-            <div class="contact-info">
+                <!-- ADDRESS -->
 
                 <div class="contact-item">
 
@@ -2062,20 +2104,28 @@
                         01
                     </span>
 
-                    <div>
+                    <div class="contact-item-content">
 
                         <small>
-                            LOCALISATION
+                            ADRESSE
                         </small>
 
-                        <strong>
-                            Draria — Sebala
-                        </strong>
+                        <a
+                            href="https://maps.app.goo.gl/zMDHhui1psem8YXn9"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            Rue Azziouz Rebbache,
+                            Sebala, Draria, Alger
+
+                        </a>
 
                     </div>
 
                 </div>
 
+
+                <!-- PHONE -->
 
                 <div class="contact-item">
 
@@ -2083,20 +2133,24 @@
                         02
                     </span>
 
-                    <div>
+                    <div class="contact-item-content">
 
                         <small>
-                            HORAIRES
+                            TÉLÉPHONE
                         </small>
 
-                        <strong>
-                            Sur rendez-vous
-                        </strong>
+                        <a href="tel:+213775276925">
+
+                            +213 775 27 69 25
+
+                        </a>
 
                     </div>
 
                 </div>
 
+
+                <!-- WHATSAPP -->
 
                 <div class="contact-item">
 
@@ -2104,190 +2158,99 @@
                         03
                     </span>
 
-                    <div>
+                    <div class="contact-item-content">
 
                         <small>
-                            CONTACT
+                            WHATSAPP
                         </small>
 
-                        <strong>
-                            07 75 27 69 25
-                        </strong>
+                        <a
+                            href="https://wa.me/213775276925"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            Écrire sur WhatsApp
+                            <span class="contact-arrow">↗</span>
+
+                        </a>
 
                     </div>
 
                 </div>
 
 
-                <!-- SOCIAL -->
+                <!-- OPENING -->
 
-                <div class="contact-social">
-                
-                    <span>
-                        SUIVEZ-NOUS
+                <div class="contact-item">
+
+                    <span class="contact-number">
+                        04
                     </span>
-                
+
+                    <div class="contact-item-content">
+
+                        <small>
+                            RENDEZ-VOUS
+                        </small>
+
+                        <span class="contact-text">
+                            Sur réservation
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================
+             MAP
+        ======================================== -->
+
+        <div class="contact-map">
+
+            <iframe
+                src="https://www.google.com/maps?q=36.723166,3.0121595&output=embed"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+
+
+            <div class="map-overlay">
+
+                <div class="map-location">
+
+                    <span class="map-dot"></span>
+
                     <div>
-                
-                        <a href="#" aria-label="Instagram">
-                            Instagram ↗
-                        </a>
-                
-                        <a href="#" aria-label="Facebook">
-                            Facebook ↗
-                        </a>
-                
-                        <a href="#" aria-label="TikTok">
-                            TikTok ↗
-                        </a>
-                
-                        <a href="#" aria-label="WhatsApp">
-                            WhatsApp ↗
-                        </a>
-                
+
+                       <strong>
+                            Auto Burnish
+                        </strong>
+                        
+                        <span class="map-address">
+                            Draria — Sebala
+                        </span>
                     </div>
-                
-                </div>
 
-            <!-- RIGHT : FORM -->
-
-            <div class="contact-form-wrapper">
-
-                <div class="contact-form-title">
-                    <span>DEMANDE DE CONTACT</span>
-                    <span>04</span>
                 </div>
 
 
-                <form class="contact-form">
+                <a
+                    class="map-button"
+                    href="https://maps.app.goo.gl/zMDHhui1psem8YXn9"
+                    target="_blank"
+                    rel="noopener noreferrer">
 
+                    Ouvrir dans Google Maps
+                    <span>↗</span>
 
-                    <div class="form-row">
-
-                        <div class="form-group">
-
-                            <label for="contact-name">
-                                NOM
-                            </label>
-
-                            <input
-                                type="text"
-                                id="contact-name"
-                                name="name"
-                                placeholder="Votre nom"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="contact-phone">
-                                TÉLÉPHONE
-                            </label>
-
-                            <input
-                                type="tel"
-                                id="contact-phone"
-                                name="phone"
-                                placeholder="07 00 00 00 00"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="contact-email">
-                            EMAIL
-                        </label>
-
-                        <input
-                            type="email"
-                            id="contact-email"
-                            name="email"
-                            placeholder="votre@email.com"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="contact-service">
-                            SERVICE
-                        </label>
-
-                        <select
-                            id="contact-service"
-                            name="service"
-                        >
-
-                            <option value="">
-                                Choisir un service
-                            </option>
-
-                            <option value="detailing">
-                                Detailing
-                            </option>
-
-                            <option value="polissage">
-                                Polissage
-                            </option>
-
-                            <option value="ceramique">
-                                Protection céramique
-                            </option>
-
-                            <option value="ppf">
-                                Protection PPF
-                            </option>
-
-                            <option value="interieur">
-                                Soin intérieur
-                            </option>
-
-                            <option value="lifting">
-                                Lifting
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="contact-message">
-                            MESSAGE
-                        </label>
-
-                        <textarea
-                            id="contact-message"
-                            name="message"
-                            rows="4"
-                            placeholder="Parlez-nous de votre véhicule..."
-                        ></textarea>
-
-                    </div>
-
-
-                    <button
-                        type="submit"
-                        class="contact-submit"
-                    >
-
-                        ENVOYER LA DEMANDE
-
-                        <span>↗</span>
-
-                    </button>
-
-                </form>
+                </a>
 
             </div>
 
@@ -2296,6 +2259,7 @@
     </div>
 
 </section>
+
 
     </main>
 

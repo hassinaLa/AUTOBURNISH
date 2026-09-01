@@ -621,98 +621,138 @@ if (languageButton) {
     }
 
 
-    /* ========================================
-       GALLERY FILTERS
+  /* ========================================
+       GALLERY FILTER
     ======================================== */
-
-    const galleryFilters =
-        document.querySelectorAll(
-            ".gallery-filter"
-        );
-
-    const galleryItems =
-        document.querySelectorAll(
-            ".gallery-item"
-        );
-
-
-    function showGalleryCategory(category) {
-
-        galleryItems.forEach(
-            function (item) {
-
+    
+    const filterButtons = document.querySelectorAll(
+        ".gallery-filter"
+    );
+    
+    const galleryItems = document.querySelectorAll(
+        ".gallery-item"
+    );
+    
+    
+    /* ----------------------------------------
+       CHECK
+    ---------------------------------------- */
+    
+    if (filterButtons.length && galleryItems.length) {
+    
+    
+        /* ----------------------------------------
+           FILTER FUNCTION
+        ---------------------------------------- */
+    
+        function showCategory(category) {
+    
+            galleryItems.forEach(function (item) {
+    
                 const itemCategory =
                     item.dataset.category;
-
+    
                 const showInAll =
                     item.dataset.showAll === "true";
-
-
+    
+    
+                /* ================================
+                   TOUS
+                ================================= */
+    
                 if (category === "all") {
-
-                    item.style.display =
-                        showInAll
-                            ? ""
-                            : "none";
-
+    
+                    if (showInAll) {
+    
+                        item.classList.remove(
+                            "gallery-hidden"
+                        );
+    
+                    } else {
+    
+                        item.classList.add(
+                            "gallery-hidden"
+                        );
+    
+                    }
+    
                     return;
-
                 }
-
-
-                item.style.display =
-                    itemCategory === category
-                        ? ""
-                        : "none";
-
-            }
-        );
-
-    }
-
-
-    galleryFilters.forEach(
-        function (filter) {
-
-            filter.addEventListener(
+    
+    
+                /* ================================
+                   SPECIFIC CATEGORY
+                ================================= */
+    
+                if (itemCategory === category) {
+    
+                    item.classList.remove(
+                        "gallery-hidden"
+                    );
+    
+                } else {
+    
+                    item.classList.add(
+                        "gallery-hidden"
+                    );
+    
+                }
+    
+            });
+    
+        }
+    
+    
+        /* ----------------------------------------
+           BUTTONS
+        ---------------------------------------- */
+    
+        filterButtons.forEach(function (button) {
+    
+            button.addEventListener(
                 "click",
-                function () {
-
+                function (e) {
+    
+                    e.preventDefault();
+    
+    
                     const category =
-                        filter.dataset.filter;
-
-
-                    galleryFilters.forEach(
-                        function (button) {
-
-                            button.classList.remove(
+                        this.dataset.filter;
+    
+    
+                    /* Remove active */
+    
+                    filterButtons.forEach(
+                        function (btn) {
+    
+                            btn.classList.remove(
                                 "active"
                             );
-
+    
                         }
                     );
-
-
-                    filter.classList.add(
-                        "active"
-                    );
-
-
-                    showGalleryCategory(
-                        category
-                    );
-
+    
+    
+                    /* Add active */
+    
+                    this.classList.add("active");
+    
+    
+                    /* Filter */
+    
+                    showCategory(category);
+    
                 }
             );
-
-        }
-    );
-
-
-    if (galleryItems.length) {
-
-        showGalleryCategory("all");
-
+    
+        });
+    
+    
+        /* ----------------------------------------
+           INITIAL STATE
+        ---------------------------------------- */
+    
+        showCategory("all");
+    
     }
-
 });
