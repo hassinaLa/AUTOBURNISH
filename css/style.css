@@ -591,6 +591,9 @@ a {
 
     text-transform: uppercase;
 
+    transform: translateY(12px);
+
+
 }
 
 
@@ -640,21 +643,10 @@ a {
 
     -webkit-text-stroke: 1px var(--gold);
 
-    transform: translateY(8px);
+    transform: translateY(12px);
 
 }
 
-.hero h1 .edit {
-
-    color: var(--white);
-
-    
-
-    display: inline-block;
-
-    transform: translateY(13px);
-
-}
 
 /* ========================================
    DESCRIPTION
