@@ -666,6 +666,8 @@ a {
 
     max-width: 500px;
 
+    transform: translateY(-12px);
+
 }
 
 
@@ -682,6 +684,8 @@ a {
     gap: 16px;
 
     margin-top: 38px;
+
+    transform: translateY(-30px);
 
 }
 
@@ -955,7 +959,7 @@ a {
 
     -webkit-text-stroke: 1px var(--gold);
 
-    font-style: normal;
+    font-style: italic;
     
 
 }
@@ -1164,7 +1168,7 @@ a {
 
 .package-content h3 span {
 
-    color: transparent;
+    color: var(--white);
 
     -webkit-text-stroke: 0.8px var(--white);
 
@@ -1329,7 +1333,7 @@ a {
 
     -webkit-text-stroke: 1px var(--gold);
 
-    font-style: normal;
+    font-style: italic;
 }
 
 
@@ -1576,7 +1580,7 @@ a {
 
     -webkit-text-stroke: 1px var(--gold);
 
-    font-style: normal;
+    font-style: italic;
 }
 
 
@@ -1802,7 +1806,7 @@ a {
 
     -webkit-text-stroke: 1px var(--gold);
 
-    font-style: normal;
+    font-style: italic;
 }
 
 
@@ -2195,7 +2199,7 @@ a {
 
     -webkit-text-stroke: 1px var(--gold);
 
-    font-style: normal;
+    font-style: italic;
 
 }
 
@@ -2302,7 +2306,7 @@ a {
 
     -webkit-text-stroke: 1px var(--gold);
 
-    font-style: normal;
+    font-style: italic;
 
 }
 
@@ -2580,7 +2584,7 @@ a {
 
     -webkit-text-stroke: 1px var(--gold);
 
-    font-style: normal;
+    font-style: italic;
 
     display: inline-block;
     transform: translateY(10px);
@@ -2872,7 +2876,7 @@ a {
 
     -webkit-text-stroke: 1px var(--gold);
 
-    font-style: normal;
+    font-style: italic;
 
 }
 
@@ -4273,6 +4277,28 @@ a {
     position: relative;
     z-index: 2;
     max-width: 900px;
+
+    animation: inner-page-hero-content 1.2s ease forwards;
+}
+
+@keyframes inner-page-hero-content {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(30px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
 }
 
 
@@ -4295,7 +4321,7 @@ a {
     letter-spacing: 0.22em;
     text-transform: uppercase;
 
-    transform: translateY(-80px);
+    transform: translateY(-60px);
 }
 
 
@@ -6196,7 +6222,9 @@ a {
 
     border: 1px solid rgba(255, 255, 255, .25);
 
-    color: var(--white);
+    color: var(--dark-gray);
+
+    background: var(--white);
 
     font-family: "DM Sans", sans-serif;
 
@@ -6214,6 +6242,7 @@ a {
         border-color .3s ease,
         color .3s ease;
 }
+
 
 .booking-page .map-button:hover {
     border-color: var(--gold);
