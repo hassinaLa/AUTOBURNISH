@@ -787,4 +787,76 @@ if (heroSlides.length > 1) {
         showCategory("all");
     
     }
+
+    /* =====================================================
+       BOOKING — VEHICLE PHOTO PREVIEW
+    ===================================================== */
+    
+    const vehiclePhotos = document.getElementById("vehiclePhotos");
+    const photoPreview = document.getElementById("photoPreview");
+    
+    if (vehiclePhotos && photoPreview) {
+    
+        vehiclePhotos.addEventListener("change", function () {
+    
+            photoPreview.innerHTML = "";
+    
+            const files = Array.from(this.files);
+    
+            files.forEach(function (file) {
+    
+                if (!file.type.startsWith("image/")) {
+                    return;
+                }
+    
+                const reader = new FileReader();
+    
+                reader.onload = function (e) {
+    
+                    const previewItem =
+                        document.createElement("div");
+    
+                    previewItem.className =
+                        "photo-preview-item";
+    
+                    previewItem.innerHTML = `
+                        <img
+                            src="${e.target.result}"
+                            alt="Photo du véhicule"
+                        >
+    
+                        <button
+                            type="button"
+                            class="photo-remove"
+                            aria-label="Supprimer la photo"
+                        >
+                            ×
+                        </button>
+                    `;
+    
+                    const removeButton =
+                        previewItem.querySelector(".photo-remove");
+    
+                    removeButton.addEventListener(
+                        "click",
+                        function () {
+    
+                            previewItem.remove();
+    
+                        }
+                    );
+    
+                    photoPreview.appendChild(previewItem);
+    
+                };
+    
+                reader.readAsDataURL(file);
+    
+            });
+    
+        });
+    
+    }
+
+
 });
