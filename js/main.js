@@ -21,6 +21,66 @@ document.addEventListener("DOMContentLoaded", function () {
 
             navLinks.classList.toggle("open");
 
+            menuButton.classList.toggle("open");
+
+        });
+
+    }
+
+
+    /* ========================================
+       SCROLL REVEAL
+    ======================================== */
+
+    const revealItems =
+        document.querySelectorAll(".reveal");
+
+    if (
+        revealItems.length &&
+        "IntersectionObserver" in window
+    ) {
+
+        const revealObserver = new IntersectionObserver(
+            function (entries, observer) {
+
+                entries.forEach(function (entry) {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+                            "is-visible"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.15,
+                rootMargin: "0px 0px -8% 0px",
+            }
+        );
+
+        revealItems.forEach(function (item) {
+
+            revealObserver.observe(item);
+
+        });
+
+    } else {
+
+        /* No IntersectionObserver support (or nothing
+           to reveal) — just show everything */
+
+        revealItems.forEach(function (item) {
+
+            item.classList.add("is-visible");
+
         });
 
     }
@@ -476,6 +536,10 @@ if (heroSlides.length > 1) {
 
                         dragging = true;
 
+                        comparison.classList.add(
+                            "is-dragging"
+                        );
+
                         moveSlider(
                             e.clientX
                         );
@@ -510,6 +574,10 @@ if (heroSlides.length > 1) {
 
                         dragging = false;
 
+                        comparison.classList.remove(
+                            "is-dragging"
+                        );
+
                     }
                 );
 
@@ -519,6 +587,10 @@ if (heroSlides.length > 1) {
                     function () {
 
                         dragging = false;
+
+                        comparison.classList.remove(
+                            "is-dragging"
+                        );
 
                     }
                 );
@@ -678,60 +750,78 @@ if (heroSlides.length > 1) {
         ---------------------------------------- */
     
         function showCategory(category) {
-    
+
             galleryItems.forEach(function (item) {
-    
+
                 const itemCategory =
                     item.dataset.category;
-    
+
                 const showInAll =
                     item.dataset.showAll === "true";
-    
-    
+
+                const shouldShow =
+                    category === "all"
+                        ? showInAll
+                        : itemCategory === category;
+
+
                 /* ================================
-                   TOUS
+                   SHOW — bring back into the grid,
+                   then fade/scale it in
                 ================================= */
-    
-                if (category === "all") {
-    
-                    if (showInAll) {
-    
-                        item.classList.remove(
-                            "gallery-hidden"
-                        );
-    
-                    } else {
-    
-                        item.classList.add(
-                            "gallery-hidden"
-                        );
-    
-                    }
-    
+
+                if (shouldShow) {
+
+                    item.classList.remove(
+                        "gallery-removed"
+                    );
+
+                    /* Let the browser register the
+                       display change before removing
+                       gallery-hidden, so the fade-in
+                       transition actually plays */
+
+                    requestAnimationFrame(function () {
+
+                        requestAnimationFrame(function () {
+
+                            item.classList.remove(
+                                "gallery-hidden"
+                            );
+
+                        });
+
+                    });
+
                     return;
                 }
-    
-    
+
+
                 /* ================================
-                   SPECIFIC CATEGORY
+                   HIDE — fade/scale out, then pull
+                   it out of the grid flow
                 ================================= */
-    
-                if (itemCategory === category) {
-    
-                    item.classList.remove(
-                        "gallery-hidden"
-                    );
-    
-                } else {
-    
-                    item.classList.add(
-                        "gallery-hidden"
-                    );
-    
-                }
-    
+
+                item.classList.add("gallery-hidden");
+
+                window.setTimeout(function () {
+
+                    if (
+                        item.classList.contains(
+                            "gallery-hidden"
+                        )
+                    ) {
+
+                        item.classList.add(
+                            "gallery-removed"
+                        );
+
+                    }
+
+                }, 400);
+
             });
-    
+
         }
     
     
