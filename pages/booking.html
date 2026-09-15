@@ -5,6 +5,25 @@
 
     <meta charset="UTF-8">
 
+    <!-- Set language/direction before first paint, so saved
+         EN/AR visitors never see a French-then-flip flash -->
+    <script>
+    (function () {
+        try {
+            var lang = localStorage.getItem("autoBurnishLanguage") || "fr";
+            if (["fr", "en", "ar"].indexOf(lang) === -1) {
+                lang = "fr";
+            }
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+            if (lang === "ar") {
+                document.documentElement.classList.add("rtl");
+            }
+        } catch (e) {}
+    })();
+    </script>
+
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
@@ -65,7 +84,7 @@
             <!-- Desktop Navigation -->
            <nav class="nav-links">
 
-    <a href="../index.html" class="active">
+    <a href="../index.html" class="active" data-i18n="nav.home">
         Accueil
     </a>
 
@@ -76,17 +95,17 @@
             type="button"
             class="nav-dropdown-toggle"
         >
-            Packages
+            <span data-i18n="nav.packages_toggle">Packages</span>
             <span>⌄</span>
         </button>
 
         <div class="nav-dropdown-menu">
 
-            <a href="../pages/packages.html">
+            <a href="../pages/packages.html" data-i18n="nav.packs">
                 Packs
             </a>
 
-            <a href="../pages/services.html">
+            <a href="../pages/services.html" data-i18n="nav.services">
                 Services
             </a>
 
@@ -102,17 +121,17 @@
             type="button"
             class="nav-dropdown-toggle"
         >
-            Notre travail
+            <span data-i18n="nav.work_toggle">Notre travail</span>
             <span>⌄</span>
         </button>
 
         <div class="nav-dropdown-menu">
 
-            <a href="../index.html#before-after">
+            <a href="../index.html#before-after" data-i18n="nav.before_after">
                 Avant / Après
             </a>
 
-            <a href="../index.html#gallery">
+            <a href="../index.html#gallery" data-i18n="nav.gallery">
                 Réalisations
             </a>
 
@@ -121,12 +140,12 @@
     </div>
 
 
-    <a href="../index.html#about">
+    <a href="../index.html#about" data-i18n="nav.about">
         À propos
     </a>
 
 
-    <a href="../index.html#contact">
+    <a href="../index.html#contact" data-i18n="nav.contact">
         Contact
     </a>
 
@@ -136,18 +155,18 @@
             <div class="nav-actions">
 
                 <!-- Language -->
-                <button class="language-btn">
+                <button class="language-btn" aria-label="Choisir la langue" data-i18n-aria-label="nav.lang_aria">
                     FR
                     <span>⌄</span>
                 </button>
 
                 <!-- CTA -->
-                <a href="#form" class="nav-cta">
+                <a href="#form" class="nav-cta" data-i18n="nav.reserve">
                     Réserver
                 </a>
 
                 <!-- Mobile Menu -->
-                <button class="menu-btn" aria-label="Ouvrir le menu">
+                <button class="menu-btn" aria-label="Ouvrir le menu" data-i18n-aria-label="nav.menu_aria">
                     <span></span>
                     <span></span>
                 </button>
@@ -176,15 +195,13 @@
 
     <div class="inner-page-hero-content">
 
-        <span class="eyebrow">
+        <span class="eyebrow" data-i18n="booking_page.hero_eyebrow">
             Auto Burnish · Rendez-vous
         </span>
 
-        <h1>
-            Réservez votre <em>séance.</em>
-        </h1>
+        <h1 data-i18n-html="booking_page.hero_title">Réservez votre <em>séance.</em></h1>
 
-        <p>
+        <p data-i18n="booking_page.hero_desc">
             Décrivez-nous votre véhicule et la prestation
             souhaitée. Notre équipe pourra ensuite confirmer
             votre rendez-vous.
@@ -196,8 +213,8 @@
  <!-- Hero Side Information -->
     <div class="hero-side-info">
     
-        <span>DETAILING</span>
-        <span>AUTOMOBILE</span>
+        <span data-i18n="hero.side_1">DETAILING</span>
+        <span data-i18n="hero.side_2">AUTOMOBILE</span>
     
     </div>
 </section>
@@ -212,15 +229,12 @@
 
     <div class="section-label">
         <span></span>
-        RENDEZ-VOUS
+        <span data-i18n="booking_page.intro_label">RENDEZ-VOUS</span>
     </div>
 
-    <h2>
-        Parlons de votre<br>
-        <em>véhicule.</em>
-    </h2>
+    <h2 data-i18n-html="booking_page.intro_heading">Parlons de votre<br><em>véhicule.</em></h2>
 
-    <p>
+    <p data-i18n="booking_page.intro_desc">
         Remplissez le formulaire ci-dessous avec les informations
         nécessaires à votre demande de rendez-vous.
     </p>
@@ -240,18 +254,15 @@
 
     <aside class="booking-info reveal">
 
-        <span class="booking-side-label">
+        <span class="booking-side-label" data-i18n="booking_page.info_label">
             AUTO BURNISH
         </span>
 
 
-        <h3>
-            Une prestation<br>
-            adaptée à vos <em>besoins.</em>
-        </h3>
+        <h3 data-i18n-html="booking_page.info_heading">Une prestation<br>adaptée à vos <em>besoins.</em></h3>
 
 
-        <p>
+        <p data-i18n="booking_page.info_text">
             Chaque véhicule est différent. Les informations
             fournies dans ce formulaire nous permettent de mieux
             comprendre votre demande avant votre passage au centre.
@@ -263,7 +274,7 @@
 
             <div class="booking-contact-item">
 
-                <span>
+                <span data-i18n="booking_page.info_phone_label">
                     Téléphone
                 </span>
 
@@ -276,21 +287,19 @@
 
             <div class="booking-contact-item">
 
-                <span>
+                <span data-i18n="booking_page.info_location_label">
                     Localisation
                 </span>
 
-                <p>
-                    Rue Azziouz Rebbache,<br>
-                    Sebala, Draria, Alger
-                </p>
+                <p data-i18n-html="booking_page.info_location_value">Rue Azziouz Rebbache,<br>
+                    Sebala, Draria, Alger</p>
 
             </div>
 
 
             <div class="booking-contact-item">
 
-                <span>
+                <span data-i18n="booking_page.info_instagram_label">
                     Instagram
                 </span>
 
@@ -335,7 +344,7 @@
                         01
                     </span>
 
-                    <h3>
+                    <h3 data-i18n="booking_page.step1_title">
                         Vos informations
                     </h3>
 
@@ -347,7 +356,7 @@
 
                     <div class="form-group">
 
-                        <label for="fullName">
+                        <label for="fullName" data-i18n="booking_page.full_name_label">
                             Nom complet
                         </label>
 
@@ -356,6 +365,7 @@
                             id="fullName"
                             name="full_name"
                             placeholder="Votre nom complet"
+                            data-i18n-placeholder="booking_page.full_name_placeholder"
                             autocomplete="name"
                             required
                         >
@@ -365,7 +375,7 @@
 
                     <div class="form-group">
 
-                        <label for="phone">
+                        <label for="phone" data-i18n="booking_page.phone_label">
                             Téléphone
                         </label>
 
@@ -374,6 +384,7 @@
                             id="phone"
                             name="phone"
                             placeholder="05 XX XX XX XX"
+                            data-i18n-placeholder="booking_page.phone_placeholder"
                             autocomplete="tel"
                             required
                         >
@@ -383,16 +394,14 @@
 
                     <div class="form-group form-group-full">
 
-                        <label for="email">
-                            Email
-                            <span>(facultatif)</span>
-                        </label>
+                        <label for="email" data-i18n-html="booking_page.email_label">Email <span>(facultatif)</span></label>
 
                         <input
                             type="email"
                             id="email"
                             name="email"
                             placeholder="votre@email.com"
+                            data-i18n-placeholder="booking_page.email_placeholder"
                             autocomplete="email"
                         >
 
@@ -416,7 +425,7 @@
                         02
                     </span>
 
-                    <h3>
+                    <h3 data-i18n="booking_page.step2_title">
                         Votre véhicule
                     </h3>
 
@@ -428,7 +437,7 @@
 
                     <div class="form-group">
 
-                        <label for="vehicleType">
+                        <label for="vehicleType" data-i18n="booking_page.vehicle_type_label">
                             Type de véhicule
                         </label>
 
@@ -442,31 +451,32 @@
                                 value=""
                                 selected
                                 disabled
+                                data-i18n="common.select"
                             >
                                 Sélectionner
                             </option>
 
-                            <option value="citadine">
+                            <option value="citadine" data-i18n="booking_page.vehicle_type_citadine">
                                 Citadine
                             </option>
 
-                            <option value="berline">
+                            <option value="berline" data-i18n="booking_page.vehicle_type_berline">
                                 Berline
                             </option>
 
-                            <option value="suv">
+                            <option value="suv" data-i18n="booking_page.vehicle_type_suv">
                                 SUV / 4x4
                             </option>
 
-                            <option value="coupe">
+                            <option value="coupe" data-i18n="booking_page.vehicle_type_coupe">
                                 Coupé / Sportive
                             </option>
 
-                            <option value="utilitaire">
+                            <option value="utilitaire" data-i18n="booking_page.vehicle_type_utilitaire">
                                 Utilitaire
                             </option>
 
-                            <option value="autre">
+                            <option value="autre" data-i18n="booking_page.vehicle_type_autre">
                                 Autre
                             </option>
 
@@ -477,7 +487,7 @@
 
                     <div class="form-group">
 
-                        <label for="vehicleModel">
+                        <label for="vehicleModel" data-i18n="booking_page.vehicle_model_label">
                             Marque & modèle
                         </label>
 
@@ -486,6 +496,7 @@
                             id="vehicleModel"
                             name="vehicle_model"
                             placeholder="Ex. BMW Série 3"
+                            data-i18n-placeholder="booking_page.vehicle_model_placeholder"
                             required
                         >
 
@@ -494,16 +505,14 @@
 
                     <div class="form-group">
 
-                        <label for="vehicleYear">
-                            Année
-                            <span>(facultatif)</span>
-                        </label>
+                        <label for="vehicleYear" data-i18n-html="booking_page.vehicle_year_label">Année <span>(facultatif)</span></label>
 
                         <input
                             type="number"
                             id="vehicleYear"
                             name="vehicle_year"
                             placeholder="2022"
+                            data-i18n-placeholder="booking_page.vehicle_year_placeholder"
                             min="1950"
                             max="2030"
                         >
@@ -513,16 +522,14 @@
 
                     <div class="form-group">
 
-                        <label for="vehicleColor">
-                            Couleur
-                            <span>(facultatif)</span>
-                        </label>
+                        <label for="vehicleColor" data-i18n-html="booking_page.vehicle_color_label">Couleur <span>(facultatif)</span></label>
 
                         <input
                             type="text"
                             id="vehicleColor"
                             name="vehicle_color"
                             placeholder="Ex. Noir"
+                            data-i18n-placeholder="booking_page.vehicle_color_placeholder"
                         >
 
                     </div>
@@ -545,7 +552,7 @@
                         03
                     </span>
 
-                    <h3>
+                    <h3 data-i18n="booking_page.step3_title">
                         Votre prestation
                     </h3>
 
@@ -557,7 +564,7 @@
 
                     <div class="form-group">
 
-                        <label for="package">
+                        <label for="package" data-i18n="booking_page.package_label">
                             Package
                         </label>
 
@@ -569,23 +576,24 @@
                             <option
                                 value=""
                                 selected
+                                data-i18n="common.none_unsure"
                             >
                                 Aucun / Je ne sais pas
                             </option>
 
-                            <option value="pack-brillance">
+                            <option value="pack-brillance" data-i18n="booking_page.package_p1">
                                 Pack Brillance
                             </option>
 
-                            <option value="correction-rayures">
+                            <option value="correction-rayures" data-i18n="booking_page.package_p2">
                                 Correction des rayures & micro-rayures
                             </option>
 
-                            <option value="protection-ceramique">
+                            <option value="protection-ceramique" data-i18n="booking_page.package_p3">
                                 Protection Céramique
                             </option>
 
-                            <option value="protection-ppf">
+                            <option value="protection-ppf" data-i18n="booking_page.package_p4">
                                 Protection PPF
                             </option>
 
@@ -596,7 +604,7 @@
 
                     <div class="form-group">
 
-                        <label for="service">
+                        <label for="service" data-i18n="booking_page.service_label">
                             Service
                         </label>
 
@@ -608,31 +616,32 @@
                             <option
                                 value=""
                                 selected
+                                data-i18n="common.none_unsure"
                             >
                                 Aucun / Je ne sais pas
                             </option>
 
-                            <option value="polissage">
+                            <option value="polissage" data-i18n="booking_page.service_s1">
                                 Polissage
                             </option>
 
-                            <option value="traitement-cuir">
+                            <option value="traitement-cuir" data-i18n="booking_page.service_s2">
                                 Traitement de cuir
                             </option>
 
-                            <option value="ciel-etoile">
+                            <option value="ciel-etoile" data-i18n="booking_page.service_s3">
                                 Ciel étoilé
                             </option>
 
-                            <option value="lifting">
+                            <option value="lifting" data-i18n="booking_page.service_s4">
                                 Lifting
                             </option>
 
-                            <option value="finition-lustre">
+                            <option value="finition-lustre" data-i18n="booking_page.service_s5">
                                 Finition & lustre
                             </option>
 
-                            <option value="protection-personnalisee">
+                            <option value="protection-personnalisee" data-i18n="booking_page.service_s6">
                                 Protection personnalisée
                             </option>
 
@@ -643,7 +652,7 @@
 
                     <div class="form-group form-group-full">
 
-                        <label for="requestType">
+                        <label for="requestType" data-i18n="booking_page.request_type_label">
                             Nature de la demande
                         </label>
 
@@ -657,19 +666,20 @@
                                 value=""
                                 selected
                                 disabled
+                                data-i18n="common.select"
                             >
                                 Sélectionner
                             </option>
 
-                            <option value="reservation">
+                            <option value="reservation" data-i18n="booking_page.request_reservation">
                                 Prise de rendez-vous
                             </option>
 
-                            <option value="information">
+                            <option value="information" data-i18n="booking_page.request_information">
                                 Demande d'information
                             </option>
 
-                            <option value="consultation">
+                            <option value="consultation" data-i18n="booking_page.request_consultation">
                                 Conseil / Diagnostic
                             </option>
 
@@ -695,7 +705,7 @@
                         04
                     </span>
 
-                    <h3>
+                    <h3 data-i18n="booking_page.step4_title">
                         Date souhaitée
                     </h3>
 
@@ -707,7 +717,7 @@
 
                     <div class="form-group">
 
-                        <label for="preferredDate">
+                        <label for="preferredDate" data-i18n="booking_page.date_label">
                             Date
                         </label>
 
@@ -723,7 +733,7 @@
 
                     <div class="form-group">
 
-                        <label for="preferredTime">
+                        <label for="preferredTime" data-i18n="booking_page.time_label">
                             Heure
                         </label>
 
@@ -737,6 +747,7 @@
                                 value=""
                                 selected
                                 disabled
+                                data-i18n="booking_page.time_select"
                             >
                                 Choisir une heure
                             </option>
@@ -788,7 +799,7 @@
                 </div>
 
 
-                <p class="form-note">
+                <p class="form-note" data-i18n="booking_page.date_note">
                     La date et l'heure indiquées constituent une
                     préférence. Le rendez-vous sera confirmé par
                     Auto Burnish.
@@ -810,7 +821,7 @@
                         05
                     </span>
 
-                    <h3>
+                    <h3 data-i18n="booking_page.step5_title">
                         Informations complémentaires
                     </h3>
 
@@ -819,16 +830,14 @@
 
                 <div class="form-group">
 
-                    <label for="message">
-                        Votre message
-                        <span>(facultatif)</span>
-                    </label>
+                    <label for="message" data-i18n-html="booking_page.message_label">Votre message <span>(facultatif)</span></label>
 
                     <textarea
                         id="message"
                         name="message"
                         rows="6"
                         placeholder="Décrivez votre besoin, l'état du véhicule ou toute information que vous souhaitez nous communiquer..."
+                        data-i18n-placeholder="booking_page.message_placeholder"
                     ></textarea>
 
                 </div>
@@ -848,18 +857,13 @@
                         06
                     </span>
             
-                    <h3>
+                    <h3 data-i18n="booking_page.step6_title">
                         Photos du véhicule
                     </h3>
             
                 </div>
             
-                <p class="photo-upload-intro">
-                    Vous pouvez ajouter quelques photos de votre véhicule
-                    afin de nous permettre de mieux comprendre son état
-                    et votre besoin.
-                    <strong>(Facultatif)</strong>
-                </p>
+                <p class="photo-upload-intro" data-i18n-html="booking_page.photo_intro">Vous pouvez ajouter quelques photos de votre véhicule afin de nous permettre de mieux comprendre son état et votre besoin. <strong>(Facultatif)</strong></p>
             
             
                 <div class="photo-upload">
@@ -881,11 +885,11 @@
                             +
                         </span>
             
-                        <span class="photo-upload-title">
+                        <span class="photo-upload-title" data-i18n="booking_page.photo_upload_title">
                             Ajouter des photos
                         </span>
             
-                        <span class="photo-upload-text">
+                        <span class="photo-upload-text" data-i18n="booking_page.photo_upload_text">
                             JPG, PNG ou WEBP · Plusieurs photos possibles
                         </span>
             
@@ -900,7 +904,7 @@
                 ></div>
             
             
-                <p class="form-note">
+                <p class="form-note" data-i18n="booking_page.photo_note">
                     Les photos sont facultatives. Pour une meilleure
                     évaluation, vous pouvez photographier la carrosserie,
                     l'intérieur ou les zones nécessitant une attention
@@ -923,7 +927,7 @@
                         07
                     </span>
 
-                    <h3>
+                    <h3 data-i18n="booking_page.step7_title">
                         Préférence de contact
                     </h3>
 
@@ -942,7 +946,7 @@
                             checked
                         >
 
-                        <span>
+                        <span data-i18n="booking_page.contact_pref_phone">
                             Téléphone
                         </span>
 
@@ -957,7 +961,7 @@
                             value="whatsapp"
                         >
 
-                        <span>
+                        <span data-i18n="booking_page.contact_pref_whatsapp">
                             WhatsApp
                         </span>
 
@@ -972,7 +976,7 @@
                             value="email"
                         >
 
-                        <span>
+                        <span data-i18n="booking_page.contact_pref_email">
                             Email
                         </span>
 
@@ -999,7 +1003,7 @@
                         required
                     >
 
-                    <span>
+                    <span data-i18n="booking_page.consent_text">
                         J'accepte que les informations fournies
                         soient utilisées afin de traiter ma demande
                         de rendez-vous.
@@ -1020,7 +1024,7 @@
                 class="booking-submit"
             >
 
-                <span>
+                <span data-i18n="booking_page.submit">
                     Envoyer ma demande
                 </span>
 
@@ -1054,19 +1058,14 @@
 
     <div class="booking-location-content reveal">
 
-        <span class="eyebrow">
+        <span class="eyebrow" data-i18n="booking_page.location_eyebrow">
             Nous trouver
         </span>
 
-        <h2>
-            Rendez-vous à<br>
-            <em>Draria.</em>
-        </h2>
+        <h2 data-i18n-html="booking_page.location_heading">Rendez-vous à<br><em>Draria.</em></h2>
 
-        <p>
-            Rue Azziouz Rebbache,<br>
-            Sebala, Draria, Alger
-        </p>
+        <p data-i18n-html="booking_page.location_address">Rue Azziouz Rebbache,<br>
+            Sebala, Draria, Alger</p>
 
         <a
             class="map-button"
@@ -1074,7 +1073,7 @@
             target="_blank"
             rel="noopener noreferrer"
         >
-            Ouvrir dans Google Maps
+            <span data-i18n="booking_page.map_button">Ouvrir dans Google Maps</span>
             <span>↗</span>
         </a>
 
@@ -1096,11 +1095,11 @@
 
                     <div>
 
-                       <strong>
+                       <strong data-i18n="booking_page.map_name">
                             Auto Burnish
                         </strong>
                         
-                        <span class="map-address">
+                        <span class="map-address" data-i18n="booking_page.map_address">
                             Draria — Sebala
                         </span>
                     </div>
@@ -1119,16 +1118,13 @@
 
 <section class="page-final-cta reveal">
 
-    <span class="eyebrow">
+    <span class="eyebrow" data-i18n="booking_page.final_eyebrow">
         Auto Burnish
     </span>
 
-    <h2>
-        Votre véhicule.<br>
-        Notre <em>attention.</em>
-    </h2>
+    <h2 data-i18n-html="booking_page.final_heading">Votre véhicule.<br>Notre <em>attention.</em></h2>
 
-    <p>
+    <p data-i18n="booking_page.final_text">
         Une question avant de réserver ?
         Contactez directement notre équipe.
     </p>
@@ -1137,7 +1133,7 @@
         href="tel:+213775276925"
         class="package-action"
     >
-        Nous contacter
+        <span data-i18n="booking_page.final_cta">Nous contacter</span>
         <span>↗</span>
     </a>
 
@@ -1155,21 +1151,21 @@
 <footer class="site-footer">
 
     <div class="footer-brand">
-       © 2026 Auto Burnish — Tous droits réservés.
+       <span data-i18n="footer.copyright">© 2026 Auto Burnish — Tous droits réservés.</span>
     </div>
 
-    <p>
+    <p data-i18n="footer.tagline">
         Centre de detailing automobile —
         Draria, Sebala, Alger
     </p>
 
     <div class="footer-links">
 
-        <a href="../index.html">
+        <a href="../index.html" data-i18n="nav.home">
             Accueil
         </a>
         |
-        <a href="../index.html#contact">
+        <a href="../index.html#contact" data-i18n="nav.contact">
             Contact
         </a>
         |
@@ -1185,6 +1181,7 @@
 
 
 
+<script src="../js/translations.js"></script>
 <script src="../js/main.js"></script>
 
 </body>

@@ -322,7 +322,7 @@ a {
 }
 
 
-.nav-dropdown-toggle span {
+.nav-dropdown-toggle span:last-child {
 
     color: var(--gold);
 
@@ -337,7 +337,7 @@ a {
 
     position: absolute;
 
-    top: calc(100% + 25px);
+    top: calc(100% + 14px);
 
     left: 50%;
 
@@ -381,7 +381,7 @@ a {
 
 
 .nav-dropdown.open
-.nav-dropdown-toggle span {
+.nav-dropdown-toggle span:last-child {
 
     transform: rotate(180deg);
 
@@ -421,6 +421,8 @@ a {
 
 .nav-actions {
 
+    position: relative;
+
     display: flex;
 
     align-items: center;
@@ -458,6 +460,113 @@ a {
     color: var(--gold);
 
     font-size: 15px;
+
+}
+
+
+.language-wrapper {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+
+.language-menu {
+
+    position: absolute;
+
+    top: calc(100% + 12px);
+
+    inset-inline-start: 0;
+
+    min-width: 90px;
+
+    padding: 6px 0;
+
+    background: rgba(15, 15, 15, 0.98);
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+
+    z-index: 2000;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transform: translateY(-10px);
+
+    transition:
+        opacity 0.3s var(--ease-luxury),
+        transform 0.3s var(--ease-luxury),
+        visibility 0.3s ease;
+
+}
+
+
+.language-menu.open {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+    transform: translateY(0);
+
+}
+
+
+.language-menu button {
+
+    display: block;
+
+    width: 100%;
+
+    padding: 11px 18px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #aaa;
+
+    font-family: inherit;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    text-align: start;
+
+    cursor: pointer;
+
+    transition: color 0.25s ease, background 0.25s ease;
+
+}
+
+
+.language-menu button:hover {
+
+    color: var(--gold);
+
+    background: rgba(212, 175, 55, 0.08);
+
+}
+
+
+.language-menu button.active {
+
+    color: var(--gold);
+
+    font-weight: 600;
 
 }
 
@@ -755,6 +864,8 @@ a {
 .hero h1 span {
 
     display: block;
+
+    margin-bottom: 0.20em;
 
     color: var(--gold);
 
@@ -1085,7 +1196,7 @@ a {
 }
 
 
-.section-label span {
+.section-label span:first-child {
 
     width: 40px;
 
@@ -1433,7 +1544,7 @@ a {
 }
 
 
-.package-link span {
+.package-link span:last-child {
 
     color: var(--gold);
 
@@ -1453,7 +1564,7 @@ a {
 }
 
 
-.package-link:hover span {
+.package-link:hover span:last-child {
 
     transform: translate(4px, -4px);
 
@@ -2486,7 +2597,7 @@ a {
 }
 
 
-.comparison-note span {
+.comparison-note span:first-child {
 
     width: 25px;
 
@@ -2997,7 +3108,7 @@ a {
 }
 
 
-.about-link span {
+.about-link span:last-child {
 
     color: var(--gold);
 
@@ -3017,7 +3128,7 @@ a {
 }
 
 
-.about-link:hover span {
+.about-link:hover span:last-child {
 
     transform: translate(4px, -4px);
 
@@ -3227,7 +3338,7 @@ a {
 }
 
 
-.contact-socials a span {
+.contact-socials a .contact-arrow {
 
     color: var(--gold);
 
@@ -3249,7 +3360,7 @@ a {
 }
 
 
-.contact-socials a:hover span {
+.contact-socials a:hover .contact-arrow {
 
     transform: translate(4px, -4px);
 
@@ -3558,7 +3669,7 @@ a {
 }
 
 
-.map-button span {
+.map-button span:last-child {
 
     color: var(--gold);
 
@@ -3580,7 +3691,7 @@ a {
 }
 
 
-.map-button:hover span {
+.map-button:hover span:last-child {
 
     transform: translate(4px, -4px);
 
@@ -3604,6 +3715,8 @@ a {
         left: 0;
 
         width: 100%;
+
+        height: auto;
 
         display: flex;
 
@@ -3652,6 +3765,7 @@ a {
     .nav-dropdown {
 
         width: 100%;
+        height: auto;
 
     }
 
@@ -5108,7 +5222,7 @@ a {
     gap: 30px;
 }
 
-.package-detail-content .package-action span {
+.package-detail-content .package-action span:last-child {
     font-size: 16px;
 
     display: inline-block;
@@ -5116,7 +5230,7 @@ a {
     transition: transform .35s var(--ease-luxury);
 }
 
-.package-detail-content .package-action:hover span {
+.package-detail-content .package-action:hover span:last-child {
     transform: translate(4px, -4px);
 }
 
@@ -5210,7 +5324,7 @@ a {
 
 }
 
-.page-final-cta .package-action span {
+.page-final-cta .package-action span:last-child {
 
     display: inline-block;
 
@@ -5218,7 +5332,7 @@ a {
 
 }
 
-.page-final-cta .package-action:hover span {
+.page-final-cta .package-action:hover span:last-child {
 
     transform: translate(4px, -4px);
 
@@ -5799,7 +5913,7 @@ a {
     gap: 30px;
 }
 
-.services-page .service-detail-content .package-action span {
+.services-page .service-detail-content .package-action span:last-child {
     font-size: 16px;
 
     display: inline-block;
@@ -5807,7 +5921,7 @@ a {
     transition: transform .35s var(--ease-luxury);
 }
 
-.services-page .service-detail-content .package-action:hover span {
+.services-page .service-detail-content .package-action:hover span:last-child {
     transform: translate(4px, -4px);
 }
 
@@ -6632,7 +6746,7 @@ a {
 
     border: 1px solid rgba(255, 255, 255, .25);
 
-    color: var(--dark);
+    color: var(--dark-gray);
 
     background: var(--white);
 
@@ -7020,6 +7134,120 @@ a {
 
     .booking-page .photo-upload-label {
         min-height: 150px;
+    }
+
+}
+
+/* ========================================================
+   RTL SUPPORT (Arabic)
+   Only the layout/positioning rules that genuinely need to
+   flip for a right-to-left reading direction. Flex and grid
+   containers already reverse automatically once html[dir]
+   is set — this section only covers physical left/right
+   values, fixed rotations and components that must stay
+   visually left-to-right regardless of page direction.
+======================================================== */
+
+html.rtl {
+    direction: rtl;
+}
+
+html.rtl body {
+    font-family: "DM Sans", "Tahoma", sans-serif;
+}
+
+
+/* Hero side vertical label — mirror to the other edge */
+
+html.rtl .hero-side-info {
+    right: auto;
+    left: 35px;
+    transform: rotate(90deg);
+    transform-origin: left bottom;
+}
+
+
+/* Nav dropdown caret / language caret already centered via
+   translateX(-50%) — no change needed there. The language
+   menu itself uses inset-inline-end, which already flips. */
+
+
+/* Mobile nav / dropdown paddings are symmetric already —
+   only the text alignment needs to follow direction */
+
+html.rtl .nav-links a,
+html.rtl .nav-dropdown-menu a {
+    text-align: right;
+}
+
+
+/* Form labels / inputs / textareas follow reading direction */
+
+html.rtl .booking-page .form-group label,
+html.rtl .booking-page .form-note,
+html.rtl .booking-page .form-consent {
+    text-align: right;
+}
+
+html.rtl .booking-page input,
+html.rtl .booking-page select,
+html.rtl .booking-page textarea {
+    text-align: right;
+}
+
+
+/* Radio / checkbox rows should keep their control next to
+   the label it belongs to, not jump sides */
+
+html.rtl .contact-preferences label,
+html.rtl .form-consent label {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+
+/* Before / After comparison slider relies on physical
+   pixel math (clientX vs. bounding rect). Keep this
+   component strictly left-to-right at all times so the
+   drag interaction and layered images never invert,
+   regardless of the surrounding page direction. */
+
+.comparison-gallery,
+.comparison,
+.comparison-before,
+.comparison-after,
+.comparison-slider {
+    direction: ltr;
+}
+
+
+/* Package / service "includes" tag rows and price rows are
+   flex and already mirror correctly — only the tag text
+   itself needs right alignment in Arabic */
+
+html.rtl .package-includes,
+html.rtl .about-services {
+    text-align: right;
+}
+
+
+/* Footer link separators read fine as-is; only align the
+   block to the right on Arabic for a natural reading start */
+
+html.rtl .footer-links {
+    direction: rtl;
+}
+
+
+@media (max-width: 900px) {
+
+    html.rtl .nav-links {
+        align-items: flex-end;
+    }
+
+    html.rtl .nav-dropdown-menu {
+        padding-right: 15px;
+        padding-left: 0;
     }
 
 }

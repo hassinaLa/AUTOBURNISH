@@ -197,167 +197,314 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* ========================================
-   LANGUAGE DROPDOWN
-======================================== */
+       LANGUAGE / i18n
+    ======================================== */
 
-const languageButton =
-    document.querySelector(".language-btn");
-
-if (languageButton) {
-
-    const languageMenu =
-        document.createElement("div");
-
-    languageMenu.className =
-        "js-language-menu";
+    const LANG_STORAGE_KEY = "autoBurnishLanguage";
+    const SUPPORTED_LANGS = ["fr", "en", "ar"];
 
 
-    languageMenu.style.cssText = `
-        position: fixed;
-        min-width: 90px;
-        padding: 6px 0;
-        background: #111;
-        border: 1px solid rgba(255,255,255,0.12);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-        display: none;
-        z-index: 99999;
-    `;
+    function getTranslation(lang, key) {
 
-    function positionLanguageMenu() {
+        const dict =
+            (typeof translations !== "undefined" && translations[lang]) ||
+            null;
 
-        const rect =
-            languageButton.getBoundingClientRect();
-    
-        languageMenu.style.left =
-            rect.left + "px";
-    
-        languageMenu.style.top =
-            (rect.bottom + 15) + "px";
-    
+        if (!dict) {
+            return null;
+        }
+
+        const parts = key.split(".");
+
+        let node = dict;
+
+        for (let i = 0; i < parts.length; i++) {
+
+            if (
+                node &&
+                Object.prototype.hasOwnProperty.call(node, parts[i])
+            ) {
+
+                node = node[parts[i]];
+
+            } else {
+
+                return null;
+
+            }
+
+        }
+
+        return typeof node === "string" ? node : null;
+
     }
 
-    ["FR", "EN", "AR"].forEach(function (lang) {
 
-        const option =
-            document.createElement("button");
+    function translate(key, lang) {
 
-        option.type = "button";
+        return (
+            getTranslation(lang, key) ??
+            getTranslation("fr", key) ??
+            key
+        );
 
-        option.textContent = lang;
-
-        option.style.cssText = `
-            display: block;
-            width: 100%;
-            padding: 11px 18px;
-            border: none;
-            background: transparent;
-            color: #aaa;
-            font-family: inherit;
-            font-size: 11px;
-            text-align: left;
-            cursor: pointer;
-        `;
+    }
 
 
-        option.addEventListener(
-            "mouseenter",
-            function () {
-                option.style.color = "#d4af37";
-            }
+    function applyLanguage(lang) {
+
+        if (SUPPORTED_LANGS.indexOf(lang) === -1) {
+            lang = "fr";
+        }
+
+
+        /* Text content */
+
+        document
+            .querySelectorAll("[data-i18n]")
+            .forEach(function (el) {
+
+                el.textContent =
+                    translate(el.getAttribute("data-i18n"), lang);
+
+            });
+
+
+        /* HTML content (may contain <em>, <br>, <span>, <strong>) */
+
+        document
+            .querySelectorAll("[data-i18n-html]")
+            .forEach(function (el) {
+
+                el.innerHTML =
+                    translate(el.getAttribute("data-i18n-html"), lang);
+
+            });
+
+
+        /* Placeholders */
+
+        document
+            .querySelectorAll("[data-i18n-placeholder]")
+            .forEach(function (el) {
+
+                el.setAttribute(
+                    "placeholder",
+                    translate(el.getAttribute("data-i18n-placeholder"), lang)
+                );
+
+            });
+
+
+        /* Alt attributes — strip any inline markup, since a
+           translation key may be shared with a data-i18n-html
+           element (e.g. a title containing <em>/<br>) and alt
+           text must always be plain text */
+
+        document
+            .querySelectorAll("[data-i18n-alt]")
+            .forEach(function (el) {
+
+                const raw =
+                    translate(el.getAttribute("data-i18n-alt"), lang);
+
+                el.setAttribute(
+                    "alt",
+                    raw.replace(/<[^>]+>/g, "").trim()
+                );
+
+            });
+
+
+        /* Aria labels */
+
+        document
+            .querySelectorAll("[data-i18n-aria-label]")
+            .forEach(function (el) {
+
+                el.setAttribute(
+                    "aria-label",
+                    translate(el.getAttribute("data-i18n-aria-label"), lang)
+                );
+
+            });
+
+
+        /* Direction / lang / rtl class */
+
+        const isRtl = lang === "ar";
+
+        document.documentElement.lang = lang;
+
+        document.documentElement.dir =
+            isRtl ? "rtl" : "ltr";
+
+        document.documentElement.classList.toggle(
+            "rtl",
+            isRtl
         );
 
 
-        option.addEventListener(
-            "mouseleave",
-            function () {
-                option.style.color = "#aaa";
+        /* Language button label */
+
+        if (languageButton) {
+
+            const labelNode =
+                languageButton.childNodes[0];
+
+            if (labelNode) {
+
+                labelNode.textContent =
+                    lang.toUpperCase() + " ";
+
             }
-        );
+
+        }
 
 
-        option.addEventListener(
+        /* Selected state inside the dropdown */
+
+        document
+            .querySelectorAll(".language-menu button")
+            .forEach(function (btn) {
+
+                btn.classList.toggle(
+                    "active",
+                    btn.dataset.lang === lang
+                );
+
+            });
+
+
+        localStorage.setItem(LANG_STORAGE_KEY, lang);
+
+    }
+
+
+    const languageButton =
+        document.querySelector(".language-btn");
+
+    if (languageButton) {
+
+        const languageMenu =
+            document.createElement("div");
+
+        languageMenu.className = "language-menu";
+
+
+        SUPPORTED_LANGS.forEach(function (lang) {
+
+            const option =
+                document.createElement("button");
+
+            option.type = "button";
+
+            option.dataset.lang = lang;
+
+            option.textContent = lang.toUpperCase();
+
+
+            option.addEventListener(
+                "click",
+                function (e) {
+
+                    e.stopPropagation();
+
+                    applyLanguage(lang);
+
+                    languageMenu.classList.remove("open");
+
+                }
+            );
+
+
+            languageMenu.appendChild(option);
+
+        });
+
+
+        /* Wrap the button in its own tight-fitting element so
+           the dropdown anchors to the button's own box, not
+           the taller shared row it sits in (.nav-actions also
+           holds the CTA button, which is taller) */
+
+        const languageWrapper =
+            document.createElement("span");
+
+        languageWrapper.className = "language-wrapper";
+
+        const buttonParent = languageButton.parentElement;
+
+        if (buttonParent) {
+
+            buttonParent.insertBefore(
+                languageWrapper,
+                languageButton
+            );
+
+            languageWrapper.appendChild(languageButton);
+
+        }
+
+        languageWrapper.appendChild(languageMenu);
+
+
+        languageButton.addEventListener(
             "click",
             function (e) {
 
+                e.preventDefault();
                 e.stopPropagation();
 
-                /* Change displayed language */
-
-                languageButton.firstChild.textContent =
-                    lang + " ";
-
-                languageMenu.style.display =
-                    "none";
+                languageMenu.classList.toggle("open");
 
             }
         );
 
 
-        languageMenu.appendChild(option);
+        /* Close on outside click */
 
-    });
+        document.addEventListener(
+            "click",
+            function (e) {
+
+                if (
+                    !languageMenu.contains(e.target) &&
+                    e.target !== languageButton
+                ) {
+
+                    languageMenu.classList.remove("open");
+
+                }
+
+            }
+        );
 
 
-    /* Make the language button's parent relative */
+        /* Close on Escape */
 
-    const parent =
-        languageButton.parentElement;
+        document.addEventListener(
+            "keydown",
+            function (e) {
 
-    if (parent) {
+                if (e.key === "Escape") {
 
-        parent.style.position =
-            "relative";
+                    languageMenu.classList.remove("open");
 
-        parent.appendChild(
-            languageMenu
+                }
+
+            }
         );
 
     }
 
 
-    /* Open / close */
+    /* Initial language: saved choice, else French */
 
-    languageButton.addEventListener(
-        "click",
-        function (e) {
-    
-            e.preventDefault();
-            e.stopPropagation();
-    
-    
-            const isOpen =
-                languageMenu.style.display === "block";
-    
-    
-            if (isOpen) {
-    
-                languageMenu.style.display = "none";
-    
-            } else {
-    
-                positionLanguageMenu();
-    
-                languageMenu.style.display = "block";
-    
-            }
-    
-        }
-    );
+    const savedLang =
+        localStorage.getItem(LANG_STORAGE_KEY) || "fr";
 
-
-    /* Close when clicking elsewhere */
-
-    document.addEventListener(
-        "click",
-        function () {
-
-            languageMenu.style.display =
-                "none";
-
-        }
-    );
-
-}
+    applyLanguage(savedLang);
 
     /* ========================================
        SMOOTH SCROLL
@@ -540,6 +687,24 @@ if (heroSlides.length > 1) {
                             "is-dragging"
                         );
 
+                        /* Keep receiving move/up events on this
+                           element even if the cursor leaves its
+                           bounds mid-drag — without this, a fast
+                           drag past the edge "drops" the slider
+                           and can leave it stuck mid-transition */
+
+                        if (comparison.setPointerCapture) {
+
+                            try {
+
+                                comparison.setPointerCapture(
+                                    e.pointerId
+                                );
+
+                            } catch (err) {}
+
+                        }
+
                         moveSlider(
                             e.clientX
                         );
@@ -570,6 +735,36 @@ if (heroSlides.length > 1) {
 
                 comparison.addEventListener(
                     "pointerup",
+                    function (e) {
+
+                        dragging = false;
+
+                        comparison.classList.remove(
+                            "is-dragging"
+                        );
+
+                        if (
+                            comparison.releasePointerCapture &&
+                            comparison.hasPointerCapture &&
+                            comparison.hasPointerCapture(e.pointerId)
+                        ) {
+
+                            try {
+
+                                comparison.releasePointerCapture(
+                                    e.pointerId
+                                );
+
+                            } catch (err) {}
+
+                        }
+
+                    }
+                );
+
+
+                comparison.addEventListener(
+                    "pointercancel",
                     function () {
 
                         dragging = false;
@@ -582,9 +777,19 @@ if (heroSlides.length > 1) {
                 );
 
 
-                comparison.addEventListener(
-                    "pointercancel",
+                /* Failsafe: if pointer capture isn't supported
+                   and the pointer is released outside the
+                   element, this guarantees dragging state and
+                   the transition-disabling class never get
+                   stuck permanently */
+
+                document.addEventListener(
+                    "pointerup",
                     function () {
+
+                        if (!dragging) {
+                            return;
+                        }
 
                         dragging = false;
 

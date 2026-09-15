@@ -4,6 +4,25 @@
 <head>
     <meta charset="UTF-8">
 
+    <!-- Set language/direction before first paint, so saved
+         EN/AR visitors never see a French-then-flip flash -->
+    <script>
+    (function () {
+        try {
+            var lang = localStorage.getItem("autoBurnishLanguage") || "fr";
+            if (["fr", "en", "ar"].indexOf(lang) === -1) {
+                lang = "fr";
+            }
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+            if (lang === "ar") {
+                document.documentElement.classList.add("rtl");
+            }
+        } catch (e) {}
+    })();
+    </script>
+
+
     <!-- Responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -40,7 +59,7 @@
             <!-- Desktop Navigation -->
            <nav class="nav-links">
 
-    <a href="#home" class="active">
+    <a href="#home" class="active" data-i18n="nav.home">
         Accueil
     </a>
 
@@ -51,17 +70,17 @@
             type="button"
             class="nav-dropdown-toggle"
         >
-            Packages
+            <span data-i18n="nav.packages_toggle">Packages</span>
             <span>⌄</span>
         </button>
 
         <div class="nav-dropdown-menu">
 
-            <a href="pages/packages.html">
+            <a href="pages/packages.html" data-i18n="nav.packs">
                 Packs
             </a>
 
-            <a href="pages/services.html">
+            <a href="pages/services.html" data-i18n="nav.services">
                 Services
             </a>
 
@@ -77,17 +96,17 @@
             type="button"
             class="nav-dropdown-toggle"
         >
-            Notre travail
+            <span data-i18n="nav.work_toggle">Notre travail</span>
             <span>⌄</span>
         </button>
 
         <div class="nav-dropdown-menu">
 
-            <a href="#results">
+            <a href="#results" data-i18n="nav.before_after">
                 Avant / Après
             </a>
 
-            <a href="#gallery">
+            <a href="#gallery" data-i18n="nav.gallery">
                 Réalisations
             </a>
 
@@ -96,12 +115,12 @@
     </div>
 
 
-    <a href="#about">
+    <a href="#about" data-i18n="nav.about">
         À propos
     </a>
 
 
-    <a href="#contact">
+    <a href="#contact" data-i18n="nav.contact">
         Contact
     </a>
 
@@ -111,18 +130,18 @@
             <div class="nav-actions">
 
                 <!-- Language -->
-                <button class="language-btn">
+                <button class="language-btn" aria-label="Choisir la langue" data-i18n-aria-label="nav.lang_aria">
                     FR
                     <span>⌄</span>
                 </button>
 
                 <!-- CTA -->
-                <a href="pages/booking.html" class="nav-cta">
+                <a href="pages/booking.html" class="nav-cta" data-i18n="nav.reserve">
                     Réserver
                 </a>
 
                 <!-- Mobile Menu -->
-                <button class="menu-btn" aria-label="Ouvrir le menu">
+                <button class="menu-btn" aria-label="Ouvrir le menu" data-i18n-aria-label="nav.menu_aria">
                     <span></span>
                     <span></span>
                 </button>
@@ -178,28 +197,20 @@
 
         <div class="hero-label">
             <span class="hero-line"></span>
-            AUTO BURNISH
+            <span data-i18n="hero.label">AUTO BURNISH</span>
         </div>
 
-        <h1>
-            L'art du
-            <span>detailing</span>
-           <h1 class="edit"> automobile. </h1> 
-        </h1>
+        <h1 data-i18n-html="hero.title">L'art du <span>detailing</span> automobile.</h1>
 
-        <p class="hero-description">
-            Sublimez votre véhicule.
-            <br>
-            Préservez son excellence.
-        </p>
+        <p class="hero-description" data-i18n-html="hero.desc">Sublimez votre véhicule.<br>Préservez son excellence.</p>
 
         <div class="hero-buttons">
 
-            <a href="#packages" class="gold-button">
+            <a href="#packages" class="gold-button" data-i18n="hero.cta_primary">
                 Découvrir nos services
             </a>
 
-            <a href="#contact" class="outline-button">
+            <a href="#contact" class="outline-button" data-i18n="hero.cta_secondary">
                 Nous contacter
             </a>
 
@@ -211,8 +222,8 @@
     <!-- Hero Side Information -->
     <div class="hero-side-info">
 
-        <span>DETAILING</span>
-        <span>AUTOMOBILE</span>
+        <span data-i18n="hero.side_1">DETAILING</span>
+        <span data-i18n="hero.side_2">AUTOMOBILE</span>
 
     </div>
 
@@ -233,18 +244,14 @@
 
             <div class="section-label">
                 <span></span>
-                NOS PACKAGES
+                <span data-i18n="packages_section.label">NOS PACKAGES</span>
             </div>
 
             <div class="section-heading-row">
 
-                <h2>
-                    Des solutions pour 
-                    chaque
-                    <em> véhicule.</em>
-                </h2>
+                <h2 data-i18n-html="packages_section.heading">Des solutions pour chaque<em> véhicule.</em></h2>
 
-                <p>
+                <p data-i18n="packages_section.desc">
                     Découvrez nos solutions de detailing
                     et de protection automobile, adaptées
                     aux besoins de votre véhicule.
@@ -270,6 +277,7 @@
                     <img
                         src="assets/images/packages/brillance,.jpg"
                         alt="Pack Brillance Auto Burnish"
+                        data-i18n-alt="pkg_home.p1.title"
                     >
 
                     <span class="package-number">
@@ -283,23 +291,21 @@
 
                     <div class="package-top">
 
-                        <span class="package-category">
+                        <span class="package-category" data-i18n="pkg_home.p1.category">
                             DETAILING
                         </span>
 
-                        <span class="package-price">
-                            À partir de 15 000 DA
-                        </span>
+                        <span class="package-price"><span data-i18n="common.from">À partir de</span> 15 000 DA</span>
 
                     </div>
 
 
-                    <h3>
+                    <h3 data-i18n="pkg_home.p1.title">
                         Pack Brillance
                     </h3>
 
 
-                    <p>
+                    <p data-i18n="pkg_home.p1.desc">
                         Un soin complet pour retrouver
                         propreté, éclat et finition.
                     </p>
@@ -307,15 +313,15 @@
 
                     <div class="package-includes">
 
-                        <span>Nettoyage extérieur</span>
-                        <span>Nettoyage intérieur</span>
-                        <span>Polissage</span>
+                        <span data-i18n="pkg_home.p1.tag1">Nettoyage extérieur</span>
+                        <span data-i18n="pkg_home.p1.tag2">Nettoyage intérieur</span>
+                        <span data-i18n="pkg_home.p1.tag3">Polissage</span>
 
                     </div>
 
 
                     <a href="pages/packages.html#brillance" class="package-link">
-                        Découvrir le pack
+                        <span data-i18n="common.discover_pack">Découvrir le pack</span>
                         <span>↗</span>
                     </a>
 
@@ -336,6 +342,7 @@
                     <img
                         src="assets/images/packages/correction.jpg"
                         alt="Correction des rayures Auto Burnish"
+                        data-i18n-alt="pkg_home.p2.category"
                     >
 
                     <span class="package-number">
@@ -349,25 +356,19 @@
 
                     <div class="package-top">
 
-                        <span class="package-category">
+                        <span class="package-category" data-i18n="pkg_home.p2.category">
                             CORRECTION
                         </span>
 
-                        <span class="package-price">
-                            À partir de 35 000 DA
-                        </span>
+                        <span class="package-price"><span data-i18n="common.from">À partir de</span> 35 000 DA</span>
 
                     </div>
 
 
-                    <h3>
-                        Correction des rayures
-                        <br>
-                        <span>et micro-rayures</span>
-                    </h3>
+                    <h3 data-i18n-html="pkg_home.p2.title">Correction des rayures<br><span>et micro-rayures</span></h3>
 
 
-                    <p>
+                    <p data-i18n="pkg_home.p2.desc">
                         Une correction destinée à améliorer
                         la clarté et l'aspect de la peinture.
                     </p>
@@ -375,15 +376,15 @@
 
                     <div class="package-includes">
 
-                        <span>Polissage</span>
-                        <span>Correction peinture</span>
-                        <span>Correction des rayures</span>
+                        <span data-i18n="pkg_home.p2.tag1">Polissage</span>
+                        <span data-i18n="pkg_home.p2.tag2">Correction peinture</span>
+                        <span data-i18n="pkg_home.p2.tag3">Correction des rayures</span>
 
                     </div>
 
 
                     <a href="pages/packages.html#correction" class="package-link">
-                        Découvrir le pack
+                        <span data-i18n="common.discover_pack">Découvrir le pack</span>
                         <span>↗</span>
                     </a>
 
@@ -404,6 +405,7 @@
                     <img
                         src="assets/images/packages/ceramic.jpg"
                         alt="Protection céramique Auto Burnish"
+                        data-i18n-alt="pkg_home.p3.category"
                     >
 
                     <span class="package-number">
@@ -417,25 +419,19 @@
 
                     <div class="package-top">
 
-                        <span class="package-category">
+                        <span class="package-category" data-i18n="pkg_home.p3.category">
                             PROTECTION
                         </span>
 
-                        <span class="package-price">
-                            À partir de 70 000 DA
-                        </span>
+                        <span class="package-price"><span data-i18n="common.from">À partir de</span> 70 000 DA</span>
 
                     </div>
 
 
-                    <h3>
-                        Protection
-                        <br>
-                        <span>Céramique</span>
-                    </h3>
+                    <h3 data-i18n-html="pkg_home.p3.title">Protection<br><span>Céramique</span></h3>
 
 
-                    <p>
+                    <p data-i18n="pkg_home.p3.desc">
                         Une protection premium combinant
                         correction, finition et protection
                         de différentes surfaces.
@@ -444,15 +440,15 @@
 
                     <div class="package-includes">
 
-                        <span>Polissage / correction</span>
-                        <span>Application céramique</span>
-                        <span>Protection vitres & jantes</span>
+                        <span data-i18n="pkg_home.p3.tag1">Polissage / correction</span>
+                        <span data-i18n="pkg_home.p3.tag2">Application céramique</span>
+                        <span data-i18n="pkg_home.p3.tag3">Protection vitres & jantes</span>
 
                     </div>
 
 
                     <a href="pages/packages.html#ceramic" class="package-link">
-                        Découvrir le pack
+                        <span data-i18n="common.discover_pack">Découvrir le pack</span>
                         <span>↗</span>
                     </a>
 
@@ -473,6 +469,7 @@
                     <img
                         src="assets/images/packages/ppf.jpg"
                         alt="Protection PPF Auto Burnish"
+                        data-i18n-alt="pkg_home.p4.category"
                     >
 
                     <span class="package-number">
@@ -486,25 +483,19 @@
 
                     <div class="package-top">
 
-                        <span class="package-category">
+                        <span class="package-category" data-i18n="pkg_home.p4.category">
                             PROTECTION
                         </span>
 
-                        <span class="package-price">
-                            À partir de 300 000 DA
-                        </span>
+                        <span class="package-price"><span data-i18n="common.from">À partir de</span> 300 000 DA</span>
 
                     </div>
 
 
-                    <h3>
-                        Protection
-                        <br>
-                        <span>PPF</span>
-                    </h3>
+                    <h3 data-i18n-html="pkg_home.p4.title">Protection<br><span>PPF</span></h3>
 
 
-                    <p>
+                    <p data-i18n="pkg_home.p4.desc">
                         Une protection de la peinture
                         adaptée aux zones choisies
                         ou au véhicule complet.
@@ -513,15 +504,15 @@
 
                     <div class="package-includes">
 
-                        <span>Pare-chocs</span>
-                        <span>Capot</span>
-                        <span>Véhicule complet</span>
+                        <span data-i18n="pkg_home.p4.tag1">Pare-chocs</span>
+                        <span data-i18n="pkg_home.p4.tag2">Capot</span>
+                        <span data-i18n="pkg_home.p4.tag3">Véhicule complet</span>
 
                     </div>
 
 
                     <a href="pages/packages.html#ppf" class="package-link">
-                        Découvrir le pack
+                        <span data-i18n="common.discover_pack">Découvrir le pack</span>
                         <span>↗</span>
                     </a>
 
@@ -552,19 +543,14 @@
 
                 <div class="section-label">
                     <span></span>
-                    SERVICES
+                    <span data-i18n="services_section.label">SERVICES</span>
                 </div>
 
-                <h2>
-                    Les détails qui font
-                    <br>
-                    
-                    <em> la différence.</em>
-                </h2>
+                <h2 data-i18n-html="services_section.heading">Les détails qui font<br><em> la différence.</em></h2>
 
             </div>
 
-            <p>
+            <p data-i18n="services_section.desc">
                 Des prestations complémentaires pour
                 personnaliser le soin de votre véhicule
                 selon ses besoins.
@@ -590,16 +576,17 @@
                     <img
                         src="assets/images/services/polissage.jpg"
                         alt="Polissage Auto Burnish"
+                    data-i18n-alt="svc_home.s1.title"
                         >
                 </div>
 
                 <div class="service-info">
 
-                    <h3>
+                    <h3 data-i18n="svc_home.s1.title">
                         Polissage
                     </h3>
 
-                    <p>
+                    <p data-i18n="svc_home.s1.desc">
                         Redonnez profondeur, éclat et
                         finition à la carrosserie.
                     </p>
@@ -627,16 +614,17 @@
                     <img
                     src="assets/images/services/cuir.jpg"
                     alt="Traitement de cuir"
+                    data-i18n-alt="svc_home.s2.title"
                 >
                 </div>
 
                 <div class="service-info">
 
-                    <h3>
+                    <h3 data-i18n="svc_home.s2.title">
                         Traitement de cuir
                     </h3>
 
-                    <p>
+                    <p data-i18n="svc_home.s2.desc">
                         Un soin dédié aux surfaces en cuir
                         pour préserver leur aspect et leur finition.
                     </p>
@@ -664,16 +652,17 @@
                     <img
                         src="assets/images/services/ciel.jpg"
                         alt="Ciel étoilé"
+                    data-i18n-alt="svc_home.s3.title"
                     >
                 </div>
 
                 <div class="service-info">
 
-                    <h3>
+                    <h3 data-i18n="svc_home.s3.title">
                         Ciel étoilé
                     </h3>
 
-                    <p>
+                    <p data-i18n="svc_home.s3.desc">
                         Une personnalisation lumineuse pour
                         créer une ambiance unique à l'intérieur.
                     </p>
@@ -701,16 +690,17 @@
                     <img
                         src="assets/images/services/lifting.jpg"
                         alt="Lifting"
+                    data-i18n-alt="svc_home.s4.title"
                     >
                 </div>
 
                 <div class="service-info">
 
-                    <h3>
+                    <h3 data-i18n="svc_home.s4.title">
                         Lifting
                     </h3>
 
-                    <p>
+                    <p data-i18n="svc_home.s4.desc">
                         Nettoyage et soin des différents
                         éléments de l'habitacle.
                     </p>
@@ -738,16 +728,17 @@
                     <img
                         src="assets/images/services/finition.jpg"
                         alt="Finition & lustre"
+                    data-i18n-alt="svc_home.s5.title"
                     >
                 </div>
 
                 <div class="service-info">
 
-                    <h3>
+                    <h3 data-i18n="svc_home.s5.title">
                         Finition & lustre
                     </h3>
 
-                    <p>
+                    <p data-i18n="svc_home.s5.desc">
                         Travail de finition pour mettre
                         en valeur la brillance du véhicule.
                     </p>
@@ -775,16 +766,17 @@
                     <img
                         src="assets/images/services/protection.jpg"
                         alt="Protection personnalisée"
+                    data-i18n-alt="svc_home.s6.title"
                     >
                 </div>
 
                 <div class="service-info">
 
-                    <h3>
+                    <h3 data-i18n="svc_home.s6.title">
                         Protection personnalisée
                     </h3>
 
-                    <p>
+                    <p data-i18n="svc_home.s6.desc">
                         Une solution adaptée aux surfaces
                         et aux besoins spécifiques du véhicule.
                     </p>
@@ -819,17 +811,12 @@
 
             <div class="section-label">
                 <span></span>
-                POURQUOI NOUS
+                <span data-i18n="why_section.label">POURQUOI NOUS</span>
             </div>
 
-            <h2>
-                L'exigence dans chaque
-             
-               
-                <em> détail.</em>
-            </h2>
+            <h2 data-i18n-html="why_section.heading">L'exigence dans chaque<em> détail.</em></h2>
 
-            <p>
+            <p data-i18n="why_section.desc">
                 Chez Auto Burnish, chaque intervention est pensée
                 pour révéler, préserver et protéger votre véhicule.
             </p>
@@ -850,11 +837,11 @@
                     ✦
                 </div>
 
-                <h3>
+                <h3 data-i18n="why_section.w1_title">
                     Précision
                 </h3>
 
-                <p>
+                <p data-i18n="why_section.w1_desc">
                     Un travail minutieux porté sur chaque
                     surface et chaque détail du véhicule.
                 </p>
@@ -872,11 +859,11 @@
                     ◇
                 </div>
 
-                <h3>
+                <h3 data-i18n="why_section.w2_title">
                     Attention au détail
                 </h3>
 
-                <p>
+                <p data-i18n="why_section.w2_desc">
                     Une approche soignée pour obtenir
                     une finition propre et homogène.
                 </p>
@@ -894,11 +881,11 @@
                     ✧
                 </div>
 
-                <h3>
+                <h3 data-i18n="why_section.w3_title">
                     Finition premium
                 </h3>
 
-                <p>
+                <p data-i18n="why_section.w3_desc">
                     Nous recherchons une finition qui met
                     réellement en valeur votre véhicule.
                 </p>
@@ -916,11 +903,11 @@
                     ◉
                 </div>
 
-                <h3>
+                <h3 data-i18n="why_section.w4_title">
                     Protection
                 </h3>
 
-                <p>
+                <p data-i18n="why_section.w4_desc">
                     Des solutions de protection adaptées
                     aux besoins de votre véhicule.
                 </p>
@@ -948,16 +935,12 @@
 
             <div class="section-label">
                 <span></span>
-                AVANT / APRÈS
+                <span data-i18n="before_after.label">AVANT / APRÈS</span>
             </div>
 
-            <h2>
-                La différence
-                <br>
-                <em>se voit.</em>
-            </h2>
+            <h2 data-i18n-html="before_after.heading">La différence<br><em>se voit.</em></h2>
 
-            <p>
+            <p data-i18n="before_after.desc">
                 Découvrez la transformation du véhicule
                 à travers nos réalisations.
             </p>
@@ -981,10 +964,10 @@
 
                         <img
                             src="assets/images/before-after/after-01.jpg"
-                            alt="Résultat Auto Burnish"
+                            alt="Résultat Auto Burnish" data-i18n-alt="before_after.alt_after"
                         >
 
-                        <span class="comparison-label after-label">
+                        <span class="comparison-label after-label" data-i18n="before_after.after">
                             APRÈS
                         </span>
 
@@ -995,10 +978,10 @@
 
                         <img
                             src="assets/images/before-after/before-01.jpg"
-                            alt="Véhicule avant intervention"
+                            alt="Véhicule avant intervention" data-i18n-alt="before_after.alt_before"
                         >
 
-                        <span class="comparison-label before-label">
+                        <span class="comparison-label before-label" data-i18n="before_after.before">
                             AVANT
                         </span>
 
@@ -1012,7 +995,7 @@
                         <button
                             class="slider-button"
                             type="button"
-                            aria-label="Comparer avant et après"
+                            aria-label="Comparer avant et après" data-i18n-aria-label="before_after.slider_aria"
                         >
                             <span>‹</span>
                             <span>›</span>
@@ -1031,10 +1014,10 @@
 
                         <img
                             src="assets/images/before-after/after-02.jpg"
-                            alt="Résultat Auto Burnish"
+                            alt="Résultat Auto Burnish" data-i18n-alt="before_after.alt_after"
                         >
 
-                        <span class="comparison-label after-label">
+                        <span class="comparison-label after-label" data-i18n="before_after.after">
                             APRÈS
                         </span>
 
@@ -1045,10 +1028,10 @@
 
                         <img
                             src="assets/images/before-after/before-02.jpg"
-                            alt="Véhicule avant intervention"
+                            alt="Véhicule avant intervention" data-i18n-alt="before_after.alt_before"
                         >
 
-                        <span class="comparison-label before-label">
+                        <span class="comparison-label before-label" data-i18n="before_after.before">
                             AVANT
                         </span>
 
@@ -1062,7 +1045,7 @@
                         <button
                             class="slider-button"
                             type="button"
-                            aria-label="Comparer avant et après"
+                            aria-label="Comparer avant et après" data-i18n-aria-label="before_after.slider_aria"
                         >
                             <span>‹</span>
                             <span>›</span>
@@ -1081,10 +1064,10 @@
 
                         <img
                             src="assets/images/before-after/after-03.jpg"
-                            alt="Résultat Auto Burnish"
+                            alt="Résultat Auto Burnish" data-i18n-alt="before_after.alt_after"
                         >
 
-                        <span class="comparison-label after-label">
+                        <span class="comparison-label after-label" data-i18n="before_after.after">
                             APRÈS
                         </span>
 
@@ -1095,10 +1078,10 @@
 
                         <img
                             src="assets/images/before-after/before-03.jpg"
-                            alt="Véhicule avant intervention"
+                            alt="Véhicule avant intervention" data-i18n-alt="before_after.alt_before"
                         >
 
-                        <span class="comparison-label before-label">
+                        <span class="comparison-label before-label" data-i18n="before_after.before">
                             AVANT
                         </span>
 
@@ -1112,7 +1095,7 @@
                         <button
                             class="slider-button"
                             type="button"
-                            aria-label="Comparer avant et après"
+                            aria-label="Comparer avant et après" data-i18n-aria-label="before_after.slider_aria"
                         >
                             <span>‹</span>
                             <span>›</span>
@@ -1131,10 +1114,10 @@
 
                         <img
                             src="assets/images/before-after/after-04.jpg"
-                            alt="Résultat Auto Burnish"
+                            alt="Résultat Auto Burnish" data-i18n-alt="before_after.alt_after"
                         >
 
-                        <span class="comparison-label after-label">
+                        <span class="comparison-label after-label" data-i18n="before_after.after">
                             APRÈS
                         </span>
 
@@ -1145,10 +1128,10 @@
 
                         <img
                             src="assets/images/before-after/before-04.jpg"
-                            alt="Véhicule avant intervention"
+                            alt="Véhicule avant intervention" data-i18n-alt="before_after.alt_before"
                         >
 
-                        <span class="comparison-label before-label">
+                        <span class="comparison-label before-label" data-i18n="before_after.before">
                             AVANT
                         </span>
 
@@ -1160,7 +1143,7 @@
                         <button
                             class="slider-button"
                             type="button"
-                            aria-label="Comparer avant et après"
+                            aria-label="Comparer avant et après" data-i18n-aria-label="before_after.slider_aria"
                         >
                             <span>‹</span>
                             <span>›</span>
@@ -1177,10 +1160,10 @@
                     <div class="comparison-after">
                         <img
                             src="assets/images/before-after/after-05.jpg"
-                            alt="Résultat Auto Burnish"
+                            alt="Résultat Auto Burnish" data-i18n-alt="before_after.alt_after"
                         >
                     
-                        <span class="comparison-label after-label">
+                        <span class="comparison-label after-label" data-i18n="before_after.after">
                             APRÈS
                         </span>
                     </div>
@@ -1188,10 +1171,10 @@
                     <div class="comparison-before">
                         <img
                             src="assets/images/before-after/before-05.jpg"
-                            alt="Véhicule avant intervention"
+                            alt="Véhicule avant intervention" data-i18n-alt="before_after.alt_before"
                         >
                     
-                        <span class="comparison-label before-label">
+                        <span class="comparison-label before-label" data-i18n="before_after.before">
                             AVANT
                         </span>
                     </div>
@@ -1202,7 +1185,7 @@
                         <button
                             class="slider-button"
                             type="button"
-                            aria-label="Comparer avant et après"
+                            aria-label="Comparer avant et après" data-i18n-aria-label="before_after.slider_aria"
                         >
                             <span>‹</span>
                             <span>›</span>
@@ -1218,10 +1201,10 @@
                     <div class="comparison-after">
                         <img
                             src="assets/images/before-after/after-06.jpg"
-                            alt="Résultat Auto Burnish"
+                            alt="Résultat Auto Burnish" data-i18n-alt="before_after.alt_after"
                         >
                     
-                        <span class="comparison-label after-label">
+                        <span class="comparison-label after-label" data-i18n="before_after.after">
                             APRÈS
                         </span>
                     </div>
@@ -1229,10 +1212,10 @@
                     <div class="comparison-before">
                         <img
                             src="assets/images/before-after/before-06.jpg"
-                            alt="Véhicule avant intervention"
+                            alt="Véhicule avant intervention" data-i18n-alt="before_after.alt_before"
                         >
                     
-                        <span class="comparison-label before-label">
+                        <span class="comparison-label before-label" data-i18n="before_after.before">
                             AVANT
                         </span>
                     </div>
@@ -1243,7 +1226,7 @@
                         <button
                             class="slider-button"
                             type="button"
-                            aria-label="Comparer avant et après"
+                            aria-label="Comparer avant et après" data-i18n-aria-label="before_after.slider_aria"
                         >
                             <span>‹</span>
                             <span>›</span>
@@ -1259,10 +1242,10 @@
                     <div class="comparison-after">
                         <img
                             src="assets/images/before-after/after-07.jpg"
-                            alt="Résultat Auto Burnish"
+                            alt="Résultat Auto Burnish" data-i18n-alt="before_after.alt_after"
                         >
                     
-                        <span class="comparison-label after-label">
+                        <span class="comparison-label after-label" data-i18n="before_after.after">
                             APRÈS
                         </span>
                     </div>
@@ -1270,10 +1253,10 @@
                     <div class="comparison-before">
                         <img
                             src="assets/images/before-after/before-07.jpg"
-                            alt="Véhicule avant intervention"
+                            alt="Véhicule avant intervention" data-i18n-alt="before_after.alt_before"
                         >
                     
-                        <span class="comparison-label before-label">
+                        <span class="comparison-label before-label" data-i18n="before_after.before">
                             AVANT
                         </span>
                     </div>
@@ -1284,7 +1267,7 @@
                         <button
                             class="slider-button"
                             type="button"
-                            aria-label="Comparer avant et après"
+                            aria-label="Comparer avant et après" data-i18n-aria-label="before_after.slider_aria"
                         >
                             <span>‹</span>
                             <span>›</span>
@@ -1300,10 +1283,10 @@
                     <div class="comparison-after">
                         <img
                             src="assets/images/before-after/after-08.jpg"
-                            alt="Résultat Auto Burnish"
+                            alt="Résultat Auto Burnish" data-i18n-alt="before_after.alt_after"
                         >
                     
-                        <span class="comparison-label after-label">
+                        <span class="comparison-label after-label" data-i18n="before_after.after">
                             APRÈS
                         </span>
                     </div>
@@ -1311,10 +1294,10 @@
                     <div class="comparison-before">
                         <img
                             src="assets/images/before-after/before-08.jpg"
-                            alt="Véhicule avant intervention"
+                            alt="Véhicule avant intervention" data-i18n-alt="before_after.alt_before"
                         >
                     
-                        <span class="comparison-label before-label">
+                        <span class="comparison-label before-label" data-i18n="before_after.before">
                             AVANT
                         </span>
                     </div>
@@ -1325,7 +1308,7 @@
                         <button
                             class="slider-button"
                             type="button"
-                            aria-label="Comparer avant et après"
+                            aria-label="Comparer avant et après" data-i18n-aria-label="before_after.slider_aria"
                         >
                             <span>‹</span>
                             <span>›</span>
@@ -1341,10 +1324,10 @@
                     <div class="comparison-after">
                         <img
                             src="assets/images/before-after/after-09.jpg"
-                            alt="Résultat Auto Burnish"
+                            alt="Résultat Auto Burnish" data-i18n-alt="before_after.alt_after"
                         >
                     
-                        <span class="comparison-label after-label">
+                        <span class="comparison-label after-label" data-i18n="before_after.after">
                             APRÈS
                         </span>
                     </div>
@@ -1352,10 +1335,10 @@
                     <div class="comparison-before">
                         <img
                             src="assets/images/before-after/before-09.jpg"
-                            alt="Véhicule avant intervention"
+                            alt="Véhicule avant intervention" data-i18n-alt="before_after.alt_before"
                         >
                     
-                        <span class="comparison-label before-label">
+                        <span class="comparison-label before-label" data-i18n="before_after.before">
                             AVANT
                         </span>
                     </div>
@@ -1366,7 +1349,7 @@
                         <button
                             class="slider-button"
                             type="button"
-                            aria-label="Comparer avant et après"
+                            aria-label="Comparer avant et après" data-i18n-aria-label="before_after.slider_aria"
                         >
                             <span>‹</span>
                             <span>›</span>
@@ -1382,10 +1365,10 @@
                     <div class="comparison-after">
                         <img
                             src="assets/images/before-after/after-10.jpg"
-                            alt="Résultat Auto Burnish"
+                            alt="Résultat Auto Burnish" data-i18n-alt="before_after.alt_after"
                         >
                     
-                        <span class="comparison-label after-label">
+                        <span class="comparison-label after-label" data-i18n="before_after.after">
                             APRÈS
                         </span>
                     </div>
@@ -1393,10 +1376,10 @@
                     <div class="comparison-before">
                         <img
                             src="assets/images/before-after/before-10.jpg"
-                            alt="Véhicule avant intervention"
+                            alt="Véhicule avant intervention" data-i18n-alt="before_after.alt_before"
                         >
                     
-                        <span class="comparison-label before-label">
+                        <span class="comparison-label before-label" data-i18n="before_after.before">
                             AVANT
                         </span>
                     </div>
@@ -1410,7 +1393,7 @@
                         <button
                             class="slider-button"
                             type="button"
-                            aria-label="Comparer avant et après"
+                            aria-label="Comparer avant et après" data-i18n-aria-label="before_after.slider_aria"
                         >
                             <span>‹</span>
                             <span>›</span>
@@ -1431,13 +1414,9 @@
                     01 / 04
                 </span>
 
-                <h3>
-                    Une finition
-                    <br>
-                    <em>soignée.</em>
-                </h3>
+                <h3 data-i18n-html="before_after.info_heading">Une finition<br><em>soignée.</em></h3>
 
-                <p>
+                <p data-i18n="before_after.info_desc">
                     Chaque réalisation met en valeur
                     le travail effectué sur le véhicule.
                 </p>
@@ -1450,7 +1429,7 @@
                     <button
                         class="comparison-prev"
                         type="button"
-                        aria-label="Réalisation précédente"
+                        aria-label="Réalisation précédente" data-i18n-aria-label="before_after.prev_aria"
                     >
                         ←
                     </button>
@@ -1458,7 +1437,7 @@
                     <button
                         class="comparison-next"
                         type="button"
-                        aria-label="Réalisation suivante"
+                        aria-label="Réalisation suivante" data-i18n-aria-label="before_after.next_aria"
                     >
                         →
                     </button>
@@ -1470,7 +1449,7 @@
 
                     <span></span>
 
-                    Faites glisser pour comparer
+                    <span data-i18n="before_after.note">Faites glisser pour comparer</span>
 
                 </div>
 
@@ -1497,17 +1476,14 @@
 
                 <div class="section-label">
                     <span></span>
-                    NOS RÉALISATIONS
+                    <span data-i18n="gallery_section.label">NOS RÉALISATIONS</span>
                 </div>
 
-                <h2>
-                    Notre
-                    <em>savoir-faire.</em>
-                </h2>
+                <h2 data-i18n-html="gallery_section.heading">Notre<em> savoir-faire.</em></h2>
 
             </div>
 
-            <p>
+            <p data-i18n="gallery_section.desc">
                 Découvrez quelques-unes de nos réalisations
                 et le soin apporté à chaque véhicule.
             </p>
@@ -1520,37 +1496,37 @@
         <div class="gallery-filters reveal">
 
             <button class="gallery-filter active"
-                    data-filter="all">
+                    data-filter="all" data-i18n="gallery_section.filter_all">
                 Tous
             </button>
 
             <button class="gallery-filter"
-                    data-filter="brillance">
+                    data-filter="brillance" data-i18n="gallery_section.cat_brillance">
                 Brillance
             </button>
 
             <button class="gallery-filter"
-                    data-filter="correction">
+                    data-filter="correction" data-i18n="gallery_section.cat_correction">
                 Correction
             </button>
 
             <button class="gallery-filter"
-                    data-filter="ceramique">
+                    data-filter="ceramique" data-i18n="gallery_section.cat_ceramique">
                 Céramique
             </button>
 
             <button class="gallery-filter"
-                    data-filter="ppf">
+                    data-filter="ppf" data-i18n="gallery_section.cat_ppf">
                 PPF
             </button>
 
             <button class="gallery-filter"
-                    data-filter="lifting">
+                    data-filter="lifting" data-i18n="gallery_section.cat_lifting">
                 Lifting
             </button>
 
             <button class="gallery-filter"
-                    data-filter="ciel-etoile">
+                    data-filter="ciel-etoile" data-i18n="gallery_section.cat_ciel">
                 Ciel étoilé
             </button>
 
@@ -1573,12 +1549,12 @@
 
                 <img
                     src="assets/images/gallery/brillance-01.jpg"
-                    alt="Pack Brillance"
+                    alt="Pack Brillance" data-i18n-alt="gallery_section.cat_brillance"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Brillance</span>
+                    <span data-i18n="gallery_section.cat_brillance">Brillance</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1592,12 +1568,12 @@
 
                 <img
                     src="assets/images/gallery/brillance-02.jpg"
-                    alt="Pack Brillance"
+                    alt="Pack Brillance" data-i18n-alt="gallery_section.cat_brillance"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Brillance</span>
+                    <span data-i18n="gallery_section.cat_brillance">Brillance</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1611,12 +1587,12 @@
 
                 <img
                     src="assets/images/gallery/brillance-03.jpg"
-                    alt="Pack Brillance"
+                    alt="Pack Brillance" data-i18n-alt="gallery_section.cat_brillance"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Brillance</span>
+                    <span data-i18n="gallery_section.cat_brillance">Brillance</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1634,12 +1610,12 @@
 
                 <img
                     src="assets/images/gallery/correction-01.jpg"
-                    alt="Correction des rayures"
+                    alt="Correction des rayures" data-i18n-alt="gallery_section.cat_correction"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Correction</span>
+                    <span data-i18n="gallery_section.cat_correction">Correction</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1653,12 +1629,12 @@
 
                 <img
                     src="assets/images/gallery/correction-02.jpg"
-                    alt="Correction des rayures"
+                    alt="Correction des rayures" data-i18n-alt="gallery_section.cat_correction"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Correction</span>
+                    <span data-i18n="gallery_section.cat_correction">Correction</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1672,12 +1648,12 @@
 
                 <img
                     src="assets/images/gallery/correction-03.jpg"
-                    alt="Correction des rayures"
+                    alt="Correction des rayures" data-i18n-alt="gallery_section.cat_correction"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Correction</span>
+                    <span data-i18n="gallery_section.cat_correction">Correction</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1695,12 +1671,12 @@
 
                 <img
                     src="assets/images/gallery/ceramique-01.jpg"
-                    alt="Protection céramique"
+                    alt="Protection céramique" data-i18n-alt="gallery_section.cat_ceramique"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Céramique</span>
+                    <span data-i18n="gallery_section.cat_ceramique">Céramique</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1714,12 +1690,12 @@
 
                 <img
                     src="assets/images/gallery/ceramique-02.jpg"
-                    alt="Protection céramique"
+                    alt="Protection céramique" data-i18n-alt="gallery_section.cat_ceramique"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Céramique</span>
+                    <span data-i18n="gallery_section.cat_ceramique">Céramique</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1733,12 +1709,12 @@
 
                 <img
                     src="assets/images/gallery/ceramique-03.jpg"
-                    alt="Protection céramique"
+                    alt="Protection céramique" data-i18n-alt="gallery_section.cat_ceramique"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Céramique</span>
+                    <span data-i18n="gallery_section.cat_ceramique">Céramique</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1756,12 +1732,12 @@
 
                 <img
                     src="assets/images/gallery/ppf-01.jpg"
-                    alt="Protection PPF"
+                    alt="Protection PPF" data-i18n-alt="gallery_section.cat_ppf"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Protection PPF</span>
+                    <span data-i18n="gallery_section.cat_ppf">Protection PPF</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1775,12 +1751,12 @@
 
                 <img
                     src="assets/images/gallery/ppf-02.jpg"
-                    alt="Protection PPF"
+                    alt="Protection PPF" data-i18n-alt="gallery_section.cat_ppf"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Protection PPF</span>
+                    <span data-i18n="gallery_section.cat_ppf">Protection PPF</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1794,12 +1770,12 @@
 
                 <img
                     src="assets/images/gallery/ppf-03.jpg"
-                    alt="Protection PPF"
+                    alt="Protection PPF" data-i18n-alt="gallery_section.cat_ppf"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Protection PPF</span>
+                    <span data-i18n="gallery_section.cat_ppf">Protection PPF</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1817,12 +1793,12 @@
 
                 <img
                     src="assets/images/gallery/lifting-01.jpg"
-                    alt="lifting"
+                    alt="lifting" data-i18n-alt="gallery_section.cat_lifting"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Lifting</span>
+                    <span data-i18n="gallery_section.cat_lifting">Lifting</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1836,12 +1812,12 @@
 
                 <img
                     src="assets/images/gallery/lifting-02.jpg"
-                    alt="lifting"
+                    alt="lifting" data-i18n-alt="gallery_section.cat_lifting"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Lifting</span>
+                    <span data-i18n="gallery_section.cat_lifting">Lifting</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1855,12 +1831,12 @@
 
                 <img
                     src="assets/images/gallery/lifting-03.jpg"
-                    alt="lifting"
+                    alt="lifting" data-i18n-alt="gallery_section.cat_lifting"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Lifting</span>
+                    <span data-i18n="gallery_section.cat_lifting">Lifting</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1874,12 +1850,12 @@
 
                 <img
                     src="assets/images/gallery/lifting-04.jpg"
-                    alt="lifting"
+                    alt="lifting" data-i18n-alt="gallery_section.cat_lifting"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Lifting</span>
+                    <span data-i18n="gallery_section.cat_lifting">Lifting</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1896,12 +1872,12 @@
 
                 <img
                     src="assets/images/gallery/ciel-01.jpg"
-                    alt="Ciel étoilé"
+                    alt="Ciel étoilé" data-i18n-alt="gallery_section.cat_ciel"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Ciel étoilé</span>
+                    <span data-i18n="gallery_section.cat_ciel">Ciel étoilé</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1915,12 +1891,12 @@
 
                 <img
                     src="assets/images/gallery/ciel-02.jpg"
-                    alt="Ciel étoilé"
+                    alt="Ciel étoilé" data-i18n-alt="gallery_section.cat_ciel"
                     loading="lazy"
                 >
 
                 <div class="gallery-overlay">
-                    <span>Ciel étoilé</span>
+                    <span data-i18n="gallery_section.cat_ciel">Ciel étoilé</span>
                     <strong>↗</strong>
                 </div>
 
@@ -1952,14 +1928,10 @@
 
         <div class="section-label">
             <span></span>
-            À PROPOS
+            <span data-i18n="about.label">À PROPOS</span>
         </div>
 
-        <h2>
-            Plus qu'un
-            <br>
-            <em>detailing.</em>
-        </h2>
+        <h2 data-i18n-html="about.heading">Plus qu'un<br><em>detailing.</em></h2>
 
     </div>
 
@@ -1967,13 +1939,13 @@
     <!-- CENTER / CONTENT -->
     <div class="about-content reveal">
 
-        <p class="about-intro">
+        <p class="about-intro" data-i18n="about.intro">
             Auto Burnish est un centre spécialisé dans
             le detailing et la protection automobile,
             situé à Draria, Sebala.
         </p>
 
-        <p>
+        <p data-i18n="about.text">
             Notre approche associe soin, précision et
             finition pour révéler l'apparence de chaque
             véhicule et préserver son esthétique.
@@ -1983,22 +1955,22 @@
 
             <div class="about-service">
                 <span>01</span>
-                <strong>Esthétique automobile</strong>
+                <strong data-i18n="about.s1">Esthétique automobile</strong>
             </div>
 
             <div class="about-service">
                 <span>02</span>
-                <strong>Correction & finition</strong>
+                <strong data-i18n="about.s2">Correction & finition</strong>
             </div>
 
             <div class="about-service">
                 <span>03</span>
-                <strong>Protection automobile</strong>
+                <strong data-i18n="about.s3">Protection automobile</strong>
             </div>
 
             <div class="about-service">
                 <span>04</span>
-                <strong>Lifting</strong>
+                <strong data-i18n="about.s4">Lifting</strong>
             </div>
 
             
@@ -2006,7 +1978,7 @@
         </div>
 
         <a href="#contact" class="about-link">
-            Découvrir Auto Burnish
+            <span data-i18n="about.link">Découvrir Auto Burnish</span>
             <span>↗</span>
         </a>
 
@@ -2019,12 +1991,13 @@
         <img
             src="assets/images/about/about-main.jpg"
             alt="Auto Burnish - Centre de detailing"
+            data-i18n-alt="about.image_alt"
             loading="lazy"
         >
 
         <div class="about-image-caption">
-            <span>DRARIA — SEBALA</span>
-            <span>AUTO BURNISH</span>
+            <span data-i18n="about.caption_1">DRARIA — SEBALA</span>
+            <span data-i18n="about.caption_2">AUTO BURNISH</span>
         </div>
 
     </div>
@@ -2055,16 +2028,12 @@
 
                 <div class="section-label">
                     <span></span>
-                    CONTACT
+                    <span data-i18n="contact.label">CONTACT</span>
                 </div>
 
-                <h2>
-                    Parlons de
-                    <br>
-                    votre <em> voiture.</em>
-                </h2>
+                <h2 data-i18n-html="contact.heading">Parlons de<br>votre<em> voiture.</em></h2>
 
-                <p>
+                <p data-i18n="contact.desc">
                     Une question, une demande de devis ou
                     simplement envie de prendre rendez-vous ?
                     Notre équipe est à votre écoute.
@@ -2127,7 +2096,7 @@
 
                     <div class="contact-item-content">
 
-                        <small>
+                        <small data-i18n="contact.address_label">
                             ADRESSE
                         </small>
 
@@ -2136,8 +2105,8 @@
                             target="_blank"
                             rel="noopener noreferrer">
 
-                            Rue Azziouz Rebbache,
-                            Sebala, Draria, Alger
+                            <span data-i18n="contact.address_value">Rue Azziouz Rebbache,
+                            Sebala, Draria, Alger</span>
 
                         </a>
 
@@ -2156,7 +2125,7 @@
 
                     <div class="contact-item-content">
 
-                        <small>
+                        <small data-i18n="contact.phone_label">
                             TÉLÉPHONE
                         </small>
 
@@ -2181,7 +2150,7 @@
 
                     <div class="contact-item-content">
 
-                        <small>
+                        <small data-i18n="contact.whatsapp_label">
                             WHATSAPP
                         </small>
 
@@ -2190,7 +2159,7 @@
                             target="_blank"
                             rel="noopener noreferrer">
 
-                            Écrire sur WhatsApp
+                            <span data-i18n="contact.whatsapp_cta">Écrire sur WhatsApp</span>
                             <span class="contact-arrow">↗</span>
 
                         </a>
@@ -2210,11 +2179,11 @@
 
                     <div class="contact-item-content">
 
-                        <small>
+                        <small data-i18n="contact.appointment_label">
                             RENDEZ-VOUS
                         </small>
 
-                        <span class="contact-text">
+                        <span class="contact-text" data-i18n="contact.appointment_value">
                             Sur réservation
                         </span>
 
@@ -2250,11 +2219,11 @@
 
                     <div>
 
-                       <strong>
+                       <strong data-i18n="contact.map_name">
                             Auto Burnish
                         </strong>
                         
-                        <span class="map-address">
+                        <span class="map-address" data-i18n="contact.map_address">
                             Draria — Sebala
                         </span>
                     </div>
@@ -2268,7 +2237,7 @@
                     target="_blank"
                     rel="noopener noreferrer">
 
-                    Ouvrir dans Google Maps
+                    <span data-i18n="contact.map_button">Ouvrir dans Google Maps</span>
                     <span>↗</span>
 
                 </a>
@@ -2287,22 +2256,22 @@
     ======================================== -->
 <footer class="site-footer">
 
-    <div class="footer-brand">
+    <div class="footer-brand" data-i18n="footer.copyright">
        © 2026 Auto Burnish — Tous droits réservés.
     </div>
 
-    <p>
+    <p data-i18n="footer.tagline">
         Centre de detailing automobile —
         Draria, Sebala, Alger
     </p>
 
     <div class="footer-links">
 
-        <a href="#home">
+        <a href="#home" data-i18n="nav.home">
             Accueil
         </a>
         |
-        <a href="../index.html#contact">
+        <a href="../index.html#contact" data-i18n="nav.contact">
             Contact
         </a>
         |
@@ -2320,6 +2289,7 @@
     </main>
 
      <!-- JavaScript -->
+    <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
 
 </html>

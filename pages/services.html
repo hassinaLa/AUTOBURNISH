@@ -2,6 +2,25 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Set language/direction before first paint, so saved
+         EN/AR visitors never see a French-then-flip flash -->
+    <script>
+    (function () {
+        try {
+            var lang = localStorage.getItem("autoBurnishLanguage") || "fr";
+            if (["fr", "en", "ar"].indexOf(lang) === -1) {
+                lang = "fr";
+            }
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+            if (lang === "ar") {
+                document.documentElement.classList.add("rtl");
+            }
+        } catch (e) {}
+    })();
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nos Services — Auto Burnish</title>
@@ -46,7 +65,7 @@
             <!-- Desktop Navigation -->
            <nav class="nav-links">
 
-    <a href="../index.html" class="active">
+    <a href="../index.html" class="active" data-i18n="nav.home">
         Accueil
     </a>
 
@@ -57,17 +76,17 @@
             type="button"
             class="nav-dropdown-toggle"
         >
-            Packages
+            <span data-i18n="nav.packages_toggle">Packages</span>
             <span>⌄</span>
         </button>
 
         <div class="nav-dropdown-menu">
 
-            <a href="../pages/packages.html">
+            <a href="../pages/packages.html" data-i18n="nav.packs">
                 Packs
             </a>
 
-            <a href="../pages/services.html">
+            <a href="../pages/services.html" data-i18n="nav.services">
                 Services
             </a>
 
@@ -83,17 +102,17 @@
             type="button"
             class="nav-dropdown-toggle"
         >
-            Notre travail
+            <span data-i18n="nav.work_toggle">Notre travail</span>
             <span>⌄</span>
         </button>
 
         <div class="nav-dropdown-menu">
 
-            <a href="../index.html#before-after">
+            <a href="../index.html#before-after" data-i18n="nav.before_after">
                 Avant / Après
             </a>
 
-            <a href="../index.html#gallery">
+            <a href="../index.html#gallery" data-i18n="nav.gallery">
                 Réalisations
             </a>
 
@@ -102,12 +121,12 @@
     </div>
 
 
-    <a href="../index.html#about">
+    <a href="../index.html#about" data-i18n="nav.about">
         À propos
     </a>
 
 
-    <a href="../index.html#contact">
+    <a href="../index.html#contact" data-i18n="nav.contact">
         Contact
     </a>
 
@@ -117,18 +136,18 @@
             <div class="nav-actions">
 
                 <!-- Language -->
-                <button class="language-btn">
+                <button class="language-btn" aria-label="Choisir la langue" data-i18n-aria-label="nav.lang_aria">
                     FR
                     <span>⌄</span>
                 </button>
 
                 <!-- CTA -->
-                <a href="../pages/booking.html" class="nav-cta">
+                <a href="../pages/booking.html" class="nav-cta" data-i18n="nav.reserve">
                     Réserver
                 </a>
 
                 <!-- Mobile Menu -->
-                <button class="menu-btn" aria-label="Ouvrir le menu">
+                <button class="menu-btn" aria-label="Ouvrir le menu" data-i18n-aria-label="nav.menu_aria">
                     <span></span>
                     <span></span>
                 </button>
@@ -150,17 +169,13 @@
 
     <div class="inner-page-hero-content">
 
-        <span class="eyebrow">
+        <span class="eyebrow" data-i18n="services_page.hero_eyebrow">
             Auto Burnish · Services
         </span>
 
-        <h1>
-            Nos 
-            <br>
-            <em>Services.</em>
-        </h1>
+        <h1 data-i18n-html="services_page.hero_title">Nos<br><em>Services.</em></h1>
 
-        <p>
+        <p data-i18n="services_page.hero_desc">
             Des prestations pensées pour révéler, restaurer
             et préserver l'esthétique de votre véhicule,
             avec une attention particulière portée à chaque détail.
@@ -171,8 +186,8 @@
     <!-- Hero Side Information -->
     <div class="hero-side-info">
 
-        <span>DETAILING</span>
-        <span>AUTOMOBILE</span>
+        <span data-i18n="hero.side_1">DETAILING</span>
+        <span data-i18n="hero.side_2">AUTOMOBILE</span>
 
     </div>
 
@@ -186,19 +201,14 @@
 <section class="packages-page-intro services-page-intro reveal">
     <div class="section-label">
         <span></span>
-        
-            NOTRE SAVOIR-FAIRE
-        
+        <span data-i18n="services_page.intro_label">NOTRE SAVOIR-FAIRE</span>
     </div>
         
    
 
-    <h2>
-        Le détail fait<br>
-        toute la <em>différence.</em>
-    </h2>
+    <h2 data-i18n-html="services_page.intro_heading">Le détail fait<br>toute la <em>différence.</em></h2>
 
-    <p>
+    <p data-i18n="services_page.intro_text">
         Chez Auto Burnish, chaque intervention est adaptée
         à l'état et aux besoins de votre véhicule.
         De la finition esthétique à la personnalisation,
@@ -224,6 +234,7 @@
         <img
             src="../assets/images/services/polissage.jpg"
             alt="Polissage automobile chez Auto Burnish"
+            data-i18n-alt="services_page.s1.category"
         >
 
     </div>
@@ -232,46 +243,44 @@
     <div class="service-detail-content">
 
         <span class="package-category">
-            Correction · Finition
+            <span data-i18n-html="services_page.s1.category">Correction · Finition</span>
         </span>
 
-        <h2>
+        <h2 data-i18n-html="services_page.s1.title">
             <em>Polissage</em>
         </h2>
 
-        <p class="service-description">
+        <p class="service-description" data-i18n="services_page.s1.desc">
             Un travail de finition destiné à raviver l'apparence
             de la carrosserie et à améliorer la profondeur ainsi
             que la régularité de son aspect visuel.
         </p>
 
 
-        <div class="service-info-grid">
+        <div class="service-info-grid"><div class="service-info-block">
 
-            <div class="service-info-block">
-
-                <h3>
+                <h3 data-i18n="services_page.s1.block1_title">
                     Ce que nous faisons
                 </h3>
 
                 <ul>
-                    <li>
+                    <li data-i18n="services_page.s1.block1_li1">
                         Préparation et nettoyage de la carrosserie
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s1.block1_li2">
                         Analyse de l'état de la peinture
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s1.block1_li3">
                         Travail de polissage adapté à la surface
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s1.block1_li4">
                         Élimination de toutes les rayures
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s1.block1_li5">
                         Finition et contrôle visuel
                     </li>
                 </ul>
@@ -281,11 +290,11 @@
 
             <div class="service-info-block">
 
-                <h3>
+                <h3 data-i18n="services_page.s1.block2_title">
                     Idéal pour
                 </h3>
 
-                <p>
+                <p data-i18n="services_page.s1.block2_text">
                     Les véhicules présentant une perte de brillance,
                     des micro-rayures ou une finition devenue moins
                     uniforme avec le temps.
@@ -296,11 +305,11 @@
 
             <div class="service-info-block">
 
-                <h3>
+                <h3 data-i18n="services_page.s1.block3_title">
                     Résultat recherché
                 </h3>
 
-                <p>
+                <p data-i18n="services_page.s1.block3_text">
                     Une carrosserie visuellement plus uniforme,
                     plus profonde et plus brillante.
                 </p>
@@ -314,7 +323,7 @@
             href="../pages/booking.html"
             class="package-action"
         >
-            Réserver ce service
+            <span data-i18n="services_page.s1.cta">Réserver ce service</span>
             <span>↗</span>
         </a>
 
@@ -338,6 +347,7 @@
         <img
             src="../assets/images/services/cuir.jpg"
             alt="Traitement de cuir automobile"
+            data-i18n-alt="services_page.s2.category"
         >
 
     </div>
@@ -346,47 +356,45 @@
     <div class="service-detail-content">
 
         <span class="package-category">
-            Intérieur · Soin
+            <span data-i18n-html="services_page.s2.category">Intérieur · Soin</span>
         </span>
 
-        <h2>
+        <h2 data-i18n-html="services_page.s2.title">
             Traitement<br>
             du <em>cuir.</em>
         </h2>
 
-        <p class="service-description">
+        <p class="service-description" data-i18n="services_page.s2.desc">
             Un soin dédié aux surfaces en cuir de l'habitacle
             afin de leur redonner un aspect propre, soigné
             et visuellement plus uniforme.
         </p>
 
 
-        <div class="service-info-grid">
+        <div class="service-info-grid"><div class="service-info-block">
 
-            <div class="service-info-block">
-
-                <h3>
+                <h3 data-i18n="services_page.s2.block1_title">
                     Ce que nous faisons
                 </h3>
 
                 <ul>
-                    <li>
+                    <li data-i18n="services_page.s2.block1_li1">
                         Nettoyage des surfaces en cuir
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s2.block1_li2">
                         Travail minutieux sur les différentes zones
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s2.block1_li3">
                         Soin adapté à l'état du cuir
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s2.block1_li4">
                         Traitement des surfaces selon leur finition
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s2.block1_li5">
                         Finition et contrôle de l'intérieur
                     </li>
                 </ul>
@@ -396,11 +404,11 @@
 
             <div class="service-info-block">
 
-                <h3>
+                <h3 data-i18n="services_page.s2.block2_title">
                     Zones concernées
                 </h3>
 
-                <p>
+                <p data-i18n="services_page.s2.block2_text">
                     Selon l'état du véhicule : sièges, panneaux,
                     accoudoirs, volant et autres surfaces intérieures
                     en cuir.
@@ -411,11 +419,11 @@
 
             <div class="service-info-block">
 
-                <h3>
+                <h3 data-i18n="services_page.s2.block3_title">
                     Résultat recherché
                 </h3>
 
-                <p>
+                <p data-i18n="services_page.s2.block3_text">
                     Un intérieur plus propre, plus uniforme
                     et visuellement mieux entretenu.
                 </p>
@@ -429,7 +437,7 @@
             href="../pages/booking.html"
             class="package-action"
         >
-            Réserver ce service
+            <span data-i18n="services_page.s2.cta">Réserver ce service</span>
             <span>↗</span>
         </a>
 
@@ -453,6 +461,7 @@
         <img
             src="../assets/images/services/ciel.jpg"
             alt="Ciel étoilé automobile"
+            data-i18n-alt="services_page.s3.category"
         >
 
     </div>
@@ -461,46 +470,44 @@
     <div class="service-detail-content">
 
         <span class="package-category">
-            Personnalisation · Intérieur
+            <span data-i18n-html="services_page.s3.category">Personnalisation · Intérieur</span>
         </span>
 
-        <h2>
+        <h2 data-i18n-html="services_page.s3.title">
             Ciel <em>étoilé.</em>
         </h2>
 
-        <p class="service-description">
+        <p class="service-description" data-i18n="services_page.s3.desc">
             Une personnalisation lumineuse de l'habitacle qui
             transforme le ciel de toit et apporte une ambiance
             distinctive à l'intérieur du véhicule.
         </p>
 
 
-        <div class="service-info-grid">
+        <div class="service-info-grid"><div class="service-info-block">
 
-            <div class="service-info-block">
-
-                <h3>
+                <h3 data-i18n="services_page.s3.block1_title">
                     La prestation
                 </h3>
 
                 <ul>
-                    <li>
+                    <li data-i18n="services_page.s3.block1_li1">
                         Préparation de l'intérieur
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s3.block1_li2">
                         Installation du système lumineux
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s3.block1_li3">
                         Organisation esthétique des points lumineux
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s3.block1_li4">
                         Intégration au ciel de toit
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s3.block1_li5">
                         Finition et contrôle visuel
                     </li>
                 </ul>
@@ -510,11 +517,11 @@
 
             <div class="service-info-block">
 
-                <h3>
+                <h3 data-i18n="services_page.s3.block2_title">
                     Personnalisation
                 </h3>
 
-                <p>
+                <p data-i18n="services_page.s3.block2_text">
                     La disposition et le rendu peuvent être pensés
                     selon le style recherché et l'habitacle
                     du véhicule.
@@ -525,11 +532,11 @@
 
             <div class="service-info-block">
 
-                <h3>
+                <h3 data-i18n="services_page.s3.block3_title">
                     Esprit
                 </h3>
 
-                <p>
+                <p data-i18n="services_page.s3.block3_text">
                     Une atmosphère plus exclusive et personnalisée,
                     pensée pour donner une identité particulière
                     à l'intérieur du véhicule.
@@ -544,7 +551,7 @@
             href="../pages/booking.html"
             class="package-action"
         >
-            Personnaliser mon véhicule
+            <span data-i18n="services_page.s3.cta">Personnaliser mon véhicule</span>
             <span>↗</span>
         </a>
 
@@ -568,6 +575,7 @@
         <img
             src="../assets/images/services/lifting.jpg"
             alt="Lifting automobile Auto Burnish"
+            data-i18n-alt="services_page.s4.category"
         >
 
     </div>
@@ -576,48 +584,46 @@
     <div class="service-detail-content">
 
         <span class="package-category">
-            Esthétique · Transformation
+            <span data-i18n-html="services_page.s4.category">Esthétique · Transformation</span>
         </span>
 
-        <h2>
+        <h2 data-i18n-html="services_page.s4.title">
             <em>Lifting</em><br>
             automobile.
         </h2>
 
-        <p class="service-description">
+        <p class="service-description" data-i18n="services_page.s4.desc">
             Une intervention esthétique globale destinée à
             redonner au véhicule une apparence plus fraîche,
             soignée et visuellement renouvelée.
         </p>
 
 
-        <div class="service-info-grid">
+        <div class="service-info-grid"><div class="service-info-block">
 
-            <div class="service-info-block">
-
-                <h3>
+                <h3 data-i18n="services_page.s4.block1_title">
                     Ce que nous faisons
                 </h3>
 
                 <ul>
-                    <li>
+                    <li data-i18n="services_page.s4.block1_li1">
                         Évaluation de l'état esthétique du véhicule
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s4.block1_li2">
                         Nettoyage et préparation
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s4.block1_li3">
                         Travail sur les éléments nécessitant
                         une remise en valeur
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s4.block1_li4">
                         Finitions intérieures et extérieures
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s4.block1_li5">
                         Contrôle général du rendu final
                     </li>
                 </ul>
@@ -627,11 +633,11 @@
 
             <div class="service-info-block">
 
-                <h3>
+                <h3 data-i18n="services_page.s4.block2_title">
                     Pour quel véhicule ?
                 </h3>
 
-                <p>
+                <p data-i18n="services_page.s4.block2_text">
                     Pour un véhicule qui nécessite une remise
                     en beauté générale ou qui a perdu une partie
                     de son aspect esthétique initial.
@@ -642,11 +648,11 @@
 
             <div class="service-info-block">
 
-                <h3>
+                <h3 data-i18n="services_page.s4.block3_title">
                     Résultat recherché
                 </h3>
 
-                <p>
+                <p data-i18n="services_page.s4.block3_text">
                     Une présentation générale plus propre,
                     plus fraîche et plus harmonieuse.
                 </p>
@@ -660,7 +666,7 @@
             href="../pages/booking.html"
             class="package-action"
         >
-            Réserver ce service
+            <span data-i18n="services_page.s4.cta">Réserver ce service</span>
             <span>↗</span>
         </a>
 
@@ -684,6 +690,7 @@
         <img
             src="../assets/images/services/finition.jpg"
             alt="Finition et lustre automobile"
+            data-i18n-alt="services_page.s5.category"
         >
 
     </div>
@@ -692,47 +699,45 @@
     <div class="service-detail-content">
 
         <span class="package-category">
-            Finition · Brillance
+            <span data-i18n-html="services_page.s5.category">Finition · Brillance</span>
         </span>
 
-        <h2>
+        <h2 data-i18n-html="services_page.s5.title">
             Finition<br>
             & <em>lustre.</em>
         </h2>
 
-        <p class="service-description">
+        <p class="service-description" data-i18n="services_page.s5.desc">
             Le travail de finition qui vient compléter la préparation
             esthétique du véhicule et mettre en valeur son aspect
             général avant sa restitution.
         </p>
 
 
-        <div class="service-info-grid">
+        <div class="service-info-grid"><div class="service-info-block">
 
-            <div class="service-info-block">
-
-                <h3>
+                <h3 data-i18n="services_page.s5.block1_title">
                     Notre approche
                 </h3>
 
                 <ul>
-                    <li>
+                    <li data-i18n="services_page.s5.block1_li1">
                         Préparation finale des surfaces
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s5.block1_li2">
                         Travail de finition de la carrosserie
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s5.block1_li3">
                         Mise en valeur de la brillance
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s5.block1_li4">
                         Attention portée aux détails visibles
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s5.block1_li5">
                         Contrôle final du rendu
                     </li>
                 </ul>
@@ -742,11 +747,11 @@
 
             <div class="service-info-block">
 
-                <h3>
+                <h3 data-i18n="services_page.s5.block2_title">
                     Idéal pour
                 </h3>
 
-                <p>
+                <p data-i18n="services_page.s5.block2_text">
                     Compléter une prestation de detailing,
                     raviver la présentation du véhicule ou
                     préparer sa restitution.
@@ -757,11 +762,11 @@
 
             <div class="service-info-block">
 
-                <h3>
+                <h3 data-i18n="services_page.s5.block3_title">
                     Résultat recherché
                 </h3>
 
-                <p>
+                <p data-i18n="services_page.s5.block3_text">
                     Une finition propre, homogène et lumineuse,
                     avec une attention particulière portée
                     aux détails.
@@ -776,7 +781,7 @@
             href="../pages/booking.html"
             class="package-action"
         >
-            Réserver ce service
+            <span data-i18n="services_page.s5.cta">Réserver ce service</span>
             <span>↗</span>
         </a>
 
@@ -800,6 +805,7 @@
         <img
             src="../assets/images/services/protection.jpg"
             alt="Protection personnalisée automobile"
+            data-i18n-alt="services_page.s6.category"
         >
 
     </div>
@@ -808,47 +814,45 @@
     <div class="service-detail-content">
 
         <span class="package-category">
-            Protection · Sur mesure
+            <span data-i18n-html="services_page.s6.category">Protection · Sur mesure</span>
         </span>
 
-        <h2>
+        <h2 data-i18n-html="services_page.s6.title">
             Protection<br>
             <em>personnalisée.</em>
         </h2>
 
-        <p class="service-description">
+        <p class="service-description" data-i18n="services_page.s6.desc">
             Une approche sur mesure pour choisir une solution
             de protection adaptée au véhicule, à son utilisation
             et au niveau de protection recherché.
         </p>
 
 
-        <div class="service-info-grid">
+        <div class="service-info-grid"><div class="service-info-block">
 
-            <div class="service-info-block">
-
-                <h3>
+                <h3 data-i18n="services_page.s6.block1_title">
                     Notre approche
                 </h3>
 
                 <ul>
-                    <li>
+                    <li data-i18n="services_page.s6.block1_li1">
                         Évaluation du véhicule
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s6.block1_li2">
                         Identification des zones à protéger
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s6.block1_li3">
                         Analyse des besoins du propriétaire
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s6.block1_li4">
                         Proposition d'une solution adaptée
                     </li>
 
-                    <li>
+                    <li data-i18n="services_page.s6.block1_li5">
                         Préparation et finition de l'intervention
                     </li>
                 </ul>
@@ -858,11 +862,11 @@
 
             <div class="service-info-block">
 
-                <h3>
+                <h3 data-i18n="services_page.s6.block2_title">
                     Selon vos besoins
                 </h3>
 
-                <p>
+                <p data-i18n="services_page.s6.block2_text">
                     La protection peut être pensée autour de certaines
                     zones spécifiques ou dans le cadre d'une approche
                     plus globale du véhicule.
@@ -873,11 +877,11 @@
 
             <div class="service-info-block">
 
-                <h3>
+                <h3 data-i18n="services_page.s6.block3_title">
                     Objectif
                 </h3>
 
-                <p>
+                <p data-i18n="services_page.s6.block3_text">
                     Préserver au mieux l'apparence du véhicule
                     grâce à une solution choisie en fonction
                     de ses besoins réels.
@@ -892,7 +896,7 @@
             href="../pages/booking.html"
             class="package-action"
         >
-            Demander une consultation
+            <span data-i18n="services_page.s6.cta">Demander une consultation</span>
             <span>↗</span>
         </a>
 
@@ -907,16 +911,13 @@
 
 <section class="page-final-cta reveal">
 
-    <span class="eyebrow">
+    <span class="eyebrow" data-i18n="services_page.final_eyebrow">
         Auto Burnish
     </span>
 
-    <h2>
-        Votre véhicule.<br>
-        Notre <em>attention.</em>
-    </h2>
+    <h2 data-i18n-html="services_page.final_heading">Votre véhicule.<br>Notre <em>attention.</em></h2>
 
-    <p>
+    <p data-i18n="services_page.final_text">
         Vous ne savez pas quelle prestation choisir ?
         Contactez-nous et discutons ensemble de l'intervention
         la plus adaptée à votre véhicule.
@@ -926,7 +927,7 @@
         href="../pages/booking.html"
         class="package-action"
     >
-        Prendre rendez-vous
+        <span data-i18n="services_page.final_cta">Prendre rendez-vous</span>
         <span>↗</span>
     </a>
 
@@ -943,21 +944,21 @@
 <footer class="site-footer">
 
     <div class="footer-brand">
-       © 2026 Auto Burnish — Tous droits réservés.
+       <span data-i18n="footer.copyright">© 2026 Auto Burnish — Tous droits réservés.</span>
     </div>
 
-    <p>
+    <p data-i18n="footer.tagline">
         Centre de detailing automobile —
         Draria, Sebala, Alger
     </p>
 
     <div class="footer-links">
 
-        <a href="../index.html">
+        <a href="../index.html" data-i18n="nav.home">
             Accueil
         </a>
         |
-        <a href="../index.html#contact">
+        <a href="../index.html#contact" data-i18n="nav.contact">
             Contact
         </a>
         |
@@ -977,6 +978,7 @@
      JAVASCRIPT
 ===================================================== -->
 
+<script src="../js/translations.js"></script>
 <script src="../js/main.js"></script>
 
 </body>
