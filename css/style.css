@@ -865,7 +865,7 @@ a {
 
     display: block;
 
-    margin-bottom: 0.20em;
+    margin-bottom: 0.12em;
 
     color: var(--gold);
 
@@ -3828,6 +3828,8 @@ a {
         max-height: 300px;
 
         padding: 0 0 10px 15px;
+
+        transform: none;
 
     }
 
