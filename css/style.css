@@ -38,6 +38,48 @@ html {
 
 
 /* ========================================
+   ICONS (SVG — replaces Unicode "↗" and
+   social glyphs so rendering is identical
+   across iOS / Android / Windows)
+======================================== */
+
+.icon-arrow {
+
+    width: 1em;
+    height: 1em;
+
+    display: inline-block;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+.social-icon {
+
+    width: 17px;
+    height: 17px;
+
+    display: inline-block;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    transition: transform 0.3s var(--ease-luxury);
+}
+
+
+/* ========================================
    SCROLL REVEAL
 ======================================== */
 
@@ -3363,6 +3405,74 @@ a {
 .contact-socials a:hover .contact-arrow {
 
     transform: translate(4px, -4px);
+
+}
+
+
+/* ========================================
+   SOCIAL ICONS (Instagram / Facebook /
+   TikTok / WhatsApp)
+======================================== */
+
+.social-link {
+
+    color: #aaa;
+
+}
+
+
+.social-link:hover {
+
+    color: var(--white);
+
+}
+
+
+.social-link .social-icon {
+
+    color: var(--gold);
+
+}
+
+
+.social-link:hover .social-icon {
+
+    color: var(--gold-light);
+
+    transform: scale(1.15);
+
+}
+
+
+/* Footer variant: inline with the existing footer links */
+
+.footer-social-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: var(--gold);
+
+}
+
+
+.footer-social-link:hover {
+
+    color: var(--gold-light);
+
+}
+
+
+.footer-social-link .social-icon {
+
+    width: 14px;
+
+    height: 14px;
+
+    color: inherit;
 
 }
 
@@ -6748,7 +6858,7 @@ a {
 
     border: 1px solid rgba(255, 255, 255, .25);
 
-    color: var(--dark-gray);
+    color: var(--dark);
 
     background: var(--white);
 
