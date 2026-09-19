@@ -4115,6 +4115,94 @@ a {
 
 }
 
+
+/* ========================================
+   PACKAGES GRID — MOBILE (PHONES)
+======================================== */
+
+@media (max-width: 600px) {
+
+    .packages-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+
+        background: transparent;
+    }
+
+
+    .package-card {
+
+        width: 100%;
+
+        box-sizing: border-box;
+    }
+
+
+    .package-content {
+
+        width: 100%;
+
+        min-height: 300px;
+
+        padding: 28px 22px 24px;
+
+        box-sizing: border-box;
+    }
+
+
+    .package-top {
+
+        flex-wrap: nowrap;
+
+        gap: 12px;
+    }
+
+
+    .package-content h3 {
+
+        min-height: 108px;
+    }
+
+
+    .package-content p {
+
+        min-height: 66px;
+    }
+
+
+    .package-top .package-category {
+
+        letter-spacing: 1px;
+
+        white-space: nowrap;
+
+        transform: none;
+
+        margin-bottom: 0;
+    }
+
+
+    .package-price {
+
+        flex-shrink: 0;
+
+        font-size: 10px;
+
+        letter-spacing: 0.2px;
+
+        white-space: nowrap;
+    }
+
+
+    .package-includes {
+
+        min-height: 60px;
+    }
+
+}
+
 @media (max-width: 900px) {
 
     .services-header {
