@@ -1083,7 +1083,7 @@ if (heroSlides.length > 1) {
     
     }
 
-    /* =====================================================
+   /* =====================================================
        BOOKING — VEHICLE PHOTO PREVIEW
     ===================================================== */
     
@@ -1129,21 +1129,78 @@ if (heroSlides.length > 1) {
                         </button>
                     `;
     
+    
+                    /* =========================================
+                       REMOVE PHOTO
+                    ========================================= */
+    
                     const removeButton =
                         previewItem.querySelector(".photo-remove");
+    
     
                     removeButton.addEventListener(
                         "click",
                         function () {
     
+                            /*
+                             * Get the current files
+                             * from the input
+                             */
+                            const currentFiles =
+                                Array.from(vehiclePhotos.files);
+    
+    
+                            /*
+                             * Create a new DataTransfer
+                             * containing every file except
+                             * the one being removed.
+                             */
+                            const dataTransfer =
+                                new DataTransfer();
+    
+    
+                            currentFiles.forEach(function (
+                                currentFile
+                            ) {
+    
+                                const sameFile =
+                                    currentFile.name === file.name &&
+                                    currentFile.size === file.size &&
+                                    currentFile.lastModified ===
+                                        file.lastModified;
+    
+    
+                                if (!sameFile) {
+                                    dataTransfer.items.add(
+                                        currentFile
+                                    );
+                                }
+    
+                            });
+    
+    
+                            /*
+                             * Replace the input files
+                             */
+                            vehiclePhotos.files =
+                                dataTransfer.files;
+    
+    
+                            /*
+                             * Remove the preview
+                             */
                             previewItem.remove();
     
                         }
                     );
     
-                    photoPreview.appendChild(previewItem);
+    
+                    photoPreview.appendChild(
+                        previewItem
+                    );
     
                 };
+    
     
                 reader.readAsDataURL(file);
     
@@ -1153,5 +1210,254 @@ if (heroSlides.length > 1) {
     
     }
 
+   /* =====================================================
+       BOOKING — FORM SUBMISSION
+    ===================================================== */
+    
+    const bookingForm = document.getElementById("bookingForm");
+    const bookingFormStatus = document.getElementById("bookingFormStatus");
+    
+    if (bookingForm) {
+    
+        bookingForm.addEventListener("submit", async function (e) {
+    
+            e.preventDefault();
+    
+            if (bookingFormStatus) {
+                bookingFormStatus.textContent =
+                    "Envoi de votre demande...";
+                bookingFormStatus.classList.remove("success", "error");
+            }
+    
+            const formData = new FormData(bookingForm);
+    
+            const bookingData = {
+                full_name: formData.get("full_name"),
+                phone: formData.get("phone"),
+                email: formData.get("email") || null,
+    
+                vehicle_type: formData.get("vehicle_type"),
+                vehicle_model: formData.get("vehicle_model"),
+    
+                vehicle_year: formData.get("vehicle_year")
+                    ? Number(formData.get("vehicle_year"))
+                    : null,
+    
+                vehicle_color:
+                    formData.get("vehicle_color") || null,
+    
+                package:
+                    formData.get("package") || null,
+    
+                service:
+                    formData.get("service") || null,
+    
+                request_type:
+                    formData.get("request_type"),
+    
+                preferred_date:
+                    formData.get("preferred_date"),
+    
+                preferred_time:
+                    formData.get("preferred_time"),
+    
+                message:
+                    formData.get("message") || null,
+    
+                contact_preference:
+                    formData.get("contact_preference") || "phone"
+            };
+    
+    
+            try {
+    
+                /* =========================================
+                   STEP 1 — CREATE BOOKING
+                ========================================= */
+    
+                const bookingResponse = await fetch(
+                    "http://127.0.0.1:8000/api/bookings/",
+                    {
+                        method: "POST",
+    
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+    
+                        body: JSON.stringify(bookingData)
+                    }
+                );
+    
+    
+                const bookingResult =
+                    await bookingResponse.json();
+    
+    
+                if (!bookingResponse.ok) {
+    
+                    throw new Error(
+                        bookingResult.detail ||
+                        "Impossible de créer la réservation."
+                    );
+    
+                }
+    
+    
+                console.log(
+                    "Booking created:",
+                    bookingResult
+                );
+    
+    
+                /* =========================================
+                   STEP 2 — GET BOOKING ID
+                ========================================= */
+    
+                const bookingId =
+                    bookingResult.id;
+    
+    
+                /* =========================================
+                   STEP 3 — UPLOAD VEHICLE PHOTOS
+                ========================================= */
+    
+                const files =
+                    vehiclePhotos
+                        ? Array.from(vehiclePhotos.files)
+                        : [];
+    
+    
+                let failedPhotos = 0;
+    
+    
+                for (const file of files) {
+    
+                    const photoFormData =
+                        new FormData();
+    
+                    photoFormData.append(
+                        "file",
+                        file
+                    );
+    
+    
+                    try {
+    
+                        const photoResponse =
+                            await fetch(
+                                `http://127.0.0.1:8000/api/bookings/${bookingId}/photos`,
+                                {
+                                    method: "POST",
+                                    body: photoFormData
+                                }
+                            );
+    
+    
+                        const photoResult =
+                            await photoResponse.json();
+    
+    
+                        if (!photoResponse.ok) {
+    
+                            console.error(
+                                "Photo upload failed:",
+                                photoResult
+                            );
+    
+                            failedPhotos++;
+    
+                        } else {
+    
+                            console.log(
+                                "Photo uploaded:",
+                                photoResult
+                            );
+    
+                        }
+    
+                    } catch (photoError) {
+    
+                        console.error(
+                            "Photo upload error:",
+                            photoError
+                        );
+    
+                        failedPhotos++;
+    
+                    }
+    
+                }
+    
+    
+                /* =========================================
+                   STEP 4 — SUCCESS MESSAGE
+                ========================================= */
+    
+                if (bookingFormStatus) {
+    
+                    if (failedPhotos === 0) {
+    
+                        bookingFormStatus.textContent =
+                            "Votre demande a été envoyée avec succès.";
+    
+                        bookingFormStatus.classList.add(
+                            "success"
+                        );
+    
+                    } else {
+    
+                        bookingFormStatus.textContent =
+                            "Votre demande a été envoyée, mais certaines photos n'ont pas pu être téléchargées.";
+    
+                        bookingFormStatus.classList.add(
+                            "success"
+                        );
+    
+                    }
+    
+                }
+    
+    
+                /* =========================================
+                   STEP 5 — RESET FORM
+                ========================================= */
+    
+                bookingForm.reset();
+    
+    
+                if (photoPreview) {
+                    photoPreview.innerHTML = "";
+                }
+    
+    
+                if (vehiclePhotos) {
+                    vehiclePhotos.value = "";
+                }
+    
+    
+            } catch (error) {
+    
+                console.error(
+                    "Booking error:",
+                    error
+                );
+    
+    
+                if (bookingFormStatus) {
+    
+                    bookingFormStatus.textContent =
+                        "Une erreur est survenue. Veuillez réessayer.";
+    
+                    bookingFormStatus.classList.add(
+                        "error"
+                    );
+    
+                }
+    
+            }
+    
+        });
+    
+    }
 
 });
