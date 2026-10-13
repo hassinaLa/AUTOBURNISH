@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 
 from app.database.database import Base
 from app.models.booking import Booking
-from app.models.booking_photo import BookingPhoto
 from app.models.admin import Admin
 
 
