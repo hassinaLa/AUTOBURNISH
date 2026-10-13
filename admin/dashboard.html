@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Dashboard | Auto Burnish</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="admin.css">
+    <script src="dashboard.js" defer></script>
+</head>
+<body>
+    <header class="dashboard-header">
+        <a class="brand" href="dashboard.html">
+            AUTO <span>BURNISH</span>
+        </a>
+
+        <div class="header-actions">
+            <span class="admin-label">ADMIN PANEL</span>
+            <button type="button" id="logoutButton" class="logout-button">
+                Log out
+            </button>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <section class="dashboard-intro">
+            <div>
+                <p class="eyebrow">MANAGEMENT PORTAL</p>
+                <h1>Dashboard</h1>
+                <p class="subtitle">Manage your bookings and customer requests.</p>
+            </div>
+
+            <button type="button" id="refreshButton" class="refresh-button">
+                Refresh bookings
+            </button>
+        </section>
+
+        <p id="dashboardMessage" class="message" role="alert" aria-live="polite"></p>
+
+        <section class="stats-grid">
+            <article class="stat-card">
+                <p>Total bookings</p>
+                <h2 id="totalBookings">—</h2>
+            </article>
+
+            <article class="stat-card">
+                <p>Pending</p>
+                <h2 id="pendingBookings">—</h2>
+            </article>
+
+            <article class="stat-card">
+                <p>Confirmed</p>
+                <h2 id="confirmedBookings">—</h2>
+            </article>
+
+            <article class="stat-card">
+                <p>Completed</p>
+                <h2 id="completedBookings">—</h2>
+            </article>
+        </section>
+
+        <section class="bookings-section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">CUSTOMER MANAGEMENT</p>
+                    <h2>Bookings</h2>
+                </div>
+
+                <select id="statusFilter" aria-label="Filter bookings by status">
+                    <option value="all">All statuses</option>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking</th>
+                            <th>Customer</th>
+                            <th>Vehicle</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTableBody">
+                        <tr>
+                            <td colspan="6">Loading bookings...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

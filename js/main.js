@@ -1083,75 +1083,158 @@ if (heroSlides.length > 1) {
     
     }
 
-    /* =====================================================
-       BOOKING — VEHICLE PHOTO PREVIEW
+  
+   /* =====================================================
+       BOOKING — FORM SUBMISSION
     ===================================================== */
     
-    const vehiclePhotos = document.getElementById("vehiclePhotos");
-    const photoPreview = document.getElementById("photoPreview");
+    const bookingForm = document.getElementById("bookingForm");
+    const bookingFormStatus = document.getElementById("bookingFormStatus");
     
-    if (vehiclePhotos && photoPreview) {
+    if (bookingForm) {
     
-        vehiclePhotos.addEventListener("change", function () {
+        bookingForm.addEventListener("submit", async function (e) {
     
-            photoPreview.innerHTML = "";
+            e.preventDefault();
     
-            const files = Array.from(this.files);
+            if (bookingFormStatus) {
+                bookingFormStatus.textContent =
+                    "Envoi de votre demande...";
+                bookingFormStatus.classList.remove("success", "error");
+            }
     
-            files.forEach(function (file) {
+            const formData = new FormData(bookingForm);
     
-                if (!file.type.startsWith("image/")) {
-                    return;
-                }
+            const bookingData = {
+                full_name: formData.get("full_name"),
+                phone: formData.get("phone"),
+                email: formData.get("email") || null,
     
-                const reader = new FileReader();
+                vehicle_type: formData.get("vehicle_type"),
+                vehicle_model: formData.get("vehicle_model"),
     
-                reader.onload = function (e) {
+                vehicle_year: formData.get("vehicle_year")
+                    ? Number(formData.get("vehicle_year"))
+                    : null,
     
-                    const previewItem =
-                        document.createElement("div");
+                vehicle_color:
+                    formData.get("vehicle_color") || null,
     
-                    previewItem.className =
-                        "photo-preview-item";
+                package:
+                    formData.get("package") || null,
     
-                    previewItem.innerHTML = `
-                        <img
-                            src="${e.target.result}"
-                            alt="Photo du véhicule"
-                        >
+                service:
+                    formData.get("service") || null,
     
-                        <button
-                            type="button"
-                            class="photo-remove"
-                            aria-label="Supprimer la photo"
-                        >
-                            ×
-                        </button>
-                    `;
+                request_type:
+                    formData.get("request_type"),
     
-                    const removeButton =
-                        previewItem.querySelector(".photo-remove");
+                preferred_date:
+                    formData.get("preferred_date"),
     
-                    removeButton.addEventListener(
-                        "click",
-                        function () {
+                preferred_time:
+                    formData.get("preferred_time"),
     
-                            previewItem.remove();
+                message:
+                    formData.get("message") || null,
     
-                        }
+                contact_preference:
+                    formData.get("contact_preference") || "phone"
+            };
+    
+    
+            try {
+    
+                /* =========================================
+                   STEP 1 — CREATE BOOKING
+                ========================================= */
+    
+                const bookingResponse = await fetch(
+                    'https://auto-burnish-api.onrender.com/api/bookings/',
+                    {
+                        method: "POST",
+    
+                        headers: {
+                           "Content-Type": "application/json"
+                        },
+    
+                        body: JSON.stringify(bookingData)
+                    }
+                );
+    
+    
+                const bookingResult =
+                    await bookingResponse.json();
+    
+    
+                if (!bookingResponse.ok) {
+    
+                    throw new Error(
+                        bookingResult.detail ||
+                        "Impossible de créer la réservation."
                     );
     
-                    photoPreview.appendChild(previewItem);
+                }
+                
     
-                };
+                console.log(
+                    "Booking created:",
+                    bookingResult
+                );
     
-                reader.readAsDataURL(file);
     
-            });
+                /* =========================================
+                   STEP 2 — GET BOOKING ID
+                ========================================= */
+    
+                const bookingId =
+                    bookingResult.id;
+    
+    
+              
+    
+    
+                /* =========================================
+                   STEP 3 — SUCCESS MESSAGE
+                ========================================= */
+                
+                if (bookingFormStatus) {
+                    bookingFormStatus.textContent =
+                        "Votre demande a été envoyée avec succès.";
+                
+                    bookingFormStatus.classList.add("success");
+                }
+                
+                /* =========================================
+                   STEP 4 — RESET FORM
+                ========================================= */
+                
+                bookingForm.reset();
+    
+    
+            } catch (error) {
+    
+                console.error(
+                    "Booking error:",
+                    error
+                );
+    
+    
+                if (bookingFormStatus) {
+    
+                    bookingFormStatus.textContent =
+                        "Une erreur est survenue. Veuillez réessayer.";
+    
+                    bookingFormStatus.classList.add(
+                        "error"
+                    );
+    
+                }
+    
+            }
     
         });
     
     }
-
 
 });

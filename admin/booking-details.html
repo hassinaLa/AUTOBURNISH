@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Booking Details | Auto Burnish</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="booking-details.css">
+    <script src="booking-details.js" defer></script>
+</head>
+<body>
+    <header class="dashboard-header">
+        <a class="brand" href="dashboard.html">
+            AUTO <span>BURNISH</span>
+        </a>
+
+        <div class="header-actions">
+            <span class="admin-label">ADMIN PANEL</span>
+            <button type="button" id="logoutButton" class="logout-button">
+                Log out
+            </button>
+        </div>
+    </header>
+
+    <main class="details-main">
+        <a class="back-link" href="dashboard.html">
+            ← Back to bookings
+        </a>
+
+        <section class="details-heading">
+            <div>
+                <p class="eyebrow">BOOKING MANAGEMENT</p>
+                <h1>Booking <span id="bookingNumber">#—</span></h1>
+                <p class="subtitle">Customer information and appointment status.</p>
+            </div>
+
+            <span id="currentStatus" class="status-badge">Loading...</span>
+        </section>
+
+        <p id="detailsMessage" class="message" role="alert" aria-live="polite"></p>
+
+        <section class="details-card">
+            <div class="section-title">
+                <p class="eyebrow">CUSTOMER & VEHICLE</p>
+                <h2>Booking information</h2>
+            </div>
+
+            <div id="bookingInfo" class="info-grid">
+                <p>Loading booking information...</p>
+            </div>
+        </section>
+
+        <section class="details-card">
+            <div class="section-title">
+                <p class="eyebrow">APPOINTMENT MANAGEMENT</p>
+                <h2>Update booking status</h2>
+            </div>
+
+            <form id="statusForm" class="status-form">
+                <div class="form-group">
+                    <label for="statusSelect">Booking status</label>
+                    <select id="statusSelect" required>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="saveStatusButton">
+                    Save status
+                </button>
+            </form>
+        </section>
+        
+    </main>
+
+</body>
+</html>
