@@ -94,6 +94,7 @@ function renderBookings() {
                         ${escapeHTML(booking.status)}
                     </span>
                 </td>
+                
                 <td>
                     <button
                         class="details-button"
@@ -102,28 +103,67 @@ function renderBookings() {
                     >
                         View
                     </button>
+                
+                    <button
+                        class="delete-button"
+                        type="button"
+                        data-delete-booking-id="${escapeHTML(booking.id)}"
+                    >
+                        Delete
+                    </button>
                 </td>
+
             </tr>
         `;
     }).join("");
 }
 
-async function loadBookings() {
-    dashboardMessage.textContent = "";
+
+let isLoadingBookings = false;
+
+async function loadBookings({ silent = false } = {}) {
+    if (isLoadingBookings) return;
+
+    isLoadingBookings = true;
+
+    if (!silent) {
+        dashboardMessage.textContent = "";
+    }
 
     try {
         bookings = await apiRequest("/api/bookings/");
         updateStatistics();
         renderBookings();
     } catch (error) {
-        dashboardMessage.textContent = error.message;
-        tableBody.innerHTML = `
-            <tr><td colspan="6">Could not load bookings.</td></tr>
-        `;
+        // Avoid replacing the dashboard during a temporary
+        // background-refresh failure.
+        if (!silent) {
+            dashboardMessage.textContent = error.message;
+            tableBody.innerHTML = `
+                <tr><td colspan="6">Could not load bookings.</td></tr>
+            `;
+        }
+    } finally {
+        isLoadingBookings = false;
     }
 }
 
-document.getElementById("refreshButton").addEventListener("click", loadBookings);
+
+
+document.getElementById("refreshButton").addEventListener("click", () => {
+    loadBookings();
+});
+
+// Load bookings when the dashboard opens.
+loadBookings();
+
+// Refresh automatically every 15 seconds while the tab is visible.
+setInterval(() => {
+    if (!document.hidden) {
+        loadBookings({ silent: true });
+    }
+}, 15000);
+
 
 statusFilter.addEventListener("change", renderBookings);
 
@@ -132,13 +172,59 @@ document.getElementById("logoutButton").addEventListener("click", () => {
     window.location.replace("index.html");
 });
 
-tableBody.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-booking-id]");
 
-    if (!button) return;
+tableBody.addEventListener("click", async (event) => {
+    const deleteButton = event.target.closest(
+        "[data-delete-booking-id]"
+    );
 
-    const bookingId = button.dataset.bookingId;
+    if (deleteButton) {
+        const bookingId = deleteButton.dataset.deleteBookingId;
 
-    // Open the details page for the selected booking.
-    window.location.href = `booking-details.html?id=${encodeURIComponent(bookingId)}`;
+        const booking = bookings.find(
+            (item) => String(item.id) === String(bookingId)
+        );
+
+        const customerName = booking?.full_name || "this customer";
+
+        const confirmed = window.confirm(
+            `Are you sure you want to delete booking #${bookingId} for ${customerName}?\n\nThis action cannot be undone.`
+        );
+
+        if (!confirmed) return;
+
+        deleteButton.disabled = true;
+
+        try {
+            await apiRequest(`/api/bookings/${bookingId}`, {
+                method: "DELETE"
+            });
+
+            bookings = bookings.filter(
+                (item) => String(item.id) !== String(bookingId)
+            );
+
+            updateStatistics();
+            renderBookings();
+
+            dashboardMessage.textContent =
+                `Booking #${bookingId} deleted successfully.`;
+        } catch (error) {
+            dashboardMessage.textContent = error.message;
+            deleteButton.disabled = false;
+        }
+
+        return;
+    }
+
+    const viewButton = event.target.closest(
+        "[data-booking-id]"
+    );
+
+    if (!viewButton) return;
+
+    const bookingId = viewButton.dataset.bookingId;
+
+    window.location.href =
+        `booking-details.html?id=${encodeURIComponent(bookingId)}`;
 });

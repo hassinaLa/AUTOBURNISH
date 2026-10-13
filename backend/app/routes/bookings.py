@@ -153,3 +153,46 @@ def update_booking_status(
     db.refresh(booking)
 
     return booking
+
+
+# =====================================================
+# DELETE BOOKING
+# ADMIN ONLY
+# =====================================================
+
+@router.delete(
+    "/{booking_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+def delete_booking(
+    booking_id: int,
+    db: Session = Depends(get_db),
+    current_admin: str = Depends(get_current_admin),
+):
+    booking = (
+        db.query(Booking)
+        .filter(Booking.id == booking_id)
+        .first()
+    )
+
+    if booking is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Booking not found",
+        )
+
+    db.delete(booking)
+
+    try:
+        db.commit()
+    except Exception:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=(
+                "This booking could not be deleted because "
+                "related database records may exist."
+            ),
+        )
+
+    return None
