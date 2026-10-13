@@ -57,5 +57,3 @@ class BookingResponse(BaseModel):
 class BookingStatusUpdate(BaseModel):
     status: str
 
-class BookingCreatedResponse(BookingResponse):
-    photo_token: str

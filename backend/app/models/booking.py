@@ -14,12 +14,6 @@ class Booking(Base):
         index=True
     )
 
-    photo_token: Mapped[str] = mapped_column( 
-        String(64),
-        unique=True,
-        nullable=False
-    )
-
     # =========================
     # CUSTOMER INFORMATION
     # =========================

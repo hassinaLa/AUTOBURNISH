@@ -1,4 +1,3 @@
-import secrets
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -8,7 +7,6 @@ from app.models.booking import Booking
 from app.schemas.booking import (
     BookingCreate,
     BookingResponse,
-    BookingCreatedResponse,
     BookingStatusUpdate,
 )
 
@@ -24,18 +22,15 @@ router = APIRouter(
 # PUBLIC
 # =====================================================
 
-
 @router.post(
     "/",
-    response_model=BookingCreatedResponse,
+    response_model=BookingResponse,
     status_code=status.HTTP_201_CREATED,
 )
 def create_booking(
     booking: BookingCreate,
     db: Session = Depends(get_db),
 ):
-    photo_token = secrets.token_urlsafe(32)
-
     new_booking = Booking(
         full_name=booking.full_name,
         phone=booking.phone,
@@ -52,33 +47,13 @@ def create_booking(
         message=booking.message,
         contact_preference=booking.contact_preference,
         status="pending",
-        photo_token=photo_token,
     )
 
     db.add(new_booking)
     db.commit()
     db.refresh(new_booking)
 
-    return {
-        "id": new_booking.id,
-        "full_name": new_booking.full_name,
-        "phone": new_booking.phone,
-        "email": new_booking.email,
-        "vehicle_type": new_booking.vehicle_type,
-        "vehicle_model": new_booking.vehicle_model,
-        "vehicle_year": new_booking.vehicle_year,
-        "vehicle_color": new_booking.vehicle_color,
-        "package": new_booking.package,
-        "service": new_booking.service,
-        "request_type": new_booking.request_type,
-        "preferred_date": new_booking.preferred_date,
-        "preferred_time": new_booking.preferred_time,
-        "message": new_booking.message,
-        "contact_preference": new_booking.contact_preference,
-        "status": new_booking.status,
-        "created_at": new_booking.created_at,
-        "photo_token": photo_token,
-    }
+    return new_booking
 
 
 # =====================================================
@@ -94,7 +69,6 @@ def get_bookings(
     db: Session = Depends(get_db),
     current_admin: str = Depends(get_current_admin)
 ):
-
     bookings = (
         db.query(Booking)
         .order_by(Booking.created_at.desc())
@@ -118,7 +92,6 @@ def get_booking(
     db: Session = Depends(get_db),
     current_admin: str = Depends(get_current_admin)
 ):
-
     booking = (
         db.query(Booking)
         .filter(Booking.id == booking_id)
@@ -149,7 +122,6 @@ def update_booking_status(
     db: Session = Depends(get_db),
     current_admin: str = Depends(get_current_admin)
 ):
-
     booking = (
         db.query(Booking)
         .filter(Booking.id == booking_id)

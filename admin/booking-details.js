@@ -1,5 +1,5 @@
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://auto-burnish-api.onrender.com";
 
 const token = sessionStorage.getItem("adminToken");
 const params = new URLSearchParams(window.location.search);
@@ -7,7 +7,6 @@ const bookingId = params.get("id");
 
 const detailsMessage = document.getElementById("detailsMessage");
 const bookingInfo = document.getElementById("bookingInfo");
-const photosGallery = document.getElementById("photosGallery");
 const statusSelect = document.getElementById("statusSelect");
 const statusForm = document.getElementById("statusForm");
 const saveStatusButton = document.getElementById("saveStatusButton");
@@ -99,80 +98,6 @@ async function loadBooking() {
     renderBooking(booking);
 }
 
-async function loadPhotos() {
-    photosGallery.innerHTML = "<p>Loading photos...</p>";
-
-    try {
-        const data = await apiRequest(`/api/bookings/${bookingId}/photos`);
-
-        if (!data.photos || data.photos.length === 0) {
-            photosGallery.innerHTML = "<p>No photos have been uploaded for this booking.</p>";
-            return;
-        }
-
-        photosGallery.innerHTML = data.photos.map((photo) => {
-            const viewPath =
-                `/api/bookings/${bookingId}/photos/${photo.id}/view`;
-
-            return `
-                <article class="photo-card">
-                    <img
-                        class="photo-preview"
-                        data-photo-id="${escapeHTML(photo.id)}"
-                        src=""
-                        alt="Vehicle photo for booking ${escapeHTML(bookingId)}"
-                        loading="lazy"
-                    >
-                    <p class="photo-caption">
-                        ${escapeHTML(photo.filename)}
-                    </p>
-                    <button
-                        class="photo-open-button"
-                        type="button"
-                        data-open-photo="${escapeHTML(photo.id)}"
-                    >
-                        View full image
-                    </button>
-                </article>
-            `;
-        }).join("");
-
-        // Fetch protected images with the admin token.
-        const imageElements = photosGallery.querySelectorAll("[data-photo-id]");
-
-        await Promise.all([...imageElements].map(async (image) => {
-            const photoId = image.dataset.photoId;
-            const path =
-                `/api/bookings/${bookingId}/photos/${photoId}/view`;
-
-            try {
-                const response = await fetch(`${API_BASE_URL}${path}`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-
-                if (!response.ok) {
-                    throw new Error("Unable to load this image.");
-                }
-
-                const blob = await response.blob();
-                const objectUrl = URL.createObjectURL(blob);
-
-                image.src = objectUrl;
-                image.dataset.objectUrl = objectUrl;
-            } catch {
-                image.alt = "Image could not be loaded";
-                image.insertAdjacentHTML(
-                    "afterend",
-                    '<p class="photo-caption">Could not load image.</p>'
-                );
-            }
-        }));
-    } catch (error) {
-        photosGallery.innerHTML = "<p>Could not load photos.</p>";
-        showMessage(error.message);
-    }
-}
-
 statusForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -202,34 +127,6 @@ statusForm.addEventListener("submit", async (event) => {
     }
 });
 
-photosGallery.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-open-photo]");
-    const image = event.target.closest("[data-photo-id]");
-    const photoId = button?.dataset.openPhoto || image?.dataset.photoId;
-
-    if (!photoId) return;
-
-    const preview = photosGallery.querySelector(
-        `[data-photo-id="${CSS.escape(photoId)}"]`
-    );
-
-    if (!preview?.src || !preview.dataset.objectUrl) {
-        showMessage("This image is not available to view yet.");
-        return;
-    }
-
-    document.getElementById("enlargedPhoto").src = preview.dataset.objectUrl;
-    document.getElementById("photoDialog").showModal();
-});
-
-document.getElementById("closePhotoDialog").addEventListener("click", () => {
-    document.getElementById("photoDialog").close();
-});
-
-document.getElementById("photoDialog").addEventListener("close", () => {
-    document.getElementById("enlargedPhoto").src = "";
-});
-
 document.getElementById("logoutButton").addEventListener("click", () => {
     sessionStorage.removeItem("adminToken");
     window.location.replace("index.html");
@@ -240,9 +137,8 @@ if (!token) {
 } else if (!bookingId || !/^\d+$/.test(bookingId)) {
     showMessage("Invalid booking ID.");
     bookingInfo.innerHTML = "<p>Please return to the bookings list.</p>";
-    photosGallery.innerHTML = "<p>No booking selected.</p>";
 } else {
-    Promise.all([loadBooking(), loadPhotos()]).catch((error) => {
+    loadBooking().catch((error) => {
         showMessage(error.message);
     });
 }

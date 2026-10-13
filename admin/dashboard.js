@@ -1,5 +1,5 @@
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://auto-burnish-api.onrender.com";
 
 const token = sessionStorage.getItem("adminToken");
 
@@ -139,10 +139,6 @@ tableBody.addEventListener("click", (event) => {
 
     const bookingId = button.dataset.bookingId;
 
-    // Booking details and photo viewing will be added in the next step.
+    // Open the details page for the selected booking.
     window.location.href = `booking-details.html?id=${encodeURIComponent(bookingId)}`;
 });
-
-if (token) {
-    loadBookings();
-}

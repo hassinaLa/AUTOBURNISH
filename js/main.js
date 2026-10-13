@@ -1083,133 +1083,7 @@ if (heroSlides.length > 1) {
     
     }
 
-   /* =====================================================
-       BOOKING — VEHICLE PHOTO PREVIEW
-    ===================================================== */
-    
-    const vehiclePhotos = document.getElementById("vehiclePhotos");
-    const photoPreview = document.getElementById("photoPreview");
-    
-    if (vehiclePhotos && photoPreview) {
-    
-        vehiclePhotos.addEventListener("change", function () {
-    
-            photoPreview.innerHTML = "";
-    
-            const files = Array.from(this.files);
-    
-            files.forEach(function (file) {
-    
-                if (!file.type.startsWith("image/")) {
-                    return;
-                }
-    
-                const reader = new FileReader();
-    
-                reader.onload = function (e) {
-    
-                    const previewItem =
-                        document.createElement("div");
-    
-                    previewItem.className =
-                        "photo-preview-item";
-    
-                    previewItem.innerHTML = `
-                        <img
-                            src="${e.target.result}"
-                            alt="Photo du véhicule"
-                        >
-    
-                        <button
-                            type="button"
-                            class="photo-remove"
-                            aria-label="Supprimer la photo"
-                        >
-                            ×
-                        </button>
-                    `;
-    
-    
-                    /* =========================================
-                       REMOVE PHOTO
-                    ========================================= */
-    
-                    const removeButton =
-                        previewItem.querySelector(".photo-remove");
-    
-    
-                    removeButton.addEventListener(
-                        "click",
-                        function () {
-    
-                            /*
-                             * Get the current files
-                             * from the input
-                             */
-                            const currentFiles =
-                                Array.from(vehiclePhotos.files);
-    
-    
-                            /*
-                             * Create a new DataTransfer
-                             * containing every file except
-                             * the one being removed.
-                             */
-                            const dataTransfer =
-                                new DataTransfer();
-    
-    
-                            currentFiles.forEach(function (
-                                currentFile
-                            ) {
-    
-                                const sameFile =
-                                    currentFile.name === file.name &&
-                                    currentFile.size === file.size &&
-                                    currentFile.lastModified ===
-                                        file.lastModified;
-    
-    
-                                if (!sameFile) {
-                                    dataTransfer.items.add(
-                                        currentFile
-                                    );
-                                }
-    
-                            });
-    
-    
-                            /*
-                             * Replace the input files
-                             */
-                            vehiclePhotos.files =
-                                dataTransfer.files;
-    
-    
-                            /*
-                             * Remove the preview
-                             */
-                            previewItem.remove();
-    
-                        }
-                    );
-    
-    
-                    photoPreview.appendChild(
-                        previewItem
-                    );
-    
-                };
-    
-    
-                reader.readAsDataURL(file);
-    
-            });
-    
-        });
-    
-    }
-
+  
    /* =====================================================
        BOOKING — FORM SUBMISSION
     ===================================================== */
@@ -1276,12 +1150,12 @@ if (heroSlides.length > 1) {
                 ========================================= */
     
                 const bookingResponse = await fetch(
-                    "http://127.0.0.1:8000/api/bookings/",
+                    'https://auto-burnish-api.onrender.com/api/bookings/',
                     {
                         method: "POST",
     
                         headers: {
-                            "Content-Type": "application/json"
+                           "Content-Type": "application/json"
                         },
     
                         body: JSON.stringify(bookingData)
@@ -1301,7 +1175,7 @@ if (heroSlides.length > 1) {
                     );
     
                 }
-    
+                
     
                 console.log(
                     "Booking created:",
@@ -1317,122 +1191,25 @@ if (heroSlides.length > 1) {
                     bookingResult.id;
     
     
-                /* =========================================
-                   STEP 3 — UPLOAD VEHICLE PHOTOS
-                ========================================= */
-    
-                const files =
-                    vehiclePhotos
-                        ? Array.from(vehiclePhotos.files)
-                        : [];
-    
-    
-                let failedPhotos = 0;
-    
-    
-                for (const file of files) {
-    
-                    const photoFormData =
-                        new FormData();
-    
-                    photoFormData.append(
-                        "file",
-                        file
-                    );
-    
-    
-                    try {
-    
-                        const photoResponse =
-                            await fetch(
-                                `http://127.0.0.1:8000/api/bookings/${bookingId}/photos`,
-                                {
-                                    method: "POST",
-                                    body: photoFormData
-                                }
-                            );
-    
-    
-                        const photoResult =
-                            await photoResponse.json();
-    
-    
-                        if (!photoResponse.ok) {
-    
-                            console.error(
-                                "Photo upload failed:",
-                                photoResult
-                            );
-    
-                            failedPhotos++;
-    
-                        } else {
-    
-                            console.log(
-                                "Photo uploaded:",
-                                photoResult
-                            );
-    
-                        }
-    
-                    } catch (photoError) {
-    
-                        console.error(
-                            "Photo upload error:",
-                            photoError
-                        );
-    
-                        failedPhotos++;
-    
-                    }
-    
-                }
+              
     
     
                 /* =========================================
-                   STEP 4 — SUCCESS MESSAGE
+                   STEP 3 — SUCCESS MESSAGE
                 ========================================= */
-    
+                
                 if (bookingFormStatus) {
-    
-                    if (failedPhotos === 0) {
-    
-                        bookingFormStatus.textContent =
-                            "Votre demande a été envoyée avec succès.";
-    
-                        bookingFormStatus.classList.add(
-                            "success"
-                        );
-    
-                    } else {
-    
-                        bookingFormStatus.textContent =
-                            "Votre demande a été envoyée, mais certaines photos n'ont pas pu être téléchargées.";
-    
-                        bookingFormStatus.classList.add(
-                            "success"
-                        );
-    
-                    }
-    
+                    bookingFormStatus.textContent =
+                        "Votre demande a été envoyée avec succès.";
+                
+                    bookingFormStatus.classList.add("success");
                 }
-    
-    
+                
                 /* =========================================
-                   STEP 5 — RESET FORM
+                   STEP 4 — RESET FORM
                 ========================================= */
-    
+                
                 bookingForm.reset();
-    
-    
-                if (photoPreview) {
-                    photoPreview.innerHTML = "";
-                }
-    
-    
-                if (vehiclePhotos) {
-                    vehiclePhotos.value = "";
-                }
     
     
             } catch (error) {
