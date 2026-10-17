@@ -7446,3 +7446,28 @@ html.rtl .footer-links {
     }
 
 }
+
+/* MOBILE BOOKING BUTTON */
+
+.mobile-booking-link {
+    display: none;
+}
+
+@media (max-width: 900px) {
+
+    .mobile-booking-link {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 15px;
+        padding: 14px 20px;
+
+        background: #d4af37;
+        color: #080808;
+
+        text-align: center;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+}
