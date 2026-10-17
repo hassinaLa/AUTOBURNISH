@@ -1,17 +1,19 @@
 
 const API_BASE_URL = "https://auto-burnish-api.onrender.com";
 
-const token = sessionStorage.getItem("adminToken");
+let token = sessionStorage.getItem("adminToken");
+let isLoggedOut = false;
+let isLoadingBookings = false;
+let bookings = [];
 
 if (!token) {
     window.location.replace("index.html");
+    isLoggedOut = true;
 }
 
 const tableBody = document.getElementById("bookingsTableBody");
 const dashboardMessage = document.getElementById("dashboardMessage");
 const statusFilter = document.getElementById("statusFilter");
-
-let bookings = [];
 
 function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, (character) => ({
@@ -23,7 +25,21 @@ function escapeHTML(value) {
     })[character]);
 }
 
+function logout() {
+    if (isLoggedOut) return;
+
+    isLoggedOut = true;
+    token = null;
+
+    sessionStorage.removeItem("adminToken");
+    window.location.replace("index.html");
+}
+
 async function apiRequest(path, options = {}) {
+    if (isLoggedOut || !token) {
+        throw new Error("Please sign in again.");
+    }
+
     const response = await fetch(`${API_BASE_URL}${path}`, {
         ...options,
         headers: {
@@ -33,8 +49,7 @@ async function apiRequest(path, options = {}) {
     });
 
     if (response.status === 401 || response.status === 403) {
-        sessionStorage.removeItem("adminToken");
-        window.location.replace("index.html");
+        logout();
         throw new Error("Your session has expired. Please sign in again.");
     }
 
@@ -60,6 +75,8 @@ function updateStatistics() {
 }
 
 function renderBookings() {
+    if (isLoggedOut) return;
+
     const selectedStatus = statusFilter.value;
 
     const filteredBookings = bookings.filter((booking) =>
@@ -94,7 +111,6 @@ function renderBookings() {
                         ${escapeHTML(booking.status)}
                     </span>
                 </td>
-                
                 <td>
                     <button
                         class="details-button"
@@ -103,7 +119,6 @@ function renderBookings() {
                     >
                         View
                     </button>
-                
                     <button
                         class="delete-button"
                         type="button"
@@ -112,17 +127,13 @@ function renderBookings() {
                         Delete
                     </button>
                 </td>
-
             </tr>
         `;
     }).join("");
 }
 
-
-let isLoadingBookings = false;
-
 async function loadBookings({ silent = false } = {}) {
-    if (isLoadingBookings) return;
+    if (isLoadingBookings || isLoggedOut) return;
 
     isLoadingBookings = true;
 
@@ -131,13 +142,16 @@ async function loadBookings({ silent = false } = {}) {
     }
 
     try {
-        bookings = await apiRequest("/api/bookings/");
+        const result = await apiRequest("/api/bookings/");
+
+        // Ignore results if the session ended while the request was running.
+        if (isLoggedOut) return;
+
+        bookings = result;
         updateStatistics();
         renderBookings();
     } catch (error) {
-        // Avoid replacing the dashboard during a temporary
-        // background-refresh failure.
-        if (!silent) {
+        if (!isLoggedOut && !silent) {
             dashboardMessage.textContent = error.message;
             tableBody.innerHTML = `
                 <tr><td colspan="6">Could not load bookings.</td></tr>
@@ -148,35 +162,16 @@ async function loadBookings({ silent = false } = {}) {
     }
 }
 
-
-
 document.getElementById("refreshButton").addEventListener("click", () => {
     loadBookings();
 });
 
-// Load bookings when the dashboard opens.
-loadBookings();
-
-// Refresh automatically every 15 seconds while the tab is visible.
-setInterval(() => {
-    if (!document.hidden) {
-        loadBookings({ silent: true });
-    }
-}, 15000);
-
+document.getElementById("logoutButton").addEventListener("click", logout);
 
 statusFilter.addEventListener("change", renderBookings);
 
-document.getElementById("logoutButton").addEventListener("click", () => {
-    sessionStorage.removeItem("adminToken");
-    window.location.replace("index.html");
-});
-
-
 tableBody.addEventListener("click", async (event) => {
-    const deleteButton = event.target.closest(
-        "[data-delete-booking-id]"
-    );
+    const deleteButton = event.target.closest("[data-delete-booking-id]");
 
     if (deleteButton) {
         const bookingId = deleteButton.dataset.deleteBookingId;
@@ -191,14 +186,16 @@ tableBody.addEventListener("click", async (event) => {
             `Are you sure you want to delete booking #${bookingId} for ${customerName}?\n\nThis action cannot be undone.`
         );
 
-        if (!confirmed) return;
+        if (!confirmed || isLoggedOut) return;
 
         deleteButton.disabled = true;
 
         try {
-            await apiRequest(`/api/bookings/${bookingId}`, {
+            await apiRequest(`/api/bookings/${encodeURIComponent(bookingId)}`, {
                 method: "DELETE"
             });
+
+            if (isLoggedOut) return;
 
             bookings = bookings.filter(
                 (item) => String(item.id) !== String(bookingId)
@@ -210,21 +207,33 @@ tableBody.addEventListener("click", async (event) => {
             dashboardMessage.textContent =
                 `Booking #${bookingId} deleted successfully.`;
         } catch (error) {
-            dashboardMessage.textContent = error.message;
-            deleteButton.disabled = false;
+            if (!isLoggedOut) {
+                dashboardMessage.textContent = error.message;
+                deleteButton.disabled = false;
+            }
         }
 
         return;
     }
 
-    const viewButton = event.target.closest(
-        "[data-booking-id]"
-    );
+    const viewButton = event.target.closest("[data-booking-id]");
 
-    if (!viewButton) return;
+    if (!viewButton || isLoggedOut) return;
 
     const bookingId = viewButton.dataset.bookingId;
 
     window.location.href =
         `booking-details.html?id=${encodeURIComponent(bookingId)}`;
 });
+
+// Load bookings when the dashboard opens.
+if (!isLoggedOut) {
+    loadBookings();
+}
+
+// Refresh automatically every 15 seconds while the tab is visible.
+setInterval(() => {
+    if (!document.hidden && !isLoggedOut) {
+        loadBookings({ silent: true });
+    }
+}, 15000);
