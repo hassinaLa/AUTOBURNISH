@@ -1150,7 +1150,7 @@ if (heroSlides.length > 1) {
                 ========================================= */
     
                 const bookingResponse = await fetch(
-                    'https://auto-burnish-api.onrender.com/api/bookings/',
+                    'https://api.autoburnish.com/api/bookings/',
                     {
                         method: "POST",
     
