@@ -1,5 +1,5 @@
 
-const API_BASE_URL = "https://auto-burnish-api.onrender.com";
+const API_BASE_URL = "https://api.autoburnish.com";
 
 let token = sessionStorage.getItem("adminToken");
 let isLoggedOut = false;

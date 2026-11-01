@@ -1,0 +1,46 @@
+;
+; Archive created at 2026-10-23 20:43:34
+;     dbname: auto_burnish_db
+;     TOC Entries: 36
+;     Compression: gzip
+;     Dump Version: 1.16-0
+;     Format: CUSTOM
+;     Integer: 4 bytes
+;     Offset: 8 bytes
+;     Dumped from database version: 18.6 (Debian 18.6-1.pgdg12+2)
+;     Dumped by pg_dump version: 18.6
+;
+;
+; Selected TOC Entries:
+;
+;5; 2615 2200 SCHEMA - public auto_burnish_db_user
+225; 1259 16466 TABLE public admins auto_burnish_db_user
+224; 1259 16465 SEQUENCE public admins_id_seq auto_burnish_db_user
+3421; 0 0 SEQUENCE OWNED BY public admins_id_seq auto_burnish_db_user
+219; 1259 16406 TABLE public alembic_version auto_burnish_db_user
+223; 1259 16445 TABLE public booking_photos auto_burnish_db_user
+222; 1259 16444 SEQUENCE public booking_photos_id_seq auto_burnish_db_user
+3422; 0 0 SEQUENCE OWNED BY public booking_photos_id_seq auto_burnish_db_user
+221; 1259 16413 TABLE public bookings auto_burnish_db_user
+220; 1259 16412 SEQUENCE public bookings_id_seq auto_burnish_db_user
+3423; 0 0 SEQUENCE OWNED BY public bookings_id_seq auto_burnish_db_user
+3245; 2604 16469 DEFAULT public admins id auto_burnish_db_user
+3244; 2604 16448 DEFAULT public booking_photos id auto_burnish_db_user
+3243; 2604 16416 DEFAULT public bookings id auto_burnish_db_user
+3413; 0 16466 TABLE DATA public admins auto_burnish_db_user
+3407; 0 16406 TABLE DATA public alembic_version auto_burnish_db_user
+3411; 0 16445 TABLE DATA public booking_photos auto_burnish_db_user
+3409; 0 16413 TABLE DATA public bookings auto_burnish_db_user
+3424; 0 0 SEQUENCE SET public admins_id_seq auto_burnish_db_user
+3425; 0 0 SEQUENCE SET public booking_photos_id_seq auto_burnish_db_user
+3426; 0 0 SEQUENCE SET public bookings_id_seq auto_burnish_db_user
+3256; 2606 16475 CONSTRAINT public admins admins_pkey auto_burnish_db_user
+3247; 2606 16411 CONSTRAINT public alembic_version alembic_version_pkc auto_burnish_db_user
+3252; 2606 16457 CONSTRAINT public booking_photos booking_photos_pkey auto_burnish_db_user
+3249; 2606 16427 CONSTRAINT public bookings bookings_pkey auto_burnish_db_user
+3257; 1259 16476 INDEX public ix_admins_id auto_burnish_db_user
+3258; 1259 16477 INDEX public ix_admins_username auto_burnish_db_user
+3253; 1259 16463 INDEX public ix_booking_photos_booking_id auto_burnish_db_user
+3254; 1259 16464 INDEX public ix_booking_photos_id auto_burnish_db_user
+3250; 1259 16428 INDEX public ix_bookings_id auto_burnish_db_user
+3259; 2606 16458 FK CONSTRAINT public booking_photos booking_photos_booking_id_fkey auto_burnish_db_user
